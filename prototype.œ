@@ -1,0 +1,232 @@
+< Title > Ethel (œ), note taking language
+
+> Concepts
+
+* Separate text / media / include
+* No tabulation formatting
+
+> Features
+
+* Paragraphs
+* Titles
+* Lists
+	* Trees
+	* Numbers
+	* Check-boxes
+* Link
+	* Intern
+	* Extern
+* Table
+* Maths
+* Graphs
+* Code / Citation
+* References / Bibliography
+* Import text
+* Variables
+° Programmation
+
+> Examples
+
+< Code :
+----------------------------------------------------------------------
+
+> Introduction
+---------------------------------------
+
+Here is a paragraph with a lot of words. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut mi quis dui ornare elementum eget non nisi. Sed viverra dapibus tempor. Nulla aliquam velit odio, vitae dictum magna rutrum at. Phasellus tincidunt sed sem sit amet sodales. Aliquam efficitur rutrum quam, interdum rhoncus velit porta nec. Quisque ultricies, ligula at sollicitudin auctor, velit nisi gravida elit, vitae tempor libero arcu a elit. Pellentesque eget maximus est, ac luctus urna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque quam mi, accumsan et velit ac, vulputate viverra nisl. Cras elementum lectus ligula, sed sodales lectus mattis a. Pellentesque euismod dui eu tortor imperdiet aliquam. Maecenas vitae iaculis quam. Nam consequat nisl eget cursus commodo. Nulla facilisi. Sed ac sollicitudin massa.
+
+Here is another paragraph.
+I can go to the next line. It's awesome !
+
+--- I'm a happy comment :)
+
+/---
+	COMMENTS PARTY !
+	YOUHOU !!!!
+	SO MUCH PARTY !
+---/
+
+>> Partie A
+---------------------------------------
+
+I'm a normal text.
+--I'm a bold text--.
+//I'm an italic text//.
+__I'm an undeline text__.
+==I'm an strikethrough text==.
+
+>> Partie B
+---------------------------------------
+
+Nothing to say really.
+
+> Top 10 of WTF lists
+---------------------------------------
+
+* One
+* Two
+* Three
+
+* First item
+	* Item A
+		* Item AA
+		* Item AB
+	* Item B
+* Second item
+	* Item C
+* Third item
+	* Item D
+
+* Root
+	* Idea 1
+		Stop eating !
+		I swear I'll do it !
+	* Idea 2
+		MORE FOOD !
+
+* Eat
+° Work
+° Sleep
+* Be lazy
+
+§. I have a number
+§. Me too
+
+1. Actually here is my number
+2. Liar !!!
+3. ...
+
+> Links
+---------------------------------------
+
+Link: [http://www.google.com/]
+File: [C://file.txt]
+Click [here --> http://www.google.com/]
+Go to #ChapterName
+Go to [next chapter --> #ChapterName]
+
+> @[ChapterName] Attributes
+---------------------------------------
+
+Nothing to say...
+"I have a dream !" [[Source] Martin Luther King, 19XX]
+
+"It's me, Mario !" [[Source] Game character]
+"It's me, Luigi !" [[Source, Stupid thing] Stupid brother --> http://www.luigi.com ]
+
+> Some structured text
+---------------------------------------
+
+< Note:
+Vestibulum congue aliquam ex. Nulla mi eros, facilisis et molestie vitae, semper euismod ex. Praesent et enim ut ligula condimentum facilisis. Proin sed cursus mi. Nunc commodo est feugiat sem faucibus ultricies.
+>
+
+< Citation:
+Vestibulum congue aliquam ex. Nulla mi eros, facilisis et molestie vitae, semper euismod ex. Praesent et enim ut ligula condimentum facilisis. Proin sed cursus mi. Nunc commodo est feugiat sem faucibus ultricies.
+>
+
+< Code:
+
+import System;
+
+namespace MyNamespace
+{
+	class Program
+	{
+		public void Main()
+		{
+			Console.WriteLine("Hello world !");
+		}
+	}
+}
+
+>
+
+> Medias
+
+>> Image
+
+{ %Screenshot-A }
+{ %Screenshot-B "I'm a legend." }
+
+>> Tables
+
+{
+	Name;John;Billy;Mary;
+	Age;22;19;40;
+	Happy ?;Yes;Yes;No;
+	Rich ?;Yes;No;No;
+	Friend ?;Yes;Yes;Yes;
+}
+
+{
+	Name | John | Billy | Mary |
+	Age | 22 | 19 | 40 |
+	Happy ? | Yes | Yes | No |
+	Rich ? | Yes | No | No |
+	Friend ? | Yes | Yes | Yes |
+}
+
+{
+	Name 		John	Billy	Mary
+	Age 		22		19		40
+	Happy ? 	Yes		Yes 	No
+	Rich ?		Yes		No		No
+	Friend ? 	Yes		Yes		Yes
+}
+
+{
+	| Name 		| John 	| Billy | Mary	|
+	| Age 		| 22 	| 19 	| 40	|
+	| Happy ? 	| Yes _ 		| No	|
+	| Rich ? 	| Yes	| No	| _		|
+	| Friend ? 	| Yes _  _				|
+}
+
+{
+	--------------------------------------
+	| Name 		| John 	| Billy | Mary	|
+	--------------------------------------
+	| Age 		| 22 	| 19 	| 40	|
+	--------------------------------------
+	| Happy ? 	| Yes	  _ 	| No	|
+	-----------------------------		--
+	| Rich ? 	| Yes	| No	| _		|
+	--------------------------------------
+	| Friend ? 	| Yes	  _		  _		|
+	--------------------------------------
+}
+
+>> Graphs
+
+{
+	Init --> Process
+	Process --- If µ > 0 --> Return value
+	Process --- If µ <= 0 --> Stop
+	Stop --> Error
+}
+
+>> Maths
+
+--- Use existing language ?
+
+{
+	Moy = sum(x[n]) / n
+	y = x^2 + x
+}
+
+> Signature
+
+{ signature.oe }
+
+--- End of file
+
+--- Variables
+
+{
+	%Screenshot-A = C:\\screenshot.jpg
+	%Screenshot-B = C:\\folder\screenshot.jpg
+}
+
+--- Template
+{ NoteTemplate.oes }
