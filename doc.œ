@@ -1,0 +1,67 @@
+< Title > Documentation Œthel
+
+-> Paragraphs
+
+You can write paragraphs directly, without any decorations.
+
+Jump two lines to write another paragraphs.
+You can also just jump one line.
+
+-> Decoration
+
+You can have --bold--.
+You can have //italic//.
+You can have __underline__.
+You can have ==strikethrough==.
+
+-> Title
+
+To add a title, use {->} at the beginning of the line.
+You can define subtitles by adding more {-} at the beginning.
+
+--> Subtitle 1
+
+Like that.
+
+---> Subtitle 2
+
+Or like that.
+
+-> Blocks
+
+You can also define structural blocks for highlight some paragraphs.
+
+< Quote > Here is a quote.
+
+<< Note >
+Here is a note.
+On multiple line.
+>---
+
+-> Lists
+
+* You can list items
+* by using {*}
+* multiple times
+
+* You can describe tree
+    * By breaking the alignement
+    * With tabulation
+* Or
+ * spaces
+
+1. You can use numbers
+2. if you want
+
+* Do a to-do list
+° by using {°}
+* for undone items
+
+-> Undefined numbers
+
+--> §. You can handle an automatic numerotation
+--> §) By using {§}
+
+§. It will increment the number
+§) for each new title or list item
+
