@@ -1,0 +1,87 @@
+< Title > Documentation Œthel
+
+-> Paragraphs
+
+You can write paragraphs directly.
+
+Jump two lines to write another paragraphs.
+You can also back to the line in the same paragraph.
+
+-> Decoration
+
+You can have --bold-- with `--bold--`.
+You can have // italic // with `// italic //`.
+You can have __underline__ with `__underline__ `.
+You can have ==strikethrough== with `==strikethrough==`.
+
+Spaces at begin and end of selected text doesn't count.
+
+-> Title
+
+To add a title, use `->` at the beginning of the line.
+You can define subtitles by adding more `-` at the beginning.
+
+--> Subtitle 1
+
+Paragraph of subtitle 1.
+
+---> Subtitle 2
+
+Paragraph of subtitle 2.
+
+-> Blocks
+
+You can also define structural blocks for highlight some paragraphs.
+
+< Quote > Here is a quote on one line.
+
+<< Note >
+Here is a note.
+On multiple line.
+/>
+
+In fact, titles are blocks.
+`-> Name` is equivalent to `< Title_1 > Name` and `<< Title_1 > Name />`
+
+-> Lists
+
+* You can list items
+* by using `*`
+* multiple times
+
+* You can describe tree
+    * By breaking the alignement
+    * With tabulations
+* Or
+ * spaces
+
+1. You can use numbers
+2. if you want
+
+§. If you want numbers to be determined later
+§. use `§` to replace numbers
+
+* Do a to-do list
+° by using `°`
+* for undone items
+
+-> Links
+
+You can put external links in your note by using `[...]`.
+Like that : [http://www.google.com/]
+Or like [that -> http://www.google.com/]
+
+You can also have internal links by using `#` and `@`.
+Like that : [ #(Internal target) ]
+Or like [[that] -> #(Internal target) ]
+
+@( Internal target )
+
+-> Comments
+
+~~ Comment on one line
+
+/~~
+Comment
+on multiple line
+~~/
