@@ -1,11 +1,11 @@
 < Title > Ethel (œ), note taking language
 
-> Concepts
+-> Concepts
 
 * Separate text / media / include
 * No tabulation formatting
 
-> Features
+-> Features
 
 * Paragraphs
 * Titles
@@ -25,43 +25,96 @@
 * Variables
 ° Programmation
 
-> Examples
+-> Examples
 
-< Code :
-----------------------------------------------------------------------
+<< Code >
 
-> Introduction
----------------------------------------
+-> Paragraphes
 
-Here is a paragraph with a lot of words. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut mi quis dui ornare elementum eget non nisi. Sed viverra dapibus tempor. Nulla aliquam velit odio, vitae dictum magna rutrum at. Phasellus tincidunt sed sem sit amet sodales. Aliquam efficitur rutrum quam, interdum rhoncus velit porta nec. Quisque ultricies, ligula at sollicitudin auctor, velit nisi gravida elit, vitae tempor libero arcu a elit. Pellentesque eget maximus est, ac luctus urna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque quam mi, accumsan et velit ac, vulputate viverra nisl. Cras elementum lectus ligula, sed sodales lectus mattis a. Pellentesque euismod dui eu tortor imperdiet aliquam. Maecenas vitae iaculis quam. Nam consequat nisl eget cursus commodo. Nulla facilisi. Sed ac sollicitudin massa.
+Here is a paragraph with a lot of words. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut mi quis dui ornare elementum eget non nisi. Sed viverra dapibus tempor. Nulla aliquam velit odio, vitae dictum magna rutrum at. Phasellus tincidunt sed sem sit amet sodales. Aliquam efficitur rutrum quam, interdum rhoncus velit porta nec. Quisque ultricies, ligula at sollicitudin auctor, velit nisi gravida elit, vitae tempor libero arcu a elit. Pellentesque eget maximus est, ac luctus urna.
 
 Here is another paragraph.
 I can go to the next line. It's awesome !
 
---- I'm a happy comment :)
+-> I'm a title
+< Titre 1 > I'm a title
+<< Titre 1 > I'm a title />
 
-/---
-	COMMENTS PARTY !
-	YOUHOU !!!!
-	SO MUCH PARTY !
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut mi quis dui ornare elementum eget non nisi. Sed viverra dapibus tempor. Nulla aliquam velit odio, vitae dictum magna rutrum at. Phasellus tincidunt sed sem sit amet sodales.
+
+--> I'm a subtitle
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut mi quis dui ornare elementum eget non nisi. Sed viverra dapibus tempor. Nulla aliquam velit odio, vitae dictum magna rutrum at. Phasellus tincidunt sed sem sit amet sodales
+
+-> §. I have a number 
+
+-> §] Me too !
+
+-> 1. I have a real number !
+
+/--- Others...
+
+# I'm a title
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut mi quis dui ornare elementum eget non nisi. Sed viverra dapibus tempor. Nulla aliquam velit odio, vitae dictum magna rutrum at. Phasellus tincidunt sed sem sit amet sodales.
+
+## I'm a subtitle
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut mi quis dui ornare elementum eget non nisi. Sed viverra dapibus tempor. Nulla aliquam velit odio, vitae dictum magna rutrum at. Phasellus tincidunt sed sem sit amet sodales.
+
+> I'm a title
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut mi quis dui ornare elementum eget non nisi. Sed viverra dapibus tempor. Nulla aliquam velit odio, vitae dictum magna rutrum at. Phasellus tincidunt sed sem sit amet sodales.
+
+>> I'm a subtitle
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut mi quis dui ornare elementum eget non nisi. Sed viverra dapibus tempor. Nulla aliquam velit odio, vitae dictum magna rutrum at. Phasellus tincidunt sed sem sit amet sodales.
+
+> I'm a title
+-------------------------
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut mi quis dui ornare elementum eget non nisi. Sed viverra dapibus tempor. Nulla aliquam velit odio, vitae dictum magna rutrum at. Phasellus tincidunt sed sem sit amet sodales.
+
+>> I'm a subtitle
+-------------------------
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut mi quis dui ornare elementum eget non nisi. Sed viverra dapibus tempor. Nulla aliquam velit odio, vitae dictum magna rutrum at. Phasellus tincidunt sed sem sit amet sodales.
+
+> I'm a title
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut mi quis dui ornare elementum eget non nisi. Sed viverra dapibus tempor. Nulla aliquam velit odio, vitae dictum magna rutrum at. Phasellus tincidunt sed sem sit amet sodales.
+
+>- I'm a subtitle
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut mi quis dui ornare elementum eget non nisi. Sed viverra dapibus tempor. Nulla aliquam velit odio, vitae dictum magna rutrum at. Phasellus tincidunt sed sem sit amet sodales
+
+> I'm a title
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut mi quis dui ornare elementum eget non nisi. Sed viverra dapibus tempor. Nulla aliquam velit odio, vitae dictum magna rutrum at. Phasellus tincidunt sed sem sit amet sodales.
+
+ > I'm a subtitle
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut mi quis dui ornare elementum eget non nisi. Sed viverra dapibus tempor. Nulla aliquam velit odio, vitae dictum magna rutrum at. Phasellus tincidunt sed sem sit amet sodales.
+
+[ I'm a title ]
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut mi quis dui ornare elementum eget non nisi. Sed viverra dapibus tempor. Nulla aliquam velit odio, vitae dictum magna rutrum at. Phasellus tincidunt sed sem sit amet sodales.
+
+--[ I'm a subtitle ]--
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut mi quis dui ornare elementum eget non nisi. Sed viverra dapibus tempor. Nulla aliquam velit odio, vitae dictum magna rutrum at. Phasellus tincidunt sed sem sit amet sodales.
+
 ---/
 
->> Partie A
----------------------------------------
+-> Decoration
 
 I'm a normal text.
---I'm a bold text--.
-//I'm an italic text//.
-__I'm an undeline text__.
-==I'm an strikethrough text==.
+I'm a --bold text--.
+I'm an //italic text//.
+I'm an __undeline text__.
+I'm a ==strikethrough text==.
 
->> Partie B
----------------------------------------
-
-Nothing to say really.
-
-> Top 10 of WTF lists
----------------------------------------
+-> Lists
 
 * One
 * Two
@@ -96,17 +149,15 @@ Nothing to say really.
 2. Liar !!!
 3. ...
 
-> Links
----------------------------------------
+-> Links
 
 Link: [http://www.google.com/]
 File: [C://file.txt]
-Click [here --> http://www.google.com/]
+Click [here <-- http://www.google.com/]
 Go to #ChapterName
-Go to [next chapter --> #ChapterName]
+Go to [next chapter <-- #ChapterName]
 
-> @[ChapterName] Attributes
----------------------------------------
+-> @[ChapterName] Attributes
 
 Nothing to say...
 "I have a dream !" [[Source] Martin Luther King, 19XX]
@@ -114,14 +165,13 @@ Nothing to say...
 "It's me, Mario !" [[Source] Game character]
 "It's me, Luigi !" [[Source, Stupid thing] Stupid brother --> http://www.luigi.com ]
 
-> Some structured text
----------------------------------------
+-> Some structured text
 
 < Note:
 Vestibulum congue aliquam ex. Nulla mi eros, facilisis et molestie vitae, semper euismod ex. Praesent et enim ut ligula condimentum facilisis. Proin sed cursus mi. Nunc commodo est feugiat sem faucibus ultricies.
 >
 
-< Citation:
+<< Citation >
 Vestibulum congue aliquam ex. Nulla mi eros, facilisis et molestie vitae, semper euismod ex. Praesent et enim ut ligula condimentum facilisis. Proin sed cursus mi. Nunc commodo est feugiat sem faucibus ultricies.
 >
 
@@ -142,14 +192,14 @@ namespace MyNamespace
 
 >
 
-> Medias
+-> Medias
 
->> Image
+--> Image
 
 { %Screenshot-A }
 { %Screenshot-B "I'm a legend." }
 
->> Tables
+--> Tables
 
 {
 	Name;John;Billy;Mary;
@@ -197,7 +247,7 @@ namespace MyNamespace
 	--------------------------------------
 }
 
->> Graphs
+--> Graphs
 
 {
 	Init --> Process
@@ -206,27 +256,20 @@ namespace MyNamespace
 	Stop --> Error
 }
 
->> Maths
-
---- Use existing language ?
+--> Maths
 
 {
 	Moy = sum(x[n]) / n
 	y = x^2 + x
 }
 
-> Signature
+--> Signature
 
 { signature.oe }
-
---- End of file
-
---- Variables
 
 {
 	%Screenshot-A = C:\\screenshot.jpg
 	%Screenshot-B = C:\\folder\screenshot.jpg
 }
 
---- Template
 { NoteTemplate.oes }
