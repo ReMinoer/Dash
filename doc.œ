@@ -17,19 +17,6 @@ You can have ==strikethrough==.
 You can also combine ==__//--all of them--//__==.
 Spaces at begin and end of selected text doesn't count.
 
--> Title
-
-To add a title, use `->` at the beginning of the line.
-You can define subtitles by adding more `-` at the beginning.
-
---> Title 2
-
-Paragraph of title 2.
-
----> Title 3
-
-Paragraph of title 3.
-
 -> Lists
 
 * You can list items
@@ -56,40 +43,67 @@ Paragraph of title 3.
 
 * You can put external links in your note by using `[...]`.
     * Like that : http://www.google.com/
-    * Or like [that -> http://www.google.com/]
+    * Or like [that -> C:\Program Files\]
 
 * You can also have internal links by using `#` and `@`.
     * Like that : #[First target]
     * Or like [that -> #[Seconde target]]
     * Bonus one : [Click ! -> #[Third target]]
 
-Here is how you define targets : @[First target]
+Here is how you define targets : @[[First target]]
 You can also change the displayed text linked : @[[Second target] Alternative text]
 
-@[[Third target]] If you don't want alternative text, double the braces.
+@[Third target] If you don't want alternative text, use only one pair of bracket.
+
+-> Titles
+
+To add a title, use `->` at the beginning of the line.
+You can define subtitles by adding more `-` at the beginning.
+
+--> Title 2
+
+Paragraph of title 2.
+
+---> Title 3
+
+Paragraph of title 3.
+
+-> Quotes
+
+> You can write quote by using `>` att the beginning of the line.
+
+<
+For multiline quotes,
+use `< ... />`.
+/>
 
 -> Blocks
 
 You can also define structural blocks for highlight some paragraphs.
 
-< Quote > Here is a quote on one line.
+< Code > Here is a quote on one line.
 
 << Note >
 Here is a note.
 On multiple line.
 />
 
-In fact, titles are blocks : `-> Name` is equivalent to `< Title_1 > Name` and `<< Title_1 > Name />`
+In fact, titles are blocks : `-> Text` is equivalent to `< Title_1 > Text` and `<< Title_1 > Text />`
+Quotes are also blocks : `> Text` is equivalent to `< Quote > Text` and `<< Quote > Text />`
 
--> Images
+-> Media
+
+If you want to insert a media (like a picture, a video, a table or a code sample), use `{ ... }`.
+
+--> Images
 
 { cat.png }
 
-<< Code >
+<
 { cat.png }
 />
 
--> Tables
+--> Tables
 
 {
 Name        John        Paul        Bob
@@ -97,7 +111,7 @@ Age         22          34          58
 Happy?      Yes         Yes         No
 }
 
-<< Code >
+<
 {
 Name        John        Paul        Bob
 Age         22          34          58
@@ -105,7 +119,7 @@ Happy?      Yes         Yes         No
 }
 />
 
-<< Code >
+<
 {
 Name;John;Paul;Bob
 Age;22;34;58
@@ -113,7 +127,7 @@ Happy?;Yes;Yes;No
 }
 />
 
-<< Code >
+<
 {
 ---------------------------------------------------------
 | Name        | John        | Paul        | Bob         |
@@ -125,11 +139,48 @@ Happy?;Yes;Yes;No
 }
 />
 
+--> Code
+
+{
+    public class Program()
+    {
+        public static void Main()
+        {
+            Console.WriteLine("Hello world !");
+        }
+    }
+}
+
+<
+{
+    public class Program()
+    {
+        public static void Main()
+        {
+            Console.WriteLine("Hello world !");
+        }
+    }
+}
+/>
+
+If a media can't be interpreted, it will be display as code by default.
+
+--> Custom
+
+If you use an OEthel interpreter that support other medias, use the media braces to handle them.
+The reason is that it will be interpreted by default as code sample by other interpreters.
+For that reason, try to use the most textual language so it will be understandable even without your interpreter.
+
 -> Comments
+
+You can use comments by using `~~` at the beginning of a line.
 
 ~~ Comment on one line
 
+For multiline comments, use `/~~ ... ~~/`.
+Two multiline comments can intersect.
+
 /~~
 Comment
-on multiple line
+on multiple lines
 ~~/
