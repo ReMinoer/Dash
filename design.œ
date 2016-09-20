@@ -1,0 +1,63 @@
+< Title > Language design
+
+-> Introduction
+
+This document describe the criterias and guidelines followed for Oethel language design.
+It's goal is to make you understand the choices made  
+
+-> Principles
+
+--> Plain text writing and reading
+
+* in a simple text editor
+* intuitive structures
+* don't have editor features
+* everything on the keyboard
+
+--> Character-centred
+
+* No keywords because of content and readibility conflict
+* Unused characters
+* Closing structures to enable simple characters
+
+--> Global & local feeling
+
+* Highlight scala
+
+--> Symbolism
+
+* refer to representation
+* easy to remember
+
+--> Alignement formatting
+
+* not only tabulation
+* local context
+* text editor vs code editor
+
+--> Advanced usages
+
+* optional complexity
+* syntax coherence
+
+--> Interpreter power
+
+* no errors
+* interpreter will handle conflicts
+* warnings
+
+-> Features design
+
+--> Paragraphs
+
+* Paragraphs separation
+* Back to line feature
+
+--> Decorations
+
+* Symbolism
+* Characters easy to access
+* 
+
+-> Conclusion
+

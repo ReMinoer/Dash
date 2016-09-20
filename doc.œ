@@ -1,4 +1,5 @@
 < Title > Documentation Œthel
+< Subtitle > Obvious & Easy
 
 -> Paragraphs
 
@@ -33,32 +34,41 @@ Spaces at begin and end of selected text doesn't count.
 2. use numbers
 
 §. If you want numbers to be determined later
-§. use `§` to replace numbers
-
-* Do a to-do list
-° by using `°`
-° for undone items
+§. use {§} to replace numbers
 
 -> Links
 
-* You can put external links in your note by using `[...]`.
-    * Like that : http://www.google.com/
-    * Or like [that -> C:\Program Files\]
+* You can put external links in your note by using { [...] }.
+    * Like that : [http://www.google.com/]
+    * Or like [that -> [C:\Program Files\]]
 
-* You can also have internal links by using `#` and `@`.
+* You can also have internal links by using { # } and { @ }.
     * Like that : #[First target]
-    * Or like [that -> #[Seconde target]]
-    * Bonus one : [Click ! -> #[Third target]]
+    * Or like #[that -> [Seconde target]]
+    * Bonus one : #[Click ! -> [Third target]]
 
 Here is how you define targets : @[[First target]]
 You can also change the displayed text linked : @[[Second target] Alternative text]
 
-@[Third target] If you don't want alternative text, use only one pair of bracket.
+@[Third target]
+If you don't want alternative text, use only one pair of bracket.
+
+-> Notes
+
+You can write a note on a line beginning with { @[§] }.
+Then, it is possible to reference a note with { ...[§] }.
+The next note not already referenced will be linked[§].
+
+@[§] Here is a first note.
+
+You can also use defined numbers to keep a strict reference[2].
+
+@[2] Here is a second note.
 
 -> Titles
 
-To add a title, use `->` at the beginning of the line.
-You can define subtitles by adding more `-` at the beginning.
+To add a title, use {->} at the beginning of the line.
+You can define subtitles by adding more {-} at the beginning.
 
 --> Title 2
 
@@ -70,11 +80,11 @@ Paragraph of title 3.
 
 -> Quotes
 
-> You can write quote by using `>` att the beginning of the line.
+> You can write quote by using {>} at the beginning of the line.
 
 <
 For multiline quotes,
-use `< ... />`.
+use { < ... /> }.
 />
 
 -> Blocks
@@ -88,20 +98,18 @@ Here is a note.
 On multiple line.
 />
 
-In fact, titles are blocks : `-> Text` is equivalent to `< Title_1 > Text` and `<< Title_1 > Text />`
-Quotes are also blocks : `> Text` is equivalent to `< Quote > Text` and `<< Quote > Text />`
+In fact, titles are blocks : { -> Text } is equivalent to { < Title_1 > Text } and { << Title_1 > Text /> }
+Quotes are also blocks : { > Text } is equivalent to { < Quote > Text } and { << Quote > Text /> }
 
 -> Media
 
-If you want to insert a media (like a picture, a video, a table or a code sample), use `{ ... }`.
+If you want to insert a media (like a picture, a video, a table or a code sample), use { { ... } }.
 
---> Images
+--> Images/Videos
 
 { cat.png }
 
-<
-{ cat.png }
-/>
+> { cat.png }
 
 --> Tables
 
@@ -139,6 +147,26 @@ Happy?;Yes;Yes;No
 }
 />
 
+--> Graphs
+
+{
+Begin --> Point A
+Point A -- If µ >= 0 --> Point B
+Point A -- Else --> Point C
+Point B --> End
+Point C --> End
+}
+
+<
+{
+Begin --> Point A
+Point A -- If µ >= 0 --> Point B
+Point A -- Else --> Point C
+Point B --> End
+Point C --> End
+}
+/>
+
 --> Code
 
 {
@@ -164,12 +192,18 @@ Happy?;Yes;Yes;No
 />
 
 If a media can't be interpreted, it will be display as code by default.
+Also, quotes will ignore medias.
 
 --> Custom
 
-If you use an OEthel interpreter that support other medias, use the media braces to handle them.
+If you use an Œthel interpreter that support other medias, use the media braces to handle them.
 The reason is that it will be interpreted by default as code sample by other interpreters.
 For that reason, try to use the most textual language so it will be understandable even without your interpreter.
+
+-> Variables
+
+To assign a variable, use { %identifier = text }.
+Then to use a variable, use { %identifier }.
 
 -> Comments
 
