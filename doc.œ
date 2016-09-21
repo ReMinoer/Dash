@@ -51,7 +51,7 @@ Here is how you define targets : @[[First target]]
 You can also change the displayed text linked : @[[Second target] Alternative text]
 
 @[Third target]
-If you don't want alternative text, use only one pair of bracket.
+If you don't want to show text, use only one pair of bracket.
 
 -> Notes
 
@@ -150,20 +150,30 @@ Happy?;Yes;Yes;No
 --> Graphs
 
 {
-Begin --> Point A
-Point A -- If µ >= 0 --> Point B
-Point A -- Else --> Point C
-Point B --> End
-Point C --> End
+Begin
+--> Point A
+Point A
+-- If µ >= 0 --> Point B
+-- Else --> Point C
+Point B
+--> End
+Point C
+--> End
+End
 }
 
 <
 {
-Begin --> Point A
-Point A -- If µ >= 0 --> Point B
-Point A -- Else --> Point C
-Point B --> End
-Point C --> End
+Begin
+--> Point A
+Point A
+-- If µ >= 0 --> Point B
+-- Else --> Point C
+Point B
+--> End
+Point C
+--> End
+End
 }
 />
 
@@ -207,14 +217,11 @@ Then to use a variable, use { %identifier }.
 
 -> Comments
 
-You can use comments by using `~~` at the beginning of a line.
-
 ~~ Comment on one line
-
-For multiline comments, use `/~~ ... ~~/`.
-Two multiline comments can intersect.
+You can use comments by using `~~` at the beginning of a line.
 
 /~~
 Comment
 on multiple lines
 ~~/
+For multiline comments, use `/~~ ... ~~/`.
