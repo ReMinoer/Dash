@@ -10,12 +10,15 @@ You can also back to the line in the same paragraph.
 
 -> Decoration
 
-You can use -- bold -- with { -- ... -- }.
+You can use --bold-- with { -- ... -- }.
 You can use // italic // with { // ... // }.
 You can use __underline__ with { __ ... __ }.
 You can use ==strikethrough== with { == ... == }.
 
 You can also combine ==__//--all of them--//__==.
+
+< Note >
+These symbols have been choosen because they are simple to access on a keyboard, refers to their effects and highlight the text at different degrees.
 
 -> Lists
 
@@ -37,16 +40,27 @@ You can also combine ==__//--all of them--//__==.
 §. to be determined later
 §. use { §. }
 
+< Note >
+In Œthel language, { § } is used everytime you can use undetermined numbers.
+
+* You can combine
+    §. all these types
+    §. of lists
+* on different levels
+    1. if you want
+
 -> Links
 
-* You can put external links in your note by using { [...] }.
-    * Like that : [http://www.google.com/]
-    * Or like [that -> [C:\Program Files\]]
+You can put external links in your note by using { [...] }.
 
-* You can also have internal links by using { #[...] } and { @ }.
-    * Like that : #[First target]
-    * Or like #[that -> [Seconde target]]
-    * Bonus one : #[Click ! -> [Third target]]
+* Like that : [http://www.google.com/]
+* Or like [[C:\Program Files\] that]
+
+You can also have internal links by using { #[...] }.
+
+* Like that : #[First target]
+* Or like #[[Seconde target] that]
+* Bonus one : #[[Third target] Click !]
 
 Here is how you define targets : @[[First target]]
 You can also change the displayed text linked : @[[Second target] Alternative text]
@@ -57,7 +71,7 @@ If you don't want to show text, use only one pair of bracket.
 -> Notes
 
 You can write a note on a line beginning with { @[§] }.
-Then, it is possible to reference a note with { ...[§] }.
+Then, it is possible to reference that note with { ...[§] }.
 The next note not already referenced will be linked[§].
 
 @[§] Here is a first note.
@@ -85,14 +99,17 @@ Paragraph of title 3.
 
 <
 For multiline quotes,
-use { < ... /> }.
-/>
+use { < ... > }.
+>
 
 -> Blocks
 
 You can also define structural blocks for highlight some paragraphs.
 
 < Code > Here is a quote on one line.
+
+< Warning >
+Here is a warning on one line.
 
 << Note >
 Here is a note.
@@ -214,15 +231,18 @@ For that reason, try to use the most textual language so it will be understandab
 -> Variables
 
 To assign a variable, use { %identifier = text }.
-Then to use a variable, use { %identifier }.
+Then to use a variable, use { %identifier } directly in the text.
+The identifier will be replace by the assigned text.
 
 -> Comments
 
 ~~ Comment on one line
-You can use comments by using `~~` at the beginning of a line.
+
+You can use comments by using { ~~ } at the beginning of a line.
 
 /~~
 Comment
 on multiple lines
 ~~/
-For multiline comments, use `/~~ ... ~~/`.
+
+For multiline comments, use { /~~ ... ~~/ }.
