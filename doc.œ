@@ -40,33 +40,34 @@ These symbols have been choosen because they are simple to access on a keyboard,
 §. to be determined later
 §. use { §. }
 
-< Note >
-In Œthel language, { § } is used everytime you can use undetermined numbers.
-
 * You can combine
     §. all these types
     §. of lists
 * on different levels
     1. if you want
 
+< Note >
+In Œthel language, { § } is used everytime you can use undetermined numbers.
+
 -> Links
 
 You can put external links in your note by using { [...] }.
 
-* Like that : [http://www.google.com/]
-* Or like [[C:\Program Files\] that]
+* Here is an external link : [http://www.google.com/] (Format: { [http://www.google.com/] } )
+* Here is another : [[http://www.google.com/] Alternative text] (Format: { [[http://www.google.com/] Alternative text] } )
 
-You can also have internal links by using { #[...] }.
+You can also have internal links by using { #[An identifier] }.
 
-* Like that : #[First target]
-* Or like #[[Seconde target] that]
-* Bonus one : #[[Third target] Click !]
+* Here is an internal link : #[First target] (Format: { #[First target] } )
+* Here is another : #[[Seconde target] Alternative text] (Format: { #[[Seconde target] Alternative text] } )
 
-Here is how you define targets : @[[First target]]
-You can also change the displayed text linked : @[[Second target] Alternative text]
+You can define internal target with { @[An identifier] }.
+
+* Here is an internal target : @[[First target]]
+* You can also change the linked displayed text : @[[Second target] Alternative text]
 
 @[Third target]
-If you don't want to show text, use only one pair of bracket.
+If you don't want to show text, use only #[[Third target] one pair of bracket].
 
 -> Notes
 
