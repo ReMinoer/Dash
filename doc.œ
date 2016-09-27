@@ -15,8 +15,6 @@ You can use // italic // with { // ... // }.
 You can use __underline__ with { __ ... __ }.
 You can use ==strikethrough== with { == ... == }.
 
-You can also combine ==__//--all of them--//__==.
-
 < Note >
 These symbols have been choosen because they are simple to access on a keyboard, refers to their effects and highlight the text at different degrees.
 
@@ -63,11 +61,11 @@ You can also have internal links by using { #[An identifier] }.
 
 You can define internal target with { @[An identifier] }.
 
-* Here is an internal target : @[[First target]]
-* You can also change the linked displayed text : @[[Second target] Alternative text]
+* Here is an internal target : @[First target] (Format: { @[First target] } )
+* You can also change the linked displayed text : @[[Second target] Alternative text] (Format: { @[[Second target] Alternative text] } )
 
-@[Third target]
-If you don't want to show text, use only #[[Third target] one pair of bracket].
+@[[Third target]]
+If you don't want to show text, use two brackets and ignore the alternative text (Format: { @[[Third target]] } )
 
 -> Notes
 
@@ -109,13 +107,29 @@ You can also define structural blocks for highlight some paragraphs.
 
 < Code > Here is a quote on one line.
 
+{
+< Code > Here is a quote on one line.
+}
+
 < Warning >
 Here is a warning on one line.
+
+{
+< Warning >
+Here is a warning on one line, declared on previous line.
+}
 
 << Note >
 Here is a note.
 On multiple line.
-/>
+>
+
+{
+<< Note >
+Here is a note.
+On multiple line.
+>
+}
 
 In fact, titles are blocks : { -> Text } is equivalent to { < Title1 > Text } and { << Title1 > Text /> }
 Quotes are also blocks : { > Text } is equivalent to { < Quote > Text } and { << Quote > Text /> }
@@ -128,7 +142,7 @@ If you want to insert a media (like a picture, a video, a table or a code sample
 
 { cat.png }
 
-> { cat.png }
+{{ cat.png }}
 
 --> Tables
 
@@ -138,24 +152,19 @@ Age         22          34          58
 Happy?      Yes         Yes         No
 }
 
-<
-{
+{{
 Name        John        Paul        Bob
 Age         22          34          58
 Happy?      Yes         Yes         No
-}
-/>
+}}
 
-<
-{
+{{
 Name;John;Paul;Bob
 Age;22;34;58
 Happy?;Yes;Yes;No
-}
-/>
+}}
 
-<
-{
+{{
 ---------------------------------------------------------
 | Name        | John        | Paul        | Bob         |
 ---------------------------------------------------------
@@ -163,8 +172,7 @@ Happy?;Yes;Yes;No
 ---------------------------------------------------------
 | Happy?      | Yes         | Yes         | No          |
 ---------------------------------------------------------
-}
-/>
+}}
 
 --> Graphs
 
@@ -181,8 +189,7 @@ Point C
 End
 }
 
-<
-{
+{{
 Begin
 --> Point A
 Point A
@@ -193,8 +200,7 @@ Point B
 Point C
 --> End
 End
-}
-/>
+}}
 
 --> Code
 
@@ -208,8 +214,7 @@ End
     }
 }
 
-<
-{
+{{
     public class Program()
     {
         public static void Main()
@@ -217,8 +222,7 @@ End
             Console.WriteLine("Hello world !");
         }
     }
-}
-/>
+}}
 
 If a media can't be interpreted, it will be display as code by default.
 Also, quotes will ignore medias.
