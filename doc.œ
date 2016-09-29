@@ -49,23 +49,37 @@ In Œthel language, { § } is used everytime you can use undetermined numbers.
 
 -> Links
 
-You can put external links in your note by using { [...] }.
+You can put external links in your note by using { #[...] }.
+Here is an external link : #[http://www.google.com/]
 
-* Here is an external link : [http://www.google.com/] (Format: { [http://www.google.com/] } )
-* Here is another : [[http://www.google.com/] Alternative text] (Format: { [[http://www.google.com/] Alternative text] } )
+{ #[http://www.google.com/] }
 
-You can also have internal links by using { #[An identifier] }.
+Here is another with an alternative text : #[[http://www.google.com/] Alternative text]
 
-* Here is an internal link : #[First target] (Format: { #[First target] } )
-* Here is another : #[[Seconde target] Alternative text] (Format: { #[[Seconde target] Alternative text] } )
+{ #[[http://www.google.com/] Alternative text] }
+
+You can also have internal links by using an identifier at the place of the link.
+Here is an internal link : #[First target]
+
+{ #[First target] }
+
+Here is another with an alternative text : #[[Seconde target] Alternative text]
+
+{ #[[Seconde target] Alternative text] }
 
 You can define internal target with { @[An identifier] }.
+Here is an internal target : @[First target]
 
-* Here is an internal target : @[First target] (Format: { @[First target] } )
-* You can also change the linked displayed text : @[[Second target] Alternative text] (Format: { @[[Second target] Alternative text] } )
+{ @[First target] }
+
+You can also change the linked displayed text : @[[Second target] Alternative text]
+
+{ @[[Second target] Alternative text] }
 
 @[[Third target]]
-If you don't want to show text, use two brackets and ignore the alternative text (Format: { @[[Third target]] } )
+If you don't want to show text, use two brackets and ignore the alternative text
+
+{ @[[Third target]] }
 
 -> Notes
 
@@ -84,13 +98,15 @@ You can also use defined numbers to keep a strict reference[2] with { ...[1] }.
 To add a title, use { -> } at the beginning of the line.
 You can define subtitles by adding more { - } at the beginning.
 
+{
 --> Title 2
 
-Paragraph of title 2.
+Paragraph of Title 2
 
 ---> Title 3
 
-Paragraph of title 3.
+Paragraph of Title 3
+}
 
 -> Quotes
 
