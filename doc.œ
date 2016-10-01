@@ -1,5 +1,5 @@
 < Title > Documentation Œthel
-< Subtitle > Obvious & Easy
+< Subtitle > Obvious & Ergonomic
 
 -> Paragraphs
 
@@ -56,7 +56,10 @@ Here is an external link : #[http://www.google.com/]
 
 Here is another with an alternative text : #[[http://www.google.com/] Alternative text]
 
-{ #[[http://www.google.com/] Alternative text] }
+{
+#[[http://www.google.com/] Alternative text]
+#[Alternative text [http://www.google.com/]]
+}
 
 You can also have internal links by using an identifier at the place of the link.
 Here is an internal link : #[First target]
@@ -65,7 +68,10 @@ Here is an internal link : #[First target]
 
 Here is another with an alternative text : #[[Seconde target] Alternative text]
 
-{ #[[Seconde target] Alternative text] }
+{
+#[[Seconde target] Alternative text]
+#[Alternative text [Seconde target]]
+}
 
 You can define internal target with { @[An identifier] }.
 Here is an internal target : @[First target]
@@ -74,7 +80,10 @@ Here is an internal target : @[First target]
 
 You can also change the linked displayed text : @[[Second target] Alternative text]
 
-{ @[[Second target] Alternative text] }
+{
+@[[Second target] Alternative text]
+@[Alternative text [Second target]]
+}
 
 @[[Third target]]
 If you don't want to show text, use two brackets and ignore the alternative text
@@ -89,9 +98,10 @@ The next note not already referenced will be linked[§].
 
 @[§] Here is a first note.
 
-You can also use defined numbers to keep a strict reference[2] with { ...[1] }.
+{ ... word[§] ... } is equivalent to { ... #[word[§]] ... }.
+You can also use defined numbers to keep a strict[1] and multiple[1] references to a note : { ...[1] }.
 
-@[2] Here is a second note.
+@[1] Here is a second note.
 
 -> Titles
 
