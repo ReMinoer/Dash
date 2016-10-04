@@ -8,6 +8,16 @@ You can write paragraphs directly.
 Jump two lines to write another paragraphs.
 You can also back to the line in the same paragraph.
 
+{
+You can write paragraphs directly.
+
+Jump two lines to write another paragraphs.
+You can also back to the line in the same paragraph.
+}
+
+< Design note >
+Come back to the line in the same paragraph is handled in the language because it's a common plain text formatting.
+
 -> Decoration
 
 You can use --bold-- with { -- ... -- }.
@@ -15,37 +25,82 @@ You can use // italic // with { // ... // }.
 You can use __underline__ with { __ ... __ }.
 You can use ==strikethrough== with { == ... == }.
 
-< Note >
-These symbols have been choosen because they are simple to access on a keyboard, refers to their effects and highlight the text at different degrees.
+< Design note >
+These symbols have been choosen because they are simple to access on a keyboard, refers to their effects and highlight plain text at different degrees.
 
 -> Lists
 
-* You can list items
-* by using { * }
-* multiple times
+You can list items by using { * } at the beginning of lines.
 
-* You can describe tree
-    * By breaking the alignement
-    * With tabulations
-* Or
- * spaces
+* Item A
+* Item B
+* Item C
 
-1. You can also create
-2. numbered lists
-3. with { 1. 2. 3. }
+{
+* Item A
+* Item B
+* Item C
+}
 
-§. If you want numbers
-§. to be determined later
-§. use { §. }
+You can describe trees by breaking the alignement with tabulations or spaces.
 
-* You can combine
-    §. all these types
-    §. of lists
-* on different levels
-    1. if you want
+* Item A
+    * Sub-item A1
+    * Sub-item A2
+* Item B
+ * Sub-item B1
 
-< Note >
-In Œthel language, { § } is used everytime you can use undetermined numbers.
+{
+* Item A
+    * Sub-item A1
+    * Sub-item A2
+* Item B
+ * Sub-item B1
+}
+
+< Design note >
+The asterisk { * } is already commonly used for listing in plain text because it's an accessible character on keyboards and pretty similar to a bullet.
+
+You can also create numbered lists with { 1. 2. 3. }.
+
+1. Item 1
+2. Item 2
+3. Item 3
+
+{
+1. Item 1
+2. Item 2
+3. Item 3
+}
+
+< Design note >
+Numbers used and order doesn't import. You can put { 1. } on each line if you want. It must just begin by a number. 
+
+If you don't want to use numbers in plain text, use { $. }
+
+$. Item 1
+$. Item 2
+$. Item 3
+
+{
+$. Item 1
+$. Item 2
+$. Item 3
+}
+
+< Design note >
+In Oethel, { $ } replace numbers when it's possible.
+
+You can combine all these types of lists on different levels if you want.
+
+{
+1. Item 1
+    * Sub-item A
+    * Sub-item B
+2. Item 2
+    $. Sub-item A
+    $. Sub-item B
+}
 
 -> Links
 
@@ -92,13 +147,13 @@ If you don't want to show text, use two brackets and ignore the alternative text
 
 -> Notes
 
-You can write a note on a line beginning with { @[§] }.
-Then, it is possible to reference that note with { ...[§] }.
-The next note not already referenced will be linked[§].
+You can write a note on a line beginning with { @[$] }.
+Then, it is possible to reference that note with { ...[$] }.
+The next note not already referenced will be linked[$].
 
-@[§] Here is a first note.
+@[$] Here is a first note.
 
-{ ... word[§] ... } is equivalent to { ... #[word[§]] ... }.
+{ ... word[$] ... } is equivalent to { ... #[word[$]] ... }.
 You can also use defined numbers to keep a strict[1] and multiple[1] references to a note : { ...[1] }.
 
 @[1] Here is a second note.
@@ -270,6 +325,9 @@ The identifier will be replace by the assigned text.
 ~~ Comment on one line
 
 You can use comments by using { ~~ } at the beginning of a line.
+
+< Design note >
+{ ~~ } is used as a double character token because { ~ } key doesn't input when you press it once.
 
 /~~
 Comment
