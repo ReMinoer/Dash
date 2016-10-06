@@ -8,11 +8,12 @@ You can write paragraphs directly.
 Jump two lines to write another paragraphs.
 You can also back to the line in the same paragraph.
 
+< Example >
 {
-You can write paragraphs directly.
+    You can write paragraphs directly.
 
-Jump two lines to write another paragraphs.
-You can also back to the line in the same paragraph.
+    Jump two lines to write another paragraphs.
+    You can also back to the line in the same paragraph.
 }
 
 < Design note >
@@ -36,10 +37,11 @@ You can list items by using { * } at the beginning of lines.
 * Item B
 * Item C
 
+< Example >
 {
-* Item A
-* Item B
-* Item C
+    * Item A
+    * Item B
+    * Item C
 }
 
 You can describe trees by breaking the alignement with tabulations or spaces.
@@ -50,12 +52,13 @@ You can describe trees by breaking the alignement with tabulations or spaces.
 * Item B
  * Sub-item B1
 
+< Example >
 {
-* Item A
-    * Sub-item A1
-    * Sub-item A2
-* Item B
- * Sub-item B1
+    * Item A
+        * Sub-item A1
+        * Sub-item A2
+    * Item B
+    * Sub-item B1
 }
 
 < Design note >
@@ -67,10 +70,11 @@ You can also create numbered lists with { 1. 2. 3. }.
 2. Item 2
 3. Item 3
 
+< Example >
 {
-1. Item 1
-2. Item 2
-3. Item 3
+    1. Item 1
+    2. Item 2
+    3. Item 3
 }
 
 < Design note >
@@ -82,10 +86,11 @@ $. Item 1
 $. Item 2
 $. Item 3
 
+< Example >
 {
-$. Item 1
-$. Item 2
-$. Item 3
+    $. Item 1
+    $. Item 2
+    $. Item 3
 }
 
 < Design note >
@@ -93,13 +98,14 @@ In Oethel, { $ } replace numbers when it's possible.
 
 You can combine all these types of lists on different levels if you want.
 
+< Example >
 {
-1. Item 1
-    * Sub-item A
-    * Sub-item B
-2. Item 2
-    $. Sub-item A
-    $. Sub-item B
+    1. Item 1
+        * Sub-item A
+        * Sub-item B
+    2. Item 2
+        $. Sub-item A
+        $. Sub-item B
 }
 
 -> Links
@@ -107,43 +113,58 @@ You can combine all these types of lists on different levels if you want.
 You can put external links in your note by using { #[...] }.
 Here is an external link : #[http://www.google.com/]
 
-{ #[http://www.google.com/] }
+< Example >
+{
+    #[http://www.google.com/]
+}
 
 Here is another with an alternative text : #[[http://www.google.com/] Alternative text]
 
+< Example >
 {
-#[[http://www.google.com/] Alternative text]
-#[Alternative text [http://www.google.com/]]
+    #[[http://www.google.com/] Alternative text]
+    #[Alternative text [http://www.google.com/]]
 }
 
 You can also have internal links by using an identifier at the place of the link.
 Here is an internal link : #[First target]
 
-{ #[First target] }
+< Example >
+{
+    #[First target]
+}
 
 Here is another with an alternative text : #[[Seconde target] Alternative text]
 
+< Example >
 {
-#[[Seconde target] Alternative text]
-#[Alternative text [Seconde target]]
+    #[[Seconde target] Alternative text]
+    #[Alternative text [Seconde target]]
 }
 
 You can define internal target with { @[An identifier] }.
 Here is an internal target : @[First target]
 
-{ @[First target] }
+< Example >
+{
+    @[First target]
+}
 
 You can also change the linked displayed text : @[[Second target] Alternative text]
 
+< Example >
 {
-@[[Second target] Alternative text]
-@[Alternative text [Second target]]
+    @[[Second target] Alternative text]
+    @[Alternative text [Second target]]
 }
 
 @[[Third target]]
 If you don't want to show text, use two brackets and ignore the alternative text
 
-{ @[[Third target]] }
+< Example >
+{
+    @[[Third target]]
+}
 
 -> Notes
 
@@ -163,14 +184,15 @@ You can also use defined numbers to keep a strict[1] and multiple[1] references 
 To add a title, use { -> } at the beginning of the line.
 You can define subtitles by adding more { - } at the beginning.
 
+< Example >
 {
---> Title 2
+    --> Title 2
 
-Paragraph of Title 2
+    Paragraph of Title 2
 
----> Title 3
+    ---> Title 3
 
-Paragraph of Title 3
+    Paragraph of Title 3
 }
 
 -> Quotes
@@ -188,16 +210,18 @@ You can also define structural blocks for highlight some paragraphs.
 
 < Code > Here is a quote on one line.
 
+< Example >
 {
-< Code > Here is a quote on one line.
+    < Code > Here is a quote on one line.
 }
 
 < Warning >
 Here is a warning on one line.
 
+< Example >
 {
-< Warning >
-Here is a warning on one line, declared on previous line.
+    < Warning >
+    Here is a warning on one line, declared on previous line.
 }
 
 << Note >
@@ -205,11 +229,12 @@ Here is a note.
 On multiple line.
 >
 
+< Example >
 {
-<< Note >
-Here is a note.
-On multiple line.
->
+    << Note >
+    Here is a note.
+    On multiple line.
+    >
 }
 
 In fact, titles are blocks : { -> Text } is equivalent to { < Title1 > Text } and { << Title1 > Text /> }
@@ -223,65 +248,80 @@ If you want to insert a media (like a picture, a video, a table or a code sample
 
 { cat.png }
 
-{{ cat.png }}
+< Example >
+{
+    { cat.png }
+}
 
 --> Tables
 
 {
-Name        John        Paul        Bob
-Age         22          34          58
-Happy?      Yes         Yes         No
+    Name        John        Paul        Bob
+    Age         22          34          58
+    Happy?      Yes         Yes         No
 }
 
-{{
-Name        John        Paul        Bob
-Age         22          34          58
-Happy?      Yes         Yes         No
-}}
+< Example >
+{
+    {
+        Name        John        Paul        Bob
+        Age         22          34          58
+        Happy?      Yes         Yes         No
+    }
+}
 
-{{
-Name;John;Paul;Bob
-Age;22;34;58
-Happy?;Yes;Yes;No
-}}
+< Example >
+{
+    {
+        Name;John;Paul;Bob
+        Age;22;34;58
+        Happy?;Yes;Yes;No
+    }
+}
 
-{{
----------------------------------------------------------
-| Name        | John        | Paul        | Bob         |
----------------------------------------------------------
-| Age         | 22          | 34          | 58          |
----------------------------------------------------------
-| Happy?      | Yes         | Yes         | No          |
----------------------------------------------------------
-}}
+< Example >
+{
+    {
+        ---------------------------------------------------------
+        | Name        | John        | Paul        | Bob         |
+        ---------------------------------------------------------
+        | Age         | 22          | 34          | 58          |
+        ---------------------------------------------------------
+        | Happy?      | Yes         | Yes         | No          |
+        ---------------------------------------------------------
+    }
+}
 
 --> Graphs
 
 {
-Begin
---> Point A
-Point A
--- If µ >= 0 --> Point B
--- Else --> Point C
-Point B
---> End
-Point C
---> End
-End
+    Begin
+    --> Point A
+    Point A
+    -- If µ >= 0 --> Point B
+    -- Else --> Point C
+    Point B
+    --> End
+    Point C
+    --> End
+    End
 }
 
-{{
-Begin
---> Point A
-Point A
--- If µ >= 0 --> Point B
--- Else --> Point C
-Point B
---> End
-Point C
---> End
-End
-}}
+< Example >
+{
+    {
+        Begin
+        --> Point A
+        Point A
+        -- If µ >= 0 --> Point B
+        -- Else --> Point C
+        Point B
+        --> End
+        Point C
+        --> End
+        End
+    }
+}
 
 --> Code
 
@@ -295,18 +335,21 @@ End
     }
 }
 
-{{
-    public class Program()
+< Example >
+{
     {
-        public static void Main()
+        public class Program()
         {
-            Console.WriteLine("Hello world !");
+            public static void Main()
+            {
+                Console.WriteLine("Hello world !");
+            }
         }
     }
-}}
+}
 
+< Design note >
 If a media can't be interpreted, it will be display as code by default.
-Also, quotes will ignore medias.
 
 --> Custom
 
