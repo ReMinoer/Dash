@@ -1,5 +1,26 @@
-< Title > Documentation Œthel
-< Subtitle > Obvious & Ergonomic
+< Title > Documentation Language Œthel
+< Subtitle > Optimal. Ergonomic. Textual. Highlighting. Evolved. Language.
+
+-> Introduction
+
+This language is called Œthel. You can also write it "Œ" or "OE".
+
+"Œthel" (or more commonly "ethel") is one of the name given to the character 'œ'. Given that, it's also a recursive name (there is an œthel (Œ) in the word "œthel").
+
+On Windows, you can type these specials characters:
+
+* { Press Alt and type 0140 } give "Œ"
+* { Press Alt and type 0156 } give "œ"
+
+-> Extensions
+
+Used file extensions are :
+
+* .œ : one character geek extension
+* .oe : basic two character extension
+* .oethel : name extension
+
+Majuscule extensions are also tolerated.
 
 -> Paragraphs
 
@@ -243,6 +264,8 @@ Quotes are also blocks : { > Text } is equivalent to { < Quote > Text } and { <<
 -> Media
 
 If you want to insert a media (like a picture, a video, a table or a code sample), use { { ... } }.
+
+You can put media in block
 
 --> Images/Videos
 
