@@ -1,21 +1,17 @@
 grammar Oethel;
 
 parse
-    :   block* EOF
+    :   (block (NEWLINE NEWLINE+ block)*)? EOF
     ;
 
 block
-    :   line+ NEWLINE*
-    ;
-
-line
-    :   TEXT NEWLINE?
+    :   TEXT (NEWLINE TEXT)*
     ;
 
 TEXT
     :
-    (   '\u0000'..'\u0009'  // Skip '\n'
-    |   '\u000B'..'\u000C'  // Skip '\r'
+    (   '\u0000'..'\u0009'  // Skip 0A '\n'
+    |   '\u000B'..'\u000C'  // Skip 0D '\r'
     |   '\u000E'..'\uFFFF'
     )+
     ;
