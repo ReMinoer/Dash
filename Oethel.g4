@@ -1,19 +1,14 @@
 grammar Oethel;
 
-parse
-    :   (block (NEWLINE NEWLINE+ block)*)? EOF
-    ;
+parse: NEWLINE* (block (NEWLINE NEWLINE+ block)*)? END_OF_FILE;
+block: line (NEWLINE line)*;
+line: (WS? WORD | media)+;
+media: MEDIA_OPEN line (NEWLINE* line)* MEDIA_CLOSE;
 
-block
-    :   TEXT (NEWLINE TEXT)*
-    ;
-
-TEXT
-    :
-    (   '\u0000'..'\u0009'  // Skip 0A '\n'
-    |   '\u000B'..'\u000C'  // Skip 0D '\r'
-    |   '\u000E'..'\uFFFF'
-    )+
-    ;
-
-NEWLINE : '\r'? '\n' | '\r';
+MEDIA_OPEN: WS? '{' VOID?;
+MEDIA_CLOSE: VOID? '}' WS?;
+END_OF_FILE: NEWLINE* EOF;
+NEWLINE: WS? ('\r'? '\n' | '\r');
+WS: (' ' | '\t')+;
+WORD: ~[\n\r \t{}]+;
+fragment VOID: (' ' | '\t' | '\n' | '\r')+;
