@@ -19,6 +19,7 @@ ECHO Show parsing tree...
 "%JAVA_HOME%\bin\java.exe" -cp "%CLASSPATH%" org.antlr.v4.gui.TestRig Oethel parse -gui <../../%*
 IF errorlevel 1 (
 ECHO Failed to open tree!
+CD ../..
 EXIT /B 1
 )
 
