@@ -2,13 +2,17 @@ grammar Oethel;
 
 parse:
     NEWLINE*
-    (block (NEWLINE NEWLINE+ block)*)?
-    NEWLINE* EOF
+    block (NEWLINE block)*
     ;
 
 block:
-        title
-    |   line (NEWLINE line)*
+        title NEWLINE*
+    |   quote NEWLINE*
+    |   list
+    |   numbered_list
+    |   header WS? line NEWLINE*
+    |   (header NEWLINE)? line (NEWLINE line)* NEWLINE+
+    |   WS? '<' WS? header line? (NEWLINE line)* NEWLINE? '>'
     ;
 
 line:
@@ -30,24 +34,34 @@ italic: '//' WS? line WS? '//';
 underline: '__' WS? line WS? '__';
 strikethrough: '==' WS? line WS? '==';
 
-title: WS? TITLE WS?;
+header: WS? HEADER;
+
+title: WS? TITLE;
+quote: WS? '>' WS? line;
+
+list: (WS? '*' WS? line NEWLINE)*;
+numbered_list: (WS? ('0'|'1'|'2'|'3'|'4'|'5'|'6'|'7'|'8'|'9')+ '.' WS? line NEWLINE)*;
 
 link: WS? LINK WS?;
 adress: WS? ADRESS WS?;
 
-media: WS? MEDIA WS?;
+media: MEDIA;
 
-NEWLINE: WS? ('\r'? '\n' | '\r');
+NEWLINE: WS? (('\r'? '\n' | '\r') | EOF);
 WS: (' ' | '\t')+;
-MEDIA: '{' VOID? (MEDIA | ~[{}])* VOID? '}';
+MEDIA: WS? '{' VOID? (MEDIA | ~[{}])* VOID? '}' WS?;
 
-TITLE: '-'+ '>' WS? CONTENT+;
+HEADER: '<' WS? CONTENT WS? '>';
+TITLE: '-'+ '>' WS? CONTENT;
 
-LINK: '#[' CONTENT+ ']';
-ADRESS: '@[' CONTENT+ ']';
+REF: '#[' INTEGER ']';
+NOTE: '@[' INTEGER ']';
+LINK: '#[' CONTENT ']';
+ADRESS: '@[' CONTENT ']';
 
 WORD: TEXT+;
 
-fragment CONTENT: ~[\n\r{}];
-fragment TEXT: ~('\n'|'\r'|' '|'\t'|'{'|'}'|'-'|'/'|'_'|'=');
+fragment INTEGER: [0-9]+;
+fragment CONTENT: ~[\n\r{}]+;
+fragment TEXT: ~('\n'|'\r'|' '|'\t'|'{'|'}');
 fragment VOID: (' ' | '\t' | '\n' | '\r')+;

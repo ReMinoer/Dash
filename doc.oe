@@ -220,11 +220,6 @@ You can define subtitles by adding more { - } at the beginning.
 
 > You can write quote by using { > } at the beginning of the line.
 
-<
-For multiline quotes,
-use { < ... > }.
->
-
 -> Blocks
 
 You can also define structural blocks for highlight some paragraphs.
