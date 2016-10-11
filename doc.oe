@@ -68,8 +68,8 @@ You can list items by using { * } at the beginning of lines.
 You can describe trees by breaking the alignement with tabulations or spaces.
 
 * Item A
-    * Sub-item A1
-    * Sub-item A2
+ * Sub-item A1
+ * Sub-item A2
 * Item B
  * Sub-item B1
 

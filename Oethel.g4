@@ -39,8 +39,19 @@ header: BLANK? HEADER;
 title: BLANK? TITLE;
 quote: BLANK? '>' BLANK? line;
 
-list: (BLANK? '*' BLANK? line NEWLINE)*;
-numbered_list: (BLANK? ('0'|'1'|'2'|'3'|'4'|'5'|'6'|'7'|'8'|'9')+ '.' BLANK? line NEWLINE)*;
+list: (list_item (NEWLINE list2)* NEWLINE)*;
+list2: (WS list_item (NEWLINE list3)* NEWLINE)*;
+list3: (WS WS list_item (NEWLINE list4)* NEWLINE)*;
+list4: (WS WS WS list_item (NEWLINE list5)* NEWLINE)*;
+list5: (BLANK list_item NEWLINE)*;
+list_item: '*' BLANK? line;
+
+numbered_list: (numbered_list_item (NEWLINE list2)* NEWLINE)*;
+numbered_list2: (WS numbered_list_item (NEWLINE list3)* NEWLINE)*;
+numbered_list3: (WS WS numbered_list_item (NEWLINE list4)* NEWLINE)*;
+numbered_list4: (WS WS WS numbered_list_item (NEWLINE list5)* NEWLINE)*;
+numbered_list5: (BLANK numbered_list_item NEWLINE)*;
+numbered_list_item: ('0.'|'1.'|'2.'|'3.'|'4.'|'5.'|'6.'|'7.'|'8.'|'9.'|'$.') BLANK? line;
 
 link: BLANK? LINK BLANK?;
 adress: BLANK? ADRESS BLANK?;
