@@ -10,13 +10,13 @@ block:
     |   quote NEWLINE*
     |   list
     |   numbered_list
-    |   header WS? line NEWLINE*
+    |   header BLANK? line NEWLINE*
     |   (header NEWLINE)? line (NEWLINE line)* NEWLINE+
-    |   WS? '<' WS? header line? (NEWLINE line)* NEWLINE? '>'
+    |   BLANK? '<' BLANK? header line? (NEWLINE line)* NEWLINE? '>'
     ;
 
 line:
-    (   WS?
+    (   BLANK?
         (   WORD
         |   media
         |   bold
@@ -29,30 +29,31 @@ line:
     )+
     ;
 
-bold: '--' WS? line WS? '--';
-italic: '//' WS? line WS? '//';
-underline: '__' WS? line WS? '__';
-strikethrough: '==' WS? line WS? '==';
+bold: '--' BLANK? line BLANK? '--';
+italic: '//' BLANK? line BLANK? '//';
+underline: '__' BLANK? line BLANK? '__';
+strikethrough: '==' BLANK? line BLANK? '==';
 
-header: WS? HEADER;
+header: BLANK? HEADER;
 
-title: WS? TITLE;
-quote: WS? '>' WS? line;
+title: BLANK? TITLE;
+quote: BLANK? '>' BLANK? line;
 
-list: (WS? '*' WS? line NEWLINE)*;
-numbered_list: (WS? ('0'|'1'|'2'|'3'|'4'|'5'|'6'|'7'|'8'|'9')+ '.' WS? line NEWLINE)*;
+list: (BLANK? '*' BLANK? line NEWLINE)*;
+numbered_list: (BLANK? ('0'|'1'|'2'|'3'|'4'|'5'|'6'|'7'|'8'|'9')+ '.' BLANK? line NEWLINE)*;
 
-link: WS? LINK WS?;
-adress: WS? ADRESS WS?;
+link: BLANK? LINK BLANK?;
+adress: BLANK? ADRESS BLANK?;
 
 media: MEDIA;
 
-NEWLINE: WS? (('\r'? '\n' | '\r') | EOF);
-WS: (' ' | '\t')+;
-MEDIA: WS? '{' VOID? (MEDIA | ~[{}])* VOID? '}' WS?;
+NEWLINE: BLANK? (('\r'? '\n' | '\r') | EOF);
+BLANK: WS+;
+WS: (' ' | '\t');
+MEDIA: BLANK? '{' VOID? (MEDIA | ~[{}])* VOID? '}' BLANK?;
 
-HEADER: '<' WS? CONTENT WS? '>';
-TITLE: '-'+ '>' WS? CONTENT;
+HEADER: '<' BLANK? CONTENT BLANK? '>';
+TITLE: '-'+ '>' BLANK? CONTENT;
 
 REF: '#[' INTEGER ']';
 NOTE: '@[' INTEGER ']';
