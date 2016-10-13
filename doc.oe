@@ -224,7 +224,7 @@ You can define subtitles by adding more { - } at the beginning.
 
 You can also define structural blocks for highlight some paragraphs.
 
-< Code > Here is a quote on one line.
+< Message > Here is a message on one line.
 
 < Example >
 {
@@ -240,8 +240,11 @@ Here is a warning on one line.
     Here is a warning on one line, declared on previous line.
 }
 
-<< Note >
+<
+< Note >
 Here is a note.
+
+
 On multiple line.
 >
 
