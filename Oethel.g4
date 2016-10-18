@@ -3,6 +3,7 @@ grammar Oethel;
 parse:
     NEWLINE*
     block (NEWLINE block)*
+    EOF
     ;
 
 block:
@@ -73,7 +74,7 @@ reference: WORD REFERENCE;
 comment: WS* COMMENT_INLINE | WS* COMMENT_BLOCK WS*;
 
 COMMENT_INLINE: '~~' ~[\n\r]*;
-COMMENT_BLOCK: '/~~' .* '~~/';
+COMMENT_BLOCK: '/~~' .*? '~~/';
 
 MEDIA: WS* '{' VOID? (MEDIA | ~[{}])* VOID? '}' WS*;
 NEWLINE: WS* (('\r'? '\n' | '\r') | EOF);
@@ -82,13 +83,14 @@ WS: (' ' | '\t');
 HEADER: '<' WS* ID WS* '>';
 TITLE: '-'+ '>' WS* ID;
 
+REFERENCE: '#[' WS* ('$'|[0-9]+) WS* ']';
+NOTE: '@[' WS* ('$'|[0-9]+) WS* ']';
+
 LINK: '#[' WS* ID WS* ']';
 ADRESS: '@[' WS* ID WS* ']';
-NOTE: '@[' WS* ('$'|[0-9]+) WS* ']';
-REFERENCE: '[' WS* ('$'|[0-9]+) WS* ']';
 
 WORD: TEXT+;
 
-fragment ID: ~[\n\r{}<>$0-9]+;
+fragment ID: ~[\n\r{}<>]+;
 fragment TEXT: ~('\n'|'\r'|' '|'\t'|'{'|'}');
 fragment VOID: (' ' | '\t' | '\n' | '\r')+;

@@ -378,12 +378,6 @@ If you use an Œthel interpreter that support other medias, use the media braces
 The reason is that it will be interpreted by default as code sample by other interpreters.
 For that reason, try to use the most textual language so it will be understandable even without your interpreter.
 
--> Variables
-
-To assign a variable, use { %identifier = text }.
-Then to use a variable, use { %identifier } directly in the text.
-The identifier will be replace by the assigned text.
-
 -> Comments
 
 ~~ Comment on one line
