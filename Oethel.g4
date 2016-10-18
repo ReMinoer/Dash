@@ -73,7 +73,7 @@ reference: WORD REFERENCE;
 comment: WS* COMMENT_INLINE | WS* COMMENT_BLOCK WS*;
 
 COMMENT_INLINE: '~~' ~[\n\r]*;
-COMMENT_BLOCK: '/~~' .*? '~~/';
+COMMENT_BLOCK: '/~~' .* '~~/';
 
 MEDIA: WS* '{' VOID? (MEDIA | ~[{}])* VOID? '}' WS*;
 NEWLINE: WS* (('\r'? '\n' | '\r') | EOF);
