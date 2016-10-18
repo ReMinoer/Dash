@@ -25,6 +25,7 @@ inner_block:
 line:
     (   WS*
         (   WORD
+        |   comment
         |   reference
         |   media
         |   bold
@@ -68,6 +69,11 @@ note: WS* NOTE WS* line;
 media: MEDIA;
 
 reference: WORD REFERENCE;
+
+comment: WS* COMMENT_INLINE | WS* COMMENT_BLOCK WS*;
+
+COMMENT_INLINE: '~~' ~[\n\r]*;
+COMMENT_BLOCK: '/~~' .*? '~~/';
 
 MEDIA: WS* '{' VOID? (MEDIA | ~[{}])* VOID? '}' WS*;
 NEWLINE: WS* (('\r'? '\n' | '\r') | EOF);
