@@ -39,10 +39,10 @@ line:
     )+
     ;
 
-bold: '--' WS* line WS* '--';
-italic: '//' WS* line WS* '//';
-underline: '__' WS* line WS* '__';
-strikethrough: '==' WS* line WS* '==';
+bold: BOLD WS* line WS* BOLD;
+italic: ITALIC WS* line WS* ITALIC;
+underline: UNDERLINE WS* line WS* UNDERLINE;
+strikethrough: STRIKETHROUGH WS* line WS* STRIKETHROUGH;
 
 header: HEADER;
 
@@ -90,6 +90,12 @@ MEDIA: WS* '{' VOID? (MEDIA | ~[{}])* VOID? '}' WS*
         String s = getText().trim();
         setText(s.substring(1, s.length() - 1).trim());
     };
+
+
+BOLD: '--';
+ITALIC: '//';
+UNDERLINE: '__';
+STRIKETHROUGH: '==';
 
 NEWLINE: WS* (('\r'? '\n' | '\r') | EOF);
 WS: (' ' | '\t');
