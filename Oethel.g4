@@ -61,7 +61,7 @@ numbered_list2: (WS numbered_list_item (NEWLINE numbered_list3)*)+;
 numbered_list3: (WS WS numbered_list_item (NEWLINE numbered_list4)*)+;
 numbered_list4: (WS WS WS numbered_list_item (NEWLINE numbered_list5)*)+;
 numbered_list5: (WS WS WS WS+ numbered_list_item)+;
-numbered_list_item: ('0.'|'1.'|'2.'|'3.'|'4.'|'5.'|'6.'|'7.'|'8.'|'9.'|'$.') WS* line;
+numbered_list_item: ('0.'|'1.'|'2.'|'3.'|'4.'|'5.'|'6.'|'7.'|'8.'|'9.'|'$.') WS+ line;
 
 link: LINK;
 adress: ADRESS;
