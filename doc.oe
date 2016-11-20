@@ -1,6 +1,15 @@
 < Title > Documentation Language Œthel
 < Subtitle > Optimal. Ergonomic. Textual. Highlighting. Evolved. Language.
 
+/~~
+
+To-Do
+
+* Keep .œ extension ?
+* Better multi-line blocks
+
+~~/
+
 -> Introduction
 
 This language is called Œthel. You can also write it "Œ" or "OE".
@@ -9,8 +18,8 @@ This language is called Œthel. You can also write it "Œ" or "OE".
 
 On Windows, you can type these specials characters:
 
-* { Press Alt and type 0140 } give "Œ"
-* { Press Alt and type 0156 } give "œ"
+- { Press Alt and type 0140 } give "Œ"
+- { Press Alt and type 0156 } give "œ"
 
 -> Extensions
 
@@ -42,7 +51,7 @@ Come back to the line in the same paragraph is handled in the language because i
 
 -> Decoration
 
-You can use --bold-- with { -- ... -- }.
+You can use **bold** with { ** ... ** }.
 You can use // italic // with { // ... // }.
 You can use __underline__ with { __ ... __ }.
 You can use ==strikethrough== with { == ... == }.
@@ -52,66 +61,66 @@ These symbols have been choosen because they are simple to access on a keyboard,
 
 -> Lists
 
-You can list items by using { * } at the beginning of lines.
+You can list items by using { - } at the beginning of lines.
 
-* Item A
-* Item B
-* Item C
+- Item A
+- Item B
+- Item C
 
 < Example >
 {
-    * Item A
-    * Item B
-    * Item C
+    - Item A
+    - Item B
+    - Item C
 }
 
 You can describe trees by breaking the alignement with tabulations or spaces.
 
-* Item A
- * Sub-item A1
- * Sub-item A2
-* Item B
- * Sub-item B1
+- Item A
+ - Sub-item A1
+ - Sub-item A2
+- Item B
+ - Sub-item B1
 
 < Example >
 {
-    * Item A
-        * Sub-item A1
-        * Sub-item A2
-    * Item B
-    * Sub-item B1
+    - Item A
+        - Sub-item A1
+        - Sub-item A2
+    - Item B
+        - Sub-item B1
 }
 
 < Design note >
-The asterisk { * } is already commonly used for listing in plain text because it's an accessible character on keyboards and pretty similar to a bullet.
+The { - } is already commonly used for listing in plain text because it's an accessible character on keyboards.
 
-You can also create numbered lists with { 1. 2. 3. }.
+You can also create numbered lists with { 1- 2- 3- }.
 
-1. Item 1
-2. Item 2
-3. Item 3
+1- Item 1
+2- Item 2
+3- Item 3
 
 < Example >
 {
-    1. Item 1
-    2. Item 2
-    3. Item 3
+    1- Item 1
+    2- Item 2
+    3- Item 3
 }
 
 < Design note >
-Numbers used and order doesn't import. You can put { 1. } on each line if you want. It must just begin by a number. 
+Numbers used and order doesn't import. You can put { 1- } on each line if you want. It must just begin by a number. 
 
-If you don't want to use numbers in plain text, use { $. }
+If you don't want to use numbers in plain text, use { $- }
 
-$. Item 1
-$. Item 2
-$. Item 3
+$- Item 1
+$- Item 2
+$- Item 3
 
 < Example >
 {
-    $. Item 1
-    $. Item 2
-    $. Item 3
+    $- Item 1
+    $- Item 2
+    $- Item 3
 }
 
 < Design note >
@@ -121,83 +130,99 @@ You can combine all these types of lists on different levels if you want.
 
 < Example >
 {
-    1. Item 1
-        * Sub-item A
-        * Sub-item B
-    2. Item 2
-        $. Sub-item A
-        $. Sub-item B
+    1- Item 1
+        - Sub-item A
+        - Sub-item B
+    2- Item 2
+        $- Sub-item A
+        $- Sub-item B
 }
 
 -> Links
 
-You can put external links in your note by using { #[...] }.
-Here is an external link : #[http://www.google.com/]
+You can put external links in your note by using { [content][adress] }.
+Here is an example : [Link text][http://www.google.com/]
 
 < Example >
 {
-    #[http://www.google.com/]
+    [Link text][http://www.google.com/]
 }
 
-Here is another with an alternative text : #[[http://www.google.com/] Alternative text]
+If you also want to use the adress as text, use { [[adress]] } like so: [[http://www.google.com/]]
 
 < Example >
 {
-    #[[http://www.google.com/] Alternative text]
-    #[Alternative text [http://www.google.com/]]
+    [[http://www.google.com/]]
 }
 
-You can also have internal links by using an identifier at the place of the link.
-Here is an internal link : #[First target]
+-> Targets
 
-< Example >
-{
-    #[First target]
-}
-
-Here is another with an alternative text : #[[Seconde target] Alternative text]
-
-< Example >
-{
-    #[[Seconde target] Alternative text]
-    #[Alternative text [Seconde target]]
-}
-
-You can define internal target with { @[An identifier] }.
-Here is an internal target : @[First target]
+You can define internal target at a specific position in your document with { @[identifier] }.
 
 < Example >
 {
     @[First target]
 }
 
-You can also change the linked displayed text : @[[Second target] Alternative text]
+You can also target a specific content by using { @[identifier][content] }.
+Here is an example : @[Second target][Target text]
 
 < Example >
 {
-    @[[Second target] Alternative text]
-    @[Alternative text [Second target]]
+    @[Second target][Target text]
 }
 
-@[[Third target]]
-If you don't want to show text, use two brackets and ignore the alternative text
+If you want to use the target identifier as text, use { @[[identifier]] } like so: @[[Third target]]
 
 < Example >
 {
     @[[Third target]]
 }
 
+It's also possible to use multiple identifier for a same target by separate them with comma.
+
+< Example >
+{
+    @[First target, 1st target][Target text]
+    @[[First target, 1st target]] ~~ First identitier will be used as content here.
+}
+
+# Internal links
+
+You can have internal links by using a target identifier at the place of the link.
+Here is an internal link : [Link text][Second target]
+
+< Example >
+{
+    [Link text][Second target]
+}
+
+Here is another using its target identifier as text : [[Third target]]
+
+< Example >
+{
+    [[Third target]]
+}
+
+< Design note >
+You can build a lexic by combining multi-identifier targets and raw internal links.
+
+< Example >
+{
+    [[Ethel]] is another way to write [[Oethel]].
+    ...
+    @[[Oethel,ethel]]: wonderful language
+}
+
 -> Notes
 
-You can write a note on a line beginning with { @[$] }.
-Then, it is possible to reference that note with { ...[$] }.
-The next note not already referenced will be linked[$].
+You can write a note on a line beginning by a target with a number or { $ } as identifier. { @[$] }.
+Then, it is possible to reference that note with { [content][number] }.
+
+If you use { $ }, the next note not already referenced will be linked[$].
+If you use a number, it will reference the next note in text with that number[1] or, if it didn't exist, the previous one.
 
 @[$] Here is a first note.
-
-{ ... word[$] ... } is equivalent to { ... #[word[$]] ... }.
-You can also use defined numbers to keep a strict[1] and multiple[1] references to a note : { ...[1] }.
-
 @[1] Here is a second note.
 
 -> Titles
@@ -244,7 +269,6 @@ Here is a warning on one line.
 < Note >
 Here is a note.
 
-
 On multiple line.
 >
 
@@ -252,26 +276,54 @@ On multiple line.
 {
     << Note >
     Here is a note.
+
     On multiple line.
     >
 }
 
-In fact, titles are blocks : { -> Text } is equivalent to { < Title1 > Text } and { << Title1 > Text /> }
-Quotes are also blocks : { > Text } is equivalent to { < Quote > Text } and { << Quote > Text /> }
+<< Design note >
+In fact, titles and quotes are blocks. Because there are common in various output format and can be inline, they have there own syntax.
+Titles ({ -> }) are combining lists and blocks syntax. Quotes ({ > }) are the more generic blocks.
+>
 
 -> Media
 
-If you want to insert a media (like a picture, a video, a table or a code sample), use { { ... } }.
+If you want to insert a media (like a picture, a video or a table) or some text written in another language (like a code sample), you must use { { ... } }.
+To indicate the type of media, it must be preceed by a header providing the file extension used for this type of media.
 
-You can put media in block
+< Design note >
+Supported media depend of your converter and of the supoort format. Anyway, converted file must provide an alternative output if the media can't be displayed, like a link or a summary.
 
---> Images/Videos
-
-{ cat.png }
+If the media that you want to display is inside a file, just provide the path.
 
 < Example >
 {
-    { cat.png }
+    < .ext > { path/file.ext }
+}
+
+If the media can be describe directly in your file with its own language, write it directly.
+
+< Example >
+{
+    < .ext >
+    {
+        Here_is_another_language_using_underscores_as_spaces.
+    }
+}
+
+If you don't indicate a file extension or if it is unknown and data isn't binary, media will be displayed as plain text. 
+
+< Design note >
+Try to use understandable languages when you describe directly your media. Oethel is a textual language and shouldn't use binary data.
+For that reason, Oethel standard suggest its own syntax for common media.
+
+--> Images/Videos
+
+< .png > { cat.png }
+
+< Example >
+{
+    < .png > { cat.png }
 }
 
 --> Tables
@@ -346,6 +398,7 @@ You can put media in block
 
 --> Code
 
+< .cs >
 {
     public class Program()
     {
@@ -370,26 +423,23 @@ You can put media in block
 }
 
 < Design note >
-If a media can't be interpreted, it will be display as code by default.
-
---> Custom
-
-If you use an Œthel interpreter that support other medias, use the media braces to handle them.
-The reason is that it will be interpreted by default as code sample by other interpreters.
-For that reason, try to use the most textual language so it will be understandable even without your interpreter.
+Converter will use provided extension to apply syntax color highlighting.
 
 -> Comments
 
-~~ Comment on one line
-
 You can use comments by using { ~~ } at the beginning of a line.
+
+~~ Comment on one line
 
 < Design note >
 { ~~ } is used as a double character token because { ~ } key doesn't input when you press it once.
+
+For multiline comments, use { /~~ ... ~~/ }.
 
 /~~
 Comment
 on multiple lines
 ~~/
 
-For multiline comments, use { /~~ ... ~~/ }.
+< Design note >
+Some output format can handle comments so they are not always ignoring.
