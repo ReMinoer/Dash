@@ -9,17 +9,17 @@ parse:
 block:
         title NEWLINE*
     |   quote NEWLINE*
-    |   list
-    |   numbered_list
+    |   list NEWLINE*
+    |   numbered_list NEWLINE*
     |   note NEWLINE*
     |   header line NEWLINE*
-    |   WS* '<' NEWLINE* WS* header NEWLINE* WS* (inner_block (NEWLINE+ inner_block)*) NEWLINE* WS* '>'
-    |   (header NEWLINE)? line (NEWLINE line)* NEWLINE+
+    |   WS* (header_alt | '<' NEWLINE* WS* header) NEWLINE* WS* (inner_block (NEWLINE+ inner_block)*) NEWLINE* WS* '>' NEWLINE*
+    |   (header NEWLINE)? line (NEWLINE line)* (NEWLINE+ | EOF)
     ;
 
 inner_block:
-        list
-    |   numbered_list
+        list NEWLINE*
+    |   numbered_list NEWLINE*
     |   line (NEWLINE line)*
     ;
 
@@ -45,18 +45,19 @@ underline: UNDERLINE WS* line WS* UNDERLINE;
 strikethrough: STRIKETHROUGH WS* line WS* STRIKETHROUGH;
 
 header: HEADER;
+header_alt: HEADER_ALT;
 
 title: TITLE;
 quote: WS* '>' WS* line;
 
-list: (list_item (NEWLINE list2)* NEWLINE)*;
+list: (list_item (NEWLINE list2)* NEWLINE)+;
 list2: (WS list_item (NEWLINE list3)*)+;
 list3: (WS WS list_item (NEWLINE list4)*)+;
 list4: (WS WS WS list_item (NEWLINE list5)*)+;
 list5: (WS WS WS WS+ list_item)+;
 list_item: '-' WS* line;
 
-numbered_list: (numbered_list_item (NEWLINE numbered_list2)* NEWLINE)*;
+numbered_list: (numbered_list_item (NEWLINE numbered_list2)* NEWLINE)+;
 numbered_list2: (WS numbered_list_item (NEWLINE numbered_list3)*)+;
 numbered_list3: (WS WS numbered_list_item (NEWLINE numbered_list4)*)+;
 numbered_list4: (WS WS WS numbered_list_item (NEWLINE numbered_list5)*)+;
@@ -99,6 +100,12 @@ STRIKETHROUGH: '==';
 
 NEWLINE: WS* (('\r'? '\n' | '\r') | EOF);
 WS: (' ' | '\t');
+
+HEADER_ALT: WS* '<<' WS* ID WS* '>' WS*
+    {
+        String s = getText().trim();
+        setText(s.substring(2, s.length() - 1).trim());
+    };
 
 HEADER: WS* '<' WS* ID WS* '>' WS*
     {
