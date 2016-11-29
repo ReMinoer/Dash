@@ -1,8 +1,7 @@
 grammar Oethel;
 
 parse:
-    NEWLINE*
-    block (NEWLINE block)*
+    (NEWLINE* (comment|block))*
     EOF
     ;
 

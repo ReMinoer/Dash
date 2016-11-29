@@ -434,7 +434,7 @@ You can use comments by using { ~~ } at the beginning of a line.
 < Design note >
 { ~~ } is used as a double character token because { ~ } key doesn't input when you press it once.
 
-For multiline comments, use { /~~ ... ~~/ }.
+For multiline comments /~~ like that ~~/, use { /~~ ... ~~/ }.
 
 /~~
 Comment
@@ -443,3 +443,4 @@ on multiple lines
 
 < Design note >
 Some output format can handle comments so they are not always ignoring.
+
