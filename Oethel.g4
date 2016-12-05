@@ -1,27 +1,26 @@
 grammar Oethel;
 
-parse:
-    (NEWLINE* (comment|block))*
-    EOF
-    ;
+parse: (NEWLINE* (comment|block))* EOF;
 
 block:
-        title_1 NEWLINE*
-    |   title_2 NEWLINE*
-    |   title_3 NEWLINE*
-    |   title_4 NEWLINE*
-    |   title_5 NEWLINE*
-    |   title_6 NEWLINE*
-    |   title_7 NEWLINE*
-    |   title_8 NEWLINE*
-    |   title_9 NEWLINE*
-    |   quote NEWLINE*
-    |   list NEWLINE*
-    |   numbered_list NEWLINE*
-    |   note NEWLINE*
-    |   header line NEWLINE*
-    |   WS* (header_alt | '<' NEWLINE* WS* header) NEWLINE* WS* (inner_block (NEWLINE+ inner_block)*) NEWLINE* WS* '>' NEWLINE*
-    |   (header NEWLINE)? line (NEWLINE line)* (NEWLINE+ | EOF)
+    (
+            title_1 
+        |   title_2
+        |   title_3
+        |   title_4
+        |   title_5
+        |   title_6
+        |   title_7
+        |   title_8
+        |   title_9
+        |   quote
+        |   list
+        |   numbered_list
+        |   note
+        |   header line
+        |   WS* (header_alt | '<' NEWLINE* WS* header) NEWLINE* WS* (inner_block (NEWLINE+ inner_block)*) NEWLINE* WS* '>'
+        |   (header NEWLINE)? line (NEWLINE line)* NEWLINE
+    )   NEWLINE*
     ;
 
 inner_block:
