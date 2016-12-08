@@ -24,8 +24,8 @@ block:
     ;
 
 inner_block:
-        list NEWLINE*
-    |   numbered_list NEWLINE*
+        list
+    |   numbered_list
     |   line (NEWLINE line)*
     ;
 
@@ -205,8 +205,13 @@ ADRESS: WS* '@[' WS* ID WS* ']' WS*
         setText(s.substring(2, s.length() - 1).trim());
     };
 
-WORD: TEXT+;
+WORD:
+    (   '*'~('*'|'\n'|'\r'|' '|'\t'|'{'|'}')
+    |   '/'~('/'|'\n'|'\r'|' '|'\t'|'{'|'}')
+    |   '_'~('_'|'\n'|'\r'|' '|'\t'|'{'|'}')
+    |   '='~('='|'\n'|'\r'|' '|'\t'|'{'|'}')
+    |   ~('*'|'/'|'_'|'='|'\n'|'\r'|' '|'\t'|'{'|'}')
+    )+;
 
 fragment ID: ~[\n\r{}<>]+;
-fragment TEXT: ~('\n'|'\r'|' '|'\t'|'{'|'}');
-fragment VOID: (' ' | '\t' | '\n' | '\r')+;
+fragment VOID: (' '|'\t'|'\n'|'\r')+;
