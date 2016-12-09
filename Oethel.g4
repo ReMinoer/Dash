@@ -181,10 +181,10 @@ TITLE_9: WS* '--------->' WS* ID
         setText(s.substring(10, s.length()).trim());
     };
 
-REFERENCE: '#[' WS* ('$'|[0-9]+) WS* ']'
+DIRECT_LINK: WS* '[[' WS* ('['|']')+ WS* ']]' WS*
     {
-        String s = getText();
-        setText(s.substring(2, s.length() - 1).trim());
+        String s = getText().trim();
+        setText(s.substring(2, s.length() - 2).trim());
     };
 
 NOTE: WS* '@[' WS* ('$'|[0-9]+) WS* ']' WS*
@@ -193,16 +193,22 @@ NOTE: WS* '@[' WS* ('$'|[0-9]+) WS* ']' WS*
         setText(s.substring(2, s.length() - 1).trim());
     };
 
-LINK: WS* '#[' WS* ID WS* ']' WS*
+REFERENCE: WS* '[' WS* ('$'|[0-9]+) WS* ']' WS*
+    {
+        String s = getText().trim();
+        setText(s.substring(1, s.length() - 1).trim());
+    };
+
+ADRESS: WS* '@[' WS* ('['|']')+ WS* ']' WS*
     {
         String s = getText().trim();
         setText(s.substring(2, s.length() - 1).trim());
     };
 
-ADRESS: WS* '@[' WS* ID WS* ']' WS*
+LINK: WS* '[' WS* ('['|']')+ WS* ']' WS*
     {
         String s = getText().trim();
-        setText(s.substring(2, s.length() - 1).trim());
+        setText(s.substring(1, s.length() - 1).trim());
     };
 
 WORD: TEXT+;
