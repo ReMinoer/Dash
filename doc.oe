@@ -5,8 +5,8 @@
 
 To-Do
 
-* Keep .œ extension ?
-* Better multi-line blocks
+- Keep .œ extension ?
+- Better multi-line blocks
 
 ~~/
 
@@ -265,7 +265,6 @@ Here is a warning on one line.
     Here is a warning on one line, declared on previous line.
 }
 
-<
 < Note >
 Here is a note.
 
@@ -274,17 +273,16 @@ On multiple line.
 
 < Example >
 {
-    << Note >
+    < Note >
     Here is a note.
 
     On multiple line.
     >
 }
 
-<< Design note >
+< Design note >
 In fact, titles and quotes are blocks. Because there are common in various output format and can be inline, they have there own syntax.
 Titles ({ -> }) are combining lists and blocks syntax. Quotes ({ > }) are the more generic blocks.
->
 
 -> Media
 
