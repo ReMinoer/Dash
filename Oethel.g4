@@ -18,7 +18,7 @@ block:
         |   numbered_list
         |   note
         |   header line
-        |   WS* (header_alt | '<' NEWLINE* WS* header) NEWLINE* WS* (inner_block (NEWLINE+ inner_block)*) NEWLINE* WS* '>'
+        |   header NEWLINE* inner_block (NEWLINE+ inner_block)* NEWLINE* WS* '>'
         |   (header NEWLINE)? line (NEWLINE line)* NEWLINE
     )   NEWLINE*
     ;
@@ -51,7 +51,6 @@ underline: UNDERLINE WS* line WS* UNDERLINE;
 strikethrough: STRIKETHROUGH WS* line WS* STRIKETHROUGH;
 
 header: HEADER;
-header_alt: HEADER_ALT;
 
 title_1: TITLE_1;
 title_2: TITLE_2;
@@ -106,20 +105,8 @@ MEDIA: WS* '{' VOID? (MEDIA | ~[{}])* VOID? '}' WS*
         setText(s.substring(1, s.length() - 1).trim());
     };
 
-
-BOLD: '**';
-ITALIC: '//';
-UNDERLINE: '__';
-STRIKETHROUGH: '==';
-
 NEWLINE: WS* (('\r'? '\n' | '\r') | EOF);
 WS: (' ' | '\t');
-
-HEADER_ALT: WS* '<<' WS* ID WS* '>' WS*
-    {
-        String s = getText().trim();
-        setText(s.substring(2, s.length() - 1).trim());
-    };
 
 HEADER: WS* '<' WS* ID WS* '>' WS*
     {
@@ -204,6 +191,11 @@ ADRESS: WS* '@[' WS* ID WS* ']' WS*
         String s = getText().trim();
         setText(s.substring(2, s.length() - 1).trim());
     };
+
+BOLD: '**';
+ITALIC: '//';
+UNDERLINE: '__';
+STRIKETHROUGH: '==';
 
 WORD:
     (   '*'~('*'|'\n'|'\r'|' '|'\t'|'{'|'}')
