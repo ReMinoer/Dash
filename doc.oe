@@ -1,14 +1,12 @@
 < Title > Documentation Language Œthel
 < Subtitle > Optimal. Ergonomic. Textual. Highlighting. Evolved. Language.
 
-/~~
-
+~~~
 To-Do
 
 - Keep .œ extension ?
 - Better multi-line blocks
-
-~~/
+~~~
 
 -> Introduction
 
@@ -446,10 +444,10 @@ You can use comments by using { ~~ } at the beginning of a line.
 
 For multiline comments /~~ like that ~~/, use { /~~ ... ~~/ }.
 
-/~~
+~~~
 Comment
 on multiple lines
-~~/
+~~~
 
 < Design note >
 Some output format can handle comments so they are not always ignoring.

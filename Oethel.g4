@@ -1,10 +1,9 @@
 grammar Oethel;
 
-parse: (NEWLINE* (comment|block))* EOF;
-
-block:
-    (
-            title_1 
+parse:
+    (   NEWLINE*
+        (   comment
+        |   title_1 
         |   title_2
         |   title_3
         |   title_4
@@ -14,35 +13,34 @@ block:
         |   title_8
         |   title_9
         |   quote
-        |   list
-        |   numbered_list
         |   note
-        |   header line
-        |   header NEWLINE* inner_block (NEWLINE+ inner_block)* NEWLINE* WS* '>'
-        |   (header NEWLINE)? line (NEWLINE line)* NEWLINE
+        |   block
+        )
+    )* EOF;
+
+block:
+    (   header line
+    |   header (NEWLINE+ line (NEWLINE line)*)* NEWLINE* WS* '>'
+    |   (header NEWLINE)? line (NEWLINE line)* NEWLINE
     )   NEWLINE*
     ;
 
-inner_block:
+line:
         list
     |   numbered_list
-    |   line (NEWLINE line)*
-    ;
-
-line:
-    (   WS*
-        (   comment
-        |   reference
-        |   media
-        |   bold
-        |   italic
-        |   underline
-        |   strikethrough
-        |   link
-        |   adress
-        |   WORD | LINK_BEGIN | ADRESS_END
-        )
-    )+
+    |   (   WS*
+            (   comment
+            |   reference
+            |   media
+            |   bold
+            |   italic
+            |   underline
+            |   strikethrough
+            |   link
+            |   adress
+            |   WORD | LINK_BEGIN | ADRESS_END
+            )
+        )+
     ;
 
 bold: BOLD WS* line WS* BOLD;
@@ -52,16 +50,16 @@ strikethrough: STRIKETHROUGH WS* line WS* STRIKETHROUGH;
 
 header: HEADER;
 
-title_1: TITLE_1;
-title_2: TITLE_2;
-title_3: TITLE_3;
-title_4: TITLE_4;
-title_5: TITLE_5;
-title_6: TITLE_6;
-title_7: TITLE_7;
-title_8: TITLE_8;
-title_9: TITLE_9;
-quote: WS* '>' WS* line;
+title_1: TITLE_1 NEWLINE*;
+title_2: TITLE_2 NEWLINE*;
+title_3: TITLE_3 NEWLINE*;
+title_4: TITLE_4 NEWLINE*;
+title_5: TITLE_5 NEWLINE*;
+title_6: TITLE_6 NEWLINE*;
+title_7: TITLE_7 NEWLINE*;
+title_8: TITLE_8 NEWLINE*;
+title_9: TITLE_9 NEWLINE*;
+quote: WS* '>' WS* line NEWLINE*;
 
 list: (list_item (NEWLINE list2)* NEWLINE)+;
 list2: (WS list_item (NEWLINE list3)*)+;
@@ -87,16 +85,16 @@ reference: WORD REFERENCE;
 
 comment: WS* COMMENT_INLINE | WS* COMMENT_BLOCK WS*;
 
+COMMENT_BLOCK: '~~~' .*? '~~~'
+    {
+        String s = getText();
+        setText(s.substring(3, s.length() - 3).trim());
+    };
+
 COMMENT_INLINE: '~~' WS* ~[\n\r]*
     {
         String s = getText();
         setText(s.substring(2, s.length()).trim());
-    };
-
-COMMENT_BLOCK: '/~~' .*? '~~/'
-    {
-        String s = getText();
-        setText(s.substring(3, s.length() - 3).trim());
     };
 
 MEDIA: WS* '{' VOID? (MEDIA | ~[{}])* VOID? '}' WS*
@@ -220,5 +218,5 @@ WORD:
     |   ~('*'|'/'|'_'|'='|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']')
     )+;
 
-fragment ID: ~[\n\r{}<>]+;
+fragment ID: ~[\n\r{}<>\[\]]+;
 fragment VOID: (' '|'\t'|'\n'|'\r')+;
