@@ -31,8 +31,7 @@ inner_block:
 
 line:
     (   WS*
-        (   WORD
-        |   comment
+        (   comment
         |   reference
         |   media
         |   bold
@@ -41,6 +40,7 @@ line:
         |   strikethrough
         |   link
         |   adress
+        |   WORD | LINK_BEGIN | ADRESS_END
         )
     )+
     ;
@@ -77,8 +77,8 @@ numbered_list4: (WS WS WS numbered_list_item (NEWLINE numbered_list5)*)+;
 numbered_list5: (WS WS WS WS+ numbered_list_item)+;
 numbered_list_item: ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') WS+ line;
 
-link: LINK;
-adress: ADRESS;
+link: DIRECT_LINK | '[' line LINK;
+adress: DEFINITION | ADRESS line ']';
 note: NOTE line;
 
 media: MEDIA;
@@ -168,10 +168,16 @@ TITLE_9: WS* '--------->' WS* ID
         setText(s.substring(10, s.length()).trim());
     };
 
-DIRECT_LINK: WS* '[[' WS* ('['|']')+ WS* ']]' WS*
+DIRECT_LINK: WS* '[[' WS* ~('['|']')+ WS* ']]' WS*
     {
         String s = getText().trim();
         setText(s.substring(2, s.length() - 2).trim());
+    };
+
+DEFINITION: WS* '@[[' WS* ~('['|']')+ WS* ']]' WS*
+    {
+        String s = getText().trim();
+        setText(s.substring(3, s.length() - 2).trim());
     };
 
 NOTE: WS* '@[' WS* ('$'|[0-9]+) WS* ']' WS*
@@ -186,17 +192,20 @@ REFERENCE: WS* '[' WS* ('$'|[0-9]+) WS* ']' WS*
         setText(s.substring(1, s.length() - 1).trim());
     };
 
-ADRESS: WS* '@[' WS* ('['|']')+ WS* ']' WS*
+ADRESS: '@[' WS* ~('['|']')+ WS* '][' WS*
+    {
+        String s = getText().trim();
+        setText(s.substring(2, s.length() - 2).trim());
+    };
+
+LINK: WS* '][' WS* ~('['|']')+ WS* ']'
     {
         String s = getText().trim();
         setText(s.substring(2, s.length() - 1).trim());
     };
 
-LINK: WS* '[' WS* ('['|']')+ WS* ']' WS*
-    {
-        String s = getText().trim();
-        setText(s.substring(1, s.length() - 1).trim());
-    };
+LINK_BEGIN: '[' WS*;
+ADRESS_END: WS* ']';
 
 BOLD: '**';
 ITALIC: '//';
@@ -204,11 +213,11 @@ UNDERLINE: '__';
 STRIKETHROUGH: '==';
 
 WORD:
-    (   '*'~('*'|'\n'|'\r'|' '|'\t'|'{'|'}')
-    |   '/'~('/'|'\n'|'\r'|' '|'\t'|'{'|'}')
-    |   '_'~('_'|'\n'|'\r'|' '|'\t'|'{'|'}')
-    |   '='~('='|'\n'|'\r'|' '|'\t'|'{'|'}')
-    |   ~('*'|'/'|'_'|'='|'\n'|'\r'|' '|'\t'|'{'|'}')
+    (   '*'~('*'|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']')
+    |   '/'~('/'|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']')
+    |   '_'~('_'|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']')
+    |   '='~('='|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']')
+    |   ~('*'|'/'|'_'|'='|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']')
     )+;
 
 fragment ID: ~[\n\r{}<>]+;

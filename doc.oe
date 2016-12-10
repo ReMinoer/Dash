@@ -58,6 +58,15 @@ You can use ==strikethrough== with { == ... == }.
 
 < Design note >
 These symbols have been choosen because they are simple to access on a keyboard, refers to their effects and highlight plain text at different degrees.
+>
+
+You can use all these decoration at the same time if you want. You just need to think to always close the last opened decoration before the others.
+**//__Here__ is an ==exemple==.//**
+
+< Example >
+{
+     **//__Here__ is// an ==exemple==**.
+}
 
 -> Lists
 
@@ -186,6 +195,9 @@ It's also possible to use multiple identifier for a same target by separate them
     @[First target, 1st target][Target text]
     @[[First target, 1st target]] ~~ First identitier will be used as content here.
 }
+
+< Design note >
+You can also use [ and ] as text if needed.
 
 # Internal links
 
