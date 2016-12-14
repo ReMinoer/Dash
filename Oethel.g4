@@ -209,12 +209,17 @@ UNDERLINE: '__';
 STRIKETHROUGH: '==';
 
 WORD:
-    (   '*'NOT_BOLD
-    |   '/'NOT_ITALIC
-    |   '_'NOT_UNDERLINE
-    |   '='NOT_STRIKETHROUGH
-    |   WORD_CHAR
-    )+;
+        '*'
+    |   '/'
+    |   '_'
+    |   '='
+    |   (   '*'NOT_BOLD
+        |   '/'NOT_ITALIC
+        |   '_'NOT_UNDERLINE
+        |   '='NOT_STRIKETHROUGH
+        |   WORD_CHAR
+        )+
+    ;
 
 fragment NOT_BOLD:
     (   '/'NOT_ITALIC
