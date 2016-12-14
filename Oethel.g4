@@ -12,7 +12,6 @@ parse:
         |   title_7
         |   title_8
         |   title_9
-        |   quote
         |   note
         |   block
         )
@@ -59,7 +58,6 @@ title_6: TITLE_6 NEWLINE*;
 title_7: TITLE_7 NEWLINE*;
 title_8: TITLE_8 NEWLINE*;
 title_9: TITLE_9 NEWLINE*;
-quote: WS* '>' WS* line NEWLINE*;
 
 list: (list_item (NEWLINE list2)* NEWLINE)+;
 list2: (WS list_item (NEWLINE list3)*)+;
@@ -211,12 +209,41 @@ UNDERLINE: '__';
 STRIKETHROUGH: '==';
 
 WORD:
-    (   '*'~('*'|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']')
-    |   '/'~('/'|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']')
-    |   '_'~('_'|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']')
-    |   '='~('='|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']')
-    |   ~('*'|'/'|'_'|'='|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']')
+    (   '*'NOT_BOLD
+    |   '/'NOT_ITALIC
+    |   '_'NOT_UNDERLINE
+    |   '='NOT_STRIKETHROUGH
+    |   WORD_CHAR
     )+;
 
+fragment NOT_BOLD:
+    (   '/'NOT_ITALIC
+    |   '_'NOT_UNDERLINE
+    |   '='NOT_STRIKETHROUGH
+    |   WORD_CHAR
+    );
+
+fragment NOT_ITALIC:
+    (   '*'NOT_BOLD
+    |   '_'NOT_UNDERLINE
+    |   '='NOT_STRIKETHROUGH
+    |   WORD_CHAR
+    );
+
+fragment NOT_UNDERLINE:
+    (   '*'NOT_BOLD
+    |   '/'NOT_ITALIC
+    |   '='NOT_STRIKETHROUGH
+    |   WORD_CHAR
+    );
+
+fragment NOT_STRIKETHROUGH:
+    (   '*'NOT_BOLD
+    |   '/'NOT_ITALIC
+    |   '_'NOT_UNDERLINE
+    |   WORD_CHAR
+    );
+
+fragment WORD_CHAR: ~('*'|'/'|'_'|'='|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']');
 fragment ID: ~[\n\r{}<>\[\]]+;
 fragment VOID: (' '|'\t'|'\n'|'\r')+;

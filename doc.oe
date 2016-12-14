@@ -56,7 +56,6 @@ You can use ==strikethrough== with { == ... == }.
 
 < Design note >
 These symbols have been choosen because they are simple to access on a keyboard, refers to their effects and highlight plain text at different degrees.
->
 
 You can use all these decoration at the same time if you want. You just need to think to always close the last opened decoration before the others.
 **//__Here__ is an ==exemple==.//**
@@ -250,10 +249,6 @@ You can define subtitles by adding more { - } at the beginning.
 
     Paragraph of Title 3
 }
-
--> Quotes
-
-> You can write quote by using { > } at the beginning of the line.
 
 -> Blocks
 
