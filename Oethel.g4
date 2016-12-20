@@ -98,7 +98,7 @@ reference: WORD REFERENCE;
 
 comment: WS* COMMENT_INLINE | WS* COMMENT_BLOCK WS*;
 
-COMMENT_BLOCK: '~~~' .*? '~~~'
+COMMENT_BLOCK: '~~~~' .*? '~~~~'
     {
         String s = getText();
         setText(s.substring(3, s.length() - 3).trim());
