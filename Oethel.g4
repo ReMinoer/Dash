@@ -18,28 +18,26 @@ parse:
     )* EOF;
 
 block:
-    (   header line
-    |   header (NEWLINE+ line (NEWLINE line)*)* NEWLINE* WS* '>'
-    |   (header NEWLINE)? line (NEWLINE line)* NEWLINE
+    (   header (list | numbered_list | line)
+    |   header (NEWLINE+ (list | numbered_list | line) (NEWLINE (list | numbered_list | line))*)* NEWLINE* WS* '>'
+    |   (header NEWLINE)? (list | numbered_list | line) (NEWLINE (list | numbered_list | line))* NEWLINE
     )   NEWLINE*
     ;
 
 line:
-        list
-    |   numbered_list
-    |   (   WS*
-            (   comment
-            |   reference
-            |   media
-            |   bold
-            |   italic
-            |   underline
-            |   strikethrough
-            |   link
-            |   adress
-            |   WORD | LINK_BEGIN | ADRESS_END
-            )
-        )+
+    (   WS*
+        (   comment
+        |   reference
+        |   media
+        |   bold
+        |   italic
+        |   underline
+        |   strikethrough
+        |   link
+        |   adress
+        |   WORD | LINK_BEGIN | ADRESS_END
+        )
+    )+
     ;
 
 bold: BOLD WS* line WS* BOLD;
@@ -58,6 +56,23 @@ title_6: TITLE_6 NEWLINE*;
 title_7: TITLE_7 NEWLINE*;
 title_8: TITLE_8 NEWLINE*;
 title_9: TITLE_9 NEWLINE*;
+
+/*
+list
+    [int listDepth]
+    :
+    @init { int depth; }
+    WS* '-' WS* line NEWLINE
+    (
+        { depth = 0; }
+        (WS { depth++; })*
+        (
+                { depth == listDepth }? '-' WS* line
+            |   { depth > listDepth }? list[depth]
+        )  
+        NEWLINE
+    )*;
+*/
 
 list: (list_item (NEWLINE list2)* NEWLINE)+;
 list2: (WS list_item (NEWLINE list3)*)+;
