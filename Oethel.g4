@@ -19,13 +19,13 @@ parse:
 
 block:
     (   header (list | numbered_list | line)
-    |   header (NEWLINE+ (list | numbered_list | line) (NEWLINE (list | numbered_list | line))*)* NEWLINE* WS* '>'
+    |   header (NEWLINE+ (list | numbered_list | line) (NEWLINE (list | numbered_list | line))*)* NEWLINE* WS? '>'
     |   (header NEWLINE)? (list | numbered_list | line) (NEWLINE (list | numbered_list | line))* NEWLINE
     )   NEWLINE*
     ;
 
 line:
-    (   WS*
+    (   WS?
         (   comment
         |   reference
         |   media
@@ -40,10 +40,10 @@ line:
     )+
     ;
 
-bold: BOLD WS* line WS* BOLD;
-italic: ITALIC WS* line WS* ITALIC;
-underline: UNDERLINE WS* line WS* UNDERLINE;
-strikethrough: STRIKETHROUGH WS* line WS* STRIKETHROUGH;
+bold: BOLD WS? line WS? BOLD;
+italic: ITALIC WS? line WS? ITALIC;
+underline: UNDERLINE WS? line WS? UNDERLINE;
+strikethrough: STRIKETHROUGH WS? line WS? STRIKETHROUGH;
 
 header: HEADER;
 
@@ -59,19 +59,34 @@ title_9: TITLE_9 NEWLINE*;
 
 /*
 list
+    :
+    listDepth=WS?
+    '-' WS? line NEWLINE
+    (
+        depth=WS?
+        { $depth.getText().length() <= $listDepth.getText().length() }?
+            '-' WS? line NEWLINE
+    |   { $depth.getText().length() > $listDepth.getText().length() }?
+            (   sublist[$depth.getText().length()]
+            |   numbered_sublist[$depth.getText().length()]
+            )
+    )*
+    ;
+
+sublist
     [int listDepth]
     :
-    @init { int depth; }
-    WS* '-' WS* line NEWLINE
+    '-' WS? line NEWLINE
     (
-        { depth = 0; }
-        (WS { depth++; })*
-        (
-                { depth == listDepth }? '-' WS* line
-            |   { depth > listDepth }? list[depth]
-        )  
-        NEWLINE
-    )*;
+        depth=WS?
+        { $depth.getText().length() == $listDepth }?
+            '-' WS? line NEWLINE
+    |   { $depth.getText().length() > $listDepth }?
+            (   sublist[$depth.getText().length()]
+            |   numbered_sublist[$depth.getText().length()]
+            )
+    )*
+    ;
 */
 
 list: (list_item (NEWLINE list2)* NEWLINE)+;
@@ -79,14 +94,46 @@ list2: (WS list_item (NEWLINE list3)*)+;
 list3: (WS WS list_item (NEWLINE list4)*)+;
 list4: (WS WS WS list_item (NEWLINE list5)*)+;
 list5: (WS WS WS WS+ list_item)+;
-list_item: '-' WS* line;
+list_item: '-' WS? line;
+
+/*
+numbered_list
+    :
+    listDepth=WS?
+    ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') WS? line NEWLINE
+    (
+        depth=WS?
+        { $depth.getText().length() <= $listDepth.getText().length() }?
+            ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') WS? line NEWLINE
+    |   { $depth.getText().length() > $listDepth.getText().length() }?
+            (   sublist[$depth.getText().length()]
+            |   numbered_sublist[$depth.getText().length()]
+            )
+    )*
+    ;
+
+numbered_sublist
+    [int listDepth]
+    :
+    ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') WS? line NEWLINE
+    (
+        depth=WS?
+        { $depth.getText().length() == $listDepth }?
+            ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') WS? line NEWLINE
+    |   { $depth.getText().length() > $listDepth }?
+            (   sublist[$depth.getText().length()]
+            |   numbered_sublist[$depth.getText().length()]
+            )
+    )*
+    ;
+*/
 
 numbered_list: (numbered_list_item (NEWLINE numbered_list2)* NEWLINE)+;
 numbered_list2: (WS numbered_list_item (NEWLINE numbered_list3)*)+;
 numbered_list3: (WS WS numbered_list_item (NEWLINE numbered_list4)*)+;
 numbered_list4: (WS WS WS numbered_list_item (NEWLINE numbered_list5)*)+;
 numbered_list5: (WS WS WS WS+ numbered_list_item)+;
-numbered_list_item: ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') WS+ line;
+numbered_list_item: ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') WS? line;
 
 link: DIRECT_LINK | '[' line LINK;
 adress: DEFINITION | ADRESS line ']';
@@ -96,7 +143,7 @@ media: MEDIA;
 
 reference: WORD REFERENCE;
 
-comment: WS* COMMENT_INLINE | WS* COMMENT_BLOCK WS*;
+comment: WS? COMMENT_INLINE | WS? COMMENT_BLOCK WS?;
 
 COMMENT_BLOCK: '~~~~' .*? '~~~~'
     {
@@ -104,119 +151,119 @@ COMMENT_BLOCK: '~~~~' .*? '~~~~'
         setText(s.substring(3, s.length() - 3).trim());
     };
 
-COMMENT_INLINE: '~~' WS* ~[\n\r]*
+COMMENT_INLINE: '~~' WS? ~[\n\r]*
     {
         String s = getText();
         setText(s.substring(2, s.length()).trim());
     };
 
-MEDIA: WS* '{' VOID? (MEDIA | ~[{}])* VOID? '}' WS*
+MEDIA: WS? '{' VOID? (MEDIA | ~[{}])* VOID? '}' WS?
     {
         String s = getText().trim();
         setText(s.substring(1, s.length() - 1).trim());
     };
 
-NEWLINE: WS* (('\r'? '\n' | '\r') | EOF);
-WS: (' ' | '\t');
+NEWLINE: WS? (('\r'? '\n' | '\r') | EOF);
+WS: (' ' | '\t')+;
 
-HEADER: WS* '<' WS* ID WS* '>' WS*
+HEADER: WS? '<' WS? ID WS? '>' WS?
     {
         String s = getText().trim();
         setText(s.substring(1, s.length() - 1).trim());
     };
 
-TITLE_1: WS* '->' WS* ID
+TITLE_1: WS? '->' WS? ID
     {
         String s = getText().trim();
         setText(s.substring(2, s.length()).trim());
     };
 
-TITLE_2: WS* '-->' WS* ID
+TITLE_2: WS? '-->' WS? ID
     {
         String s = getText().trim();
         setText(s.substring(3, s.length()).trim());
     };
 
-TITLE_3: WS* '--->' WS* ID
+TITLE_3: WS? '--->' WS? ID
     {
         String s = getText().trim();
         setText(s.substring(4, s.length()).trim());
     };
 
-TITLE_4: WS* '---->' WS* ID
+TITLE_4: WS? '---->' WS? ID
     {
         String s = getText().trim();
         setText(s.substring(5, s.length()).trim());
     };
 
-TITLE_5: WS* '----->' WS* ID
+TITLE_5: WS? '----->' WS? ID
     {
         String s = getText().trim();
         setText(s.substring(6, s.length()).trim());
     };
 
-TITLE_6: WS* '------>' WS* ID
+TITLE_6: WS? '------>' WS? ID
     {
         String s = getText().trim();
         setText(s.substring(7, s.length()).trim());
     };
 
-TITLE_7: WS* '------->' WS* ID
+TITLE_7: WS? '------->' WS? ID
     {
         String s = getText().trim();
         setText(s.substring(8, s.length()).trim());
     };
 
-TITLE_8: WS* '-------->' WS* ID
+TITLE_8: WS? '-------->' WS? ID
     {
         String s = getText().trim();
         setText(s.substring(9, s.length()).trim());
     };
 
-TITLE_9: WS* '--------->' WS* ID
+TITLE_9: WS? '--------->' WS? ID
     {
         String s = getText().trim();
         setText(s.substring(10, s.length()).trim());
     };
 
-DIRECT_LINK: WS* '[[' WS* ~('['|']')+ WS* ']]' WS*
+DIRECT_LINK: WS? '[[' WS? ~('['|']')+ WS? ']]' WS?
     {
         String s = getText().trim();
         setText(s.substring(2, s.length() - 2).trim());
     };
 
-DEFINITION: WS* '@[[' WS* ~('['|']')+ WS* ']]' WS*
+DEFINITION: WS? '@[[' WS? ~('['|']')+ WS? ']]' WS?
     {
         String s = getText().trim();
         setText(s.substring(3, s.length() - 2).trim());
     };
 
-NOTE: WS* '@[' WS* ('$'|[0-9]+) WS* ']' WS*
+NOTE: WS? '@[' WS? ('$'|[0-9]+) WS? ']' WS?
     {
         String s = getText().trim();
         setText(s.substring(2, s.length() - 1).trim());
     };
 
-REFERENCE: WS* '[' WS* ('$'|[0-9]+) WS* ']' WS*
+REFERENCE: WS? '[' WS? ('$'|[0-9]+) WS? ']' WS?
     {
         String s = getText().trim();
         setText(s.substring(1, s.length() - 1).trim());
     };
 
-ADRESS: '@[' WS* ~('['|']')+ WS* '][' WS*
+ADRESS: '@[' WS? ~('['|']')+ WS? '][' WS?
     {
         String s = getText().trim();
         setText(s.substring(2, s.length() - 2).trim());
     };
 
-LINK: WS* '][' WS* ~('['|']')+ WS* ']'
+LINK: WS? '][' WS? ~('['|']')+ WS? ']'
     {
         String s = getText().trim();
         setText(s.substring(2, s.length() - 1).trim());
     };
 
-LINK_BEGIN: '[' WS*;
-ADRESS_END: WS* ']';
+LINK_BEGIN: '[' WS?;
+ADRESS_END: WS? ']';
 
 BOLD: '**';
 ITALIC: '//';
