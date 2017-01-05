@@ -18,9 +18,9 @@ parse:
     )* EOF;
 
 block:
-    (   header (list | numbered_list | line)
-    |   header (NEWLINE+ (list | numbered_list | line) (NEWLINE (list | numbered_list | line))*)* NEWLINE* WS? '>'
-    |   (header NEWLINE)? (list | numbered_list | line) (NEWLINE (list | numbered_list | line))* NEWLINE
+    (   header (list | line)
+    |   header (NEWLINE+ (list | line) (NEWLINE (list | line))*)* NEWLINE* WS? '>'
+    |   (header NEWLINE)? (list | line) (NEWLINE (list | line))* NEWLINE
     )   NEWLINE*
     ;
 
@@ -57,83 +57,29 @@ title_7: TITLE_7 NEWLINE*;
 title_8: TITLE_8 NEWLINE*;
 title_9: TITLE_9 NEWLINE*;
 
-/*
-list
+list: ('-'|'0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') WS? list_item[0];
+
+list_item
+    [int currentDepth]
+    locals [int depth]
     :
-    listDepth=WS?
-    '-' WS? line NEWLINE
+    line NEWLINE
     (
-        depth=WS?
-        { $depth.getText().length() <= $listDepth.getText().length() }?
-            '-' WS? line NEWLINE
-    |   { $depth.getText().length() > $listDepth.getText().length() }?
-            (   sublist[$depth.getText().length()]
-            |   numbered_sublist[$depth.getText().length()]
-            )
-    )*
+        tabs=WS? ('-'|'0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') WS?
+        { $depth = $tabs != null ? $tabs.getText().length() : 0; }
+        (
+            { $depth > $currentDepth }?
+            sublist_start[$depth]
+        |   { $depth < $currentDepth }?
+            sublist_end[$depth]
+        |   // else
+            list_item[$depth]
+        )
+    )?
     ;
 
-sublist
-    [int listDepth]
-    :
-    '-' WS? line NEWLINE
-    (
-        depth=WS?
-        { $depth.getText().length() == $listDepth }?
-            '-' WS? line NEWLINE
-    |   { $depth.getText().length() > $listDepth }?
-            (   sublist[$depth.getText().length()]
-            |   numbered_sublist[$depth.getText().length()]
-            )
-    )*
-    ;
-*/
-
-list: (list_item (NEWLINE list2)* NEWLINE)+;
-list2: (WS list_item (NEWLINE list3)*)+;
-list3: (WS WS list_item (NEWLINE list4)*)+;
-list4: (WS WS WS list_item (NEWLINE list5)*)+;
-list5: (WS WS WS WS+ list_item)+;
-list_item: '-' WS? line;
-
-/*
-numbered_list
-    :
-    listDepth=WS?
-    ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') WS? line NEWLINE
-    (
-        depth=WS?
-        { $depth.getText().length() <= $listDepth.getText().length() }?
-            ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') WS? line NEWLINE
-    |   { $depth.getText().length() > $listDepth.getText().length() }?
-            (   sublist[$depth.getText().length()]
-            |   numbered_sublist[$depth.getText().length()]
-            )
-    )*
-    ;
-
-numbered_sublist
-    [int listDepth]
-    :
-    ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') WS? line NEWLINE
-    (
-        depth=WS?
-        { $depth.getText().length() == $listDepth }?
-            ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') WS? line NEWLINE
-    |   { $depth.getText().length() > $listDepth }?
-            (   sublist[$depth.getText().length()]
-            |   numbered_sublist[$depth.getText().length()]
-            )
-    )*
-    ;
-*/
-
-numbered_list: (numbered_list_item (NEWLINE numbered_list2)* NEWLINE)+;
-numbered_list2: (WS numbered_list_item (NEWLINE numbered_list3)*)+;
-numbered_list3: (WS WS numbered_list_item (NEWLINE numbered_list4)*)+;
-numbered_list4: (WS WS WS numbered_list_item (NEWLINE numbered_list5)*)+;
-numbered_list5: (WS WS WS WS+ numbered_list_item)+;
-numbered_list_item: ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') WS? line;
+sublist_start [int currentDepth] : list_item[$currentDepth];
+sublist_end [int currentDepth] : list_item[$currentDepth];
 
 link: DIRECT_LINK | '[' line LINK;
 adress: DEFINITION | ADRESS line ']';
