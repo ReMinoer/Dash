@@ -81,6 +81,117 @@ list_item
 sublist_start [int currentDepth] : list_item[$currentDepth];
 sublist_end [int currentDepth] : list_item[$currentDepth];
 
+/*
+list
+    locals
+    [
+        boolean ordered,
+        Stack depthStack = new Stack(),
+        Stack orderedStack = new Stack()
+    ]
+    :
+    (
+        ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-')
+        { $ordered = true; }
+    |   '-'
+        { $ordered = false; }
+    )
+    WS?
+    {
+        $depthStack.push(0);
+    }
+    (   { $ordered }?
+            list_ordered[$depthStack, $orderedStack]
+    |   // else
+            list_bulleted[$depthStack, $orderedStack]
+    )
+    ;
+
+list_bulleted
+    [
+        Stack depthStack,
+        Stack orderedStack
+    ]
+    :
+    {
+        $orderedStack.push(false);
+    }
+    list_item[$depthStack, $orderedStack]
+    ;
+
+list_ordered
+    [
+        Stack depthStack,
+        Stack orderedStack
+    ]
+    :
+    {
+        $orderedStack.push(true);
+    }
+    list_item[$depthStack, $orderedStack]
+    ;
+
+list_item
+    [
+        Stack depthStack,
+        Stack orderedStack
+    ]
+    locals
+    [
+        int depth,
+        boolean ordered
+    ]
+    :
+    line NEWLINE
+    (
+        tabs=WS?
+        (
+            ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-')
+            { $ordered = true; }
+        |   '-'
+            { $ordered = false; }
+        )
+        WS?
+        {
+            $depth = $tabs != null ? $tabs.getText().length() : 0;
+        }
+        (   { $depth > (int)$depthStack.peek() }?
+                {
+                    $depthStack.push($depth);
+                }
+                (   { $ordered }?
+                        list_ordered[$depthStack, $orderedStack]
+                |   // else
+                        list_bulleted[$depthStack, $orderedStack]
+                )
+        |   { $depth < (int)$depthStack.peek() }?
+                list_end[$depthStack, $orderedStack]
+        |   // else
+                (   { $ordered && !(boolean)$orderedStack.peek() }?
+                        list_ordered[$depthStack, $orderedStack]
+                |   { !$ordered && (boolean)$orderedStack.peek() }?
+                        list_bulleted[$depthStack, $orderedStack]
+                |   // else
+                        list_item[$depthStack, $orderedStack]
+                )
+        )
+    )?
+    ;
+
+list_end
+    [
+        Stack depthStack,
+        Stack orderedStack
+    ]
+    :
+    {
+        $depthStack.pop();
+        $orderedStack.pop();
+    }
+    list_item[$depthStack, $orderedStack]
+    ;
+*/
+
 link: DIRECT_LINK | '[' line LINK;
 adress: DEFINITION | ADRESS line ']';
 note: NOTE line;
