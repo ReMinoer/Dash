@@ -57,140 +57,226 @@ title_7: TITLE_7 NEWLINE*;
 title_8: TITLE_8 NEWLINE*;
 title_9: TITLE_9 NEWLINE*;
 
-list: ('-'|'0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') WS? list_item[0];
-
-list_item
-    [int currentDepth]
-    locals [int depth]
-    :
-    line NEWLINE
+list locals [int depth = 0, boolean ordered = false]:
     (
-        tabs=WS? ('-'|'0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') WS?
-        { $depth = $tabs != null ? $tabs.getText().length() : 0; }
-        (
-            { $depth > $currentDepth }?
-            sublist_start[$depth]
-        |   { $depth < $currentDepth }?
-            sublist_end[$depth]
-        |   // else
-            list_item[$depth]
-        )
+        tabs=WS
+        {
+            $depth = $tabs.getText().length();
+        }
     )?
-    ;
-
-sublist_start [int currentDepth] : list_item[$currentDepth];
-sublist_end [int currentDepth] : list_item[$currentDepth];
-
-/*
-list
-    locals
-    [
-        boolean ordered,
-        Stack depthStack = new Stack(),
-        Stack orderedStack = new Stack()
-    ]
-    :
     (
-        ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-')
-        { $ordered = true; }
+        ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') { $ordered = true; }
     |   '-'
-        { $ordered = false; }
     )
     WS?
-    {
-        $depthStack.push(0);
-    }
     (   { $ordered }?
-            list_ordered[$depthStack, $orderedStack]
-    |   // else
-            list_bulleted[$depthStack, $orderedStack]
+            list_ordered[$depth]
+    |   { !$ordered }?
+            list_bulleted[$depth]
     )
     ;
 
-list_bulleted
-    [
-        Stack depthStack,
-        Stack orderedStack
-    ]
-    :
-    {
-        $orderedStack.push(false);
-    }
-    list_item[$depthStack, $orderedStack]
-    ;
-
-list_ordered
-    [
-        Stack depthStack,
-        Stack orderedStack
-    ]
-    :
-    {
-        $orderedStack.push(true);
-    }
-    list_item[$depthStack, $orderedStack]
-    ;
-
-list_item
-    [
-        Stack depthStack,
-        Stack orderedStack
-    ]
-    locals
-    [
-        int depth,
-        boolean ordered
-    ]
-    :
-    line NEWLINE
+list_bulleted [int currentDepth] locals [int depth, boolean ordered = false, boolean stop = false]:
+    line
     (
-        tabs=WS?
+        NEWLINE
+        {
+            $depth = 0;
+        }
         (
-            ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-')
-            { $ordered = true; }
+            tabs=WS
+            {
+                $depth = $tabs.getText().length();
+            }
+        )?
+        (
+            ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') { $ordered = true; }
         |   '-'
-            { $ordered = false; }
         )
         WS?
-        {
-            $depth = $tabs != null ? $tabs.getText().length() : 0;
-        }
-        (   { $depth > (int)$depthStack.peek() }?
-                {
-                    $depthStack.push($depth);
-                }
+        (   { $depth > $currentDepth }?
                 (   { $ordered }?
-                        list_ordered[$depthStack, $orderedStack]
-                |   // else
-                        list_bulleted[$depthStack, $orderedStack]
+                        subo=sublist_ordered[$depth]
+                        (
+                            { $subo.returnDepth >= 0 }?
+                                line
+                        )?
+                |   { !$ordered }?
+                        subb=sublist_bulleted[$depth]
+                        (
+                            { $subb.returnDepth >= 0 }?
+                                line
+                        )?
                 )
-        |   { $depth < (int)$depthStack.peek() }?
-                list_end[$depthStack, $orderedStack]
-        |   // else
-                (   { $ordered && !(boolean)$orderedStack.peek() }?
-                        list_ordered[$depthStack, $orderedStack]
-                |   { !$ordered && (boolean)$orderedStack.peek() }?
-                        list_bulleted[$depthStack, $orderedStack]
-                |   // else
-                        list_item[$depthStack, $orderedStack]
+        |   { $depth <= $currentDepth }?
+                (   { $ordered }?
+                        subo=sublist_ordered[$depth]
+                        (
+                            { $subo.returnDepth >= 0 }?
+                                line
+                        )?
+                |   { !$ordered }?
+                        line
                 )
         )
-    )?
+    )*
     ;
 
-list_end
-    [
-        Stack depthStack,
-        Stack orderedStack
-    ]
-    :
-    {
-        $depthStack.pop();
-        $orderedStack.pop();
-    }
-    list_item[$depthStack, $orderedStack]
+sublist_bulleted [int currentDepth] returns [int returnDepth = -1] locals [int depth, boolean ordered = false]:
+    line
+    (
+        { $returnDepth < 0 }?
+        NEWLINE
+        {
+            $depth = 0;
+        }
+        (
+            tabs=WS
+            {
+                $depth = $tabs.getText().length();
+            }
+        )?
+        (
+            ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') { $ordered = true; }
+        |   '-'
+        )
+        WS?
+        (   { $depth > $currentDepth }?
+                (   { $ordered }?
+                        subo=sublist_ordered[$depth]
+                        (
+                            { $subo.returnDepth >= $currentDepth }?
+                                line
+                        |   { $subo.returnDepth < $currentDepth }?
+                                { $returnDepth = $subo.returnDepth; }
+                        )
+                |   { !$ordered }?
+                        subb=sublist_bulleted[$depth]
+                        (
+                            { $subb.returnDepth >= $currentDepth }?
+                                line
+                        |   { $subb.returnDepth < $currentDepth }?
+                                { $returnDepth = $subb.returnDepth; }
+                        )
+                )
+        |   { $depth == $currentDepth }?
+                (   { $ordered }?
+                        subo=sublist_ordered[$depth]
+                        (
+                            { $subo.returnDepth >= $currentDepth }?
+                                line
+                        |   { $subo.returnDepth < $currentDepth }?
+                                { $returnDepth = $subo.returnDepth; }
+                        )
+                |   { !$ordered }?
+                        line
+                )
+        |   { $depth < $currentDepth }?
+                { $returnDepth = $depth; }
+        )
+    )*
     ;
-*/
+
+list_ordered [int currentDepth] locals [int depth, boolean ordered = false, boolean stop = false]:
+    line
+    (
+        NEWLINE
+        {
+            $depth = 0;
+        }
+        (
+            tabs=WS
+            {
+                $depth = $tabs.getText().length();
+            }
+        )?
+        (
+            ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') { $ordered = true; }
+        |   '-'
+        )
+        WS?
+        (   { $depth > $currentDepth }?
+                (   { $ordered }?
+                        subo=sublist_ordered[$depth]
+                        (
+                            { $subo.returnDepth >= 0 }?
+                                line
+                        )?
+                |   { !$ordered }?
+                        subb=sublist_bulleted[$depth]
+                        (
+                            { $subb.returnDepth >= 0 }?
+                                line
+                        )?
+                )
+        |   { $depth <= $currentDepth }?
+                (   { !$ordered }?
+                        subb=sublist_bulleted[$depth]
+                        (
+                            { $subb.returnDepth >= 0 }?
+                                line
+                        )?
+                |   { $ordered }?
+                        line
+                )
+        )
+    )*
+    ;
+
+sublist_ordered [int currentDepth] returns [int returnDepth = -1] locals [int depth, boolean ordered = false]:
+    line
+    (
+        { $returnDepth < 0 }?
+        NEWLINE
+        {
+            $depth = 0;
+        }
+        (
+            tabs=WS
+            {
+                $depth = $tabs.getText().length();
+            }
+        )?
+        (
+            ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') { $ordered = true; }
+        |   '-'
+        )
+        WS?
+        (   { $depth > $currentDepth }?
+                (   { $ordered }?
+                        subo=sublist_ordered[$depth]
+                        (
+                            { $subo.returnDepth >= $currentDepth }?
+                                line
+                        |   { $subo.returnDepth < $currentDepth }?
+                                { $returnDepth = $subo.returnDepth; }
+                        )
+                |   { !$ordered }?
+                        subb=sublist_bulleted[$depth]
+                        (
+                            { $subb.returnDepth >= $currentDepth }?
+                                line
+                        |   { $subb.returnDepth < $currentDepth }?
+                                { $returnDepth = $subb.returnDepth; }
+                        )
+                )
+        |   { $depth == $currentDepth }?
+                (   { !$ordered }?
+                        subb=sublist_bulleted[$depth]
+                        (
+                            { $subb.returnDepth >= $currentDepth }?
+                                line
+                        |   { $subb.returnDepth < $currentDepth }?
+                                { $returnDepth = $subb.returnDepth; }
+                        )
+                |   { $ordered }?
+                        line
+                )
+        |   { $depth < $currentDepth }?
+                { $returnDepth = $depth; }
+        )
+    )*
+    ;
 
 link: DIRECT_LINK | '[' line LINK;
 adress: DEFINITION | ADRESS line ']';
