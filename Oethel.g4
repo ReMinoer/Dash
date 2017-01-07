@@ -43,6 +43,15 @@ line:
         |   ADRESS_END
         |   LIST_BULLET
         |   LIST_NUMBER
+        |   TITLE_1
+        |   TITLE_2
+        |   TITLE_3
+        |   TITLE_4
+        |   TITLE_5
+        |   TITLE_6
+        |   TITLE_7
+        |   TITLE_8
+        |   TITLE_9
         )
     )+
     ;
@@ -54,15 +63,15 @@ strikethrough: STRIKETHROUGH WS? line WS? STRIKETHROUGH;
 
 header: HEADER;
 
-title_1: TITLE_1;
-title_2: TITLE_2;
-title_3: TITLE_3;
-title_4: TITLE_4;
-title_5: TITLE_5;
-title_6: TITLE_6;
-title_7: TITLE_7;
-title_8: TITLE_8;
-title_9: TITLE_9;
+title_1: TITLE_1 line;
+title_2: TITLE_2 line;
+title_3: TITLE_3 line;
+title_4: TITLE_4 line;
+title_5: TITLE_5 line;
+title_6: TITLE_6 line;
+title_7: TITLE_7 line;
+title_8: TITLE_8 line;
+title_9: TITLE_9 line;
 
 list locals [int depth = 0]:
     (
@@ -300,58 +309,49 @@ HEADER: WS? '<' WS? ID WS? '>' WS?
         setText(s.substring(1, s.length() - 1).trim());
     };
 
-TITLE_1: WS? '->' WS? ID
+TITLE_1: WS? '->' WS?
     {
-        String s = getText().trim();
-        setText(s.substring(2, s.length()).trim());
+        setText(getText().trim());
     };
 
-TITLE_2: WS? '-->' WS? ID
+TITLE_2: WS? '-->' WS?
     {
-        String s = getText().trim();
-        setText(s.substring(3, s.length()).trim());
+        setText(getText().trim());
     };
 
-TITLE_3: WS? '--->' WS? ID
+TITLE_3: WS? '--->' WS?
     {
-        String s = getText().trim();
-        setText(s.substring(4, s.length()).trim());
+        setText(getText().trim());
     };
 
-TITLE_4: WS? '---->' WS? ID
+TITLE_4: WS? '---->' WS?
     {
-        String s = getText().trim();
-        setText(s.substring(5, s.length()).trim());
+        setText(getText().trim());
     };
 
-TITLE_5: WS? '----->' WS? ID
+TITLE_5: WS? '----->' WS?
     {
-        String s = getText().trim();
-        setText(s.substring(6, s.length()).trim());
+        setText(getText().trim());
     };
 
-TITLE_6: WS? '------>' WS? ID
+TITLE_6: WS? '------>' WS?
     {
-        String s = getText().trim();
-        setText(s.substring(7, s.length()).trim());
+        setText(getText().trim());
     };
 
-TITLE_7: WS? '------->' WS? ID
+TITLE_7: WS? '------->' WS?
     {
-        String s = getText().trim();
-        setText(s.substring(8, s.length()).trim());
+        setText(getText().trim());
     };
 
-TITLE_8: WS? '-------->' WS? ID
+TITLE_8: WS? '-------->' WS?
     {
-        String s = getText().trim();
-        setText(s.substring(9, s.length()).trim());
+        setText(getText().trim());
     };
 
-TITLE_9: WS? '--------->' WS? ID
+TITLE_9: WS? '--------->' WS?
     {
-        String s = getText().trim();
-        setText(s.substring(10, s.length()).trim());
+        setText(getText().trim());
     };
 
 LIST_BULLET: '-' WS?
