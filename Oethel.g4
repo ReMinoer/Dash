@@ -37,7 +37,9 @@ line:
         |   underline
         |   strikethrough
         |   link
-        |   adress
+        |   direct_link
+        |   address
+        |   definition
         |   text
         )
     )+
@@ -47,7 +49,7 @@ text:
     (   WS?
         (   WORD
         |   LINK_BEGIN
-        |   ADRESS_END
+        |   ADDRESS_END
         |   LIST_BULLET
         |   LIST_NUMBER
         |   TITLE_1
@@ -279,8 +281,13 @@ sublist_ordered [int currentDepth] returns [int returnDepth = -1] locals [int de
     )*
     ;
 
-link: DIRECT_LINK | '[' line LINK;
-adress: DEFINITION | ADRESS line ']';
+link: '[' line link_target;
+link_target: LINK;
+direct_link: DIRECT_LINK;
+
+address: address_name line ']';
+address_name: ADDRESS;
+definition: DEFINITION;
 note: NOTE line;
 
 media: (media_extension? NEWLINE*) MEDIA;
@@ -403,7 +410,7 @@ REFERENCE: WS? '[' WS? ('$'|[0-9]+) WS? ']' WS?
         setText(s.substring(1, s.length() - 1).trim());
     };
 
-ADRESS: '@[' WS? ~('['|']')+ WS? '][' WS?
+ADDRESS: '@[' WS? ~('['|']')+ WS? '][' WS?
     {
         String s = getText().trim();
         setText(s.substring(2, s.length() - 2).trim());
@@ -416,7 +423,7 @@ LINK: WS? '][' WS? ~('['|']')+ WS? ']'
     };
 
 LINK_BEGIN: '[' WS?;
-ADRESS_END: WS? ']';
+ADDRESS_END: WS? ']';
 
 BOLD: '**';
 ITALIC: '//';
