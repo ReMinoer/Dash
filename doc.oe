@@ -52,17 +52,17 @@ Come back to the line in the same paragraph is handled in the language because i
 You can use **bold** with { ** ... ** }.
 You can use // italic // with { // ... // }.
 You can use __underline__ with { __ ... __ }.
-You can use ==strikethrough== with { == ... == }.
+You can use --strikethrough-- with { -- ... -- }.
 
 < Design note >
 These symbols have been choosen because they are simple to access on a keyboard, refers to their effects and highlight plain text at different degrees.
 
 You can use all these decoration at the same time if you want. You just need to think to always close the last opened decoration before the others.
-**//__Here__ is an ==exemple==.//**
+**//__Here__ is an --exemple--.//**
 
 < Example >
 {
-     **//__Here__ is// an ==exemple==**.
+     **//__Here__ is// an --exemple--**.
 }
 
 < Design note >
@@ -72,15 +72,15 @@ These 4 characters can be used in text if they are not double. For example: "4 *
 
 You can list items by using { - } at the beginning of lines.
 
-- Item A
-- Item B
-- Item C
+-Item A
+-Item B
+-Item C
 
 < Example >
 {
-    - Item A
-    - Item B
-    - Item C
+    -Item A
+    -Item B
+    -Item C
 }
 
 You can describe trees by breaking the alignement with tabulations or spaces.
@@ -131,15 +131,15 @@ Numbers used and order doesn't import. You can put { 1- } on each line if you wa
 
 If you don't want to use numbers in plain text, use { $- }
 
-$- Item 1
-$- Item 2
-$- Item 3
+$-Item 1
+$-Item 2
+$-Item 3
 
 < Example >
 {
-    $- Item 1
-    $- Item 2
-    $- Item 3
+    $-Item 1
+    $-Item 2
+    $-Item 3
 }
 
 < Design note >
@@ -148,20 +148,20 @@ In Oethel, { $ } replace numbers when it's possible.
 You can combine all these types of lists on different levels if you want.
 
 1- Item 1
-    - Sub-item A
-    - Sub-item B
+    - Sub - item A
+    - Sub - item B
 2- Item 2
-    $- Sub-item A
-    $- Sub-item B
+    $- Sub - item A
+    $- Sub - item B
 
 < Example >
 {
     1- Item 1
-        - Sub-item A
-        - Sub-item B
+        - Sub - item A
+        - Sub - item B
     2- Item 2
-        $- Sub-item A
-        $- Sub-item B
+        $- Sub - item A
+        $- Sub - item B
 }
 
 -> Links

@@ -1,7 +1,8 @@
 grammar Oethel;
 
 parse:
-    (   NEWLINE*
+    NEWLINE*
+    (   
         (   comment
         |   title_1 
         |   title_2
@@ -15,14 +16,16 @@ parse:
         |   note
         |   block
         )
-    )* EOF;
+        NEWLINE*
+    )*
+    EOF
+    ;
 
 block:
     (   header (list | line)
     |   header (NEWLINE+ (list | line) (NEWLINE (list | line))*)* NEWLINE* WS? '>'
     |   (header NEWLINE)? (list | line) (NEWLINE (list | line))* NEWLINE
-    )   NEWLINE*
-    ;
+    );
 
 line:
     (   WS?
@@ -35,7 +38,11 @@ line:
         |   strikethrough
         |   link
         |   adress
-        |   WORD | LINK_BEGIN | ADRESS_END
+        |   WORD
+        |   LINK_BEGIN
+        |   ADRESS_END
+        |   LIST_BULLET
+        |   LIST_NUMBER
         )
     )+
     ;
@@ -47,32 +54,25 @@ strikethrough: STRIKETHROUGH WS? line WS? STRIKETHROUGH;
 
 header: HEADER;
 
-title_1: TITLE_1 NEWLINE*;
-title_2: TITLE_2 NEWLINE*;
-title_3: TITLE_3 NEWLINE*;
-title_4: TITLE_4 NEWLINE*;
-title_5: TITLE_5 NEWLINE*;
-title_6: TITLE_6 NEWLINE*;
-title_7: TITLE_7 NEWLINE*;
-title_8: TITLE_8 NEWLINE*;
-title_9: TITLE_9 NEWLINE*;
+title_1: TITLE_1;
+title_2: TITLE_2;
+title_3: TITLE_3;
+title_4: TITLE_4;
+title_5: TITLE_5;
+title_6: TITLE_6;
+title_7: TITLE_7;
+title_8: TITLE_8;
+title_9: TITLE_9;
 
-list locals [int depth = 0, boolean ordered = false]:
+list locals [int depth = 0]:
     (
         tabs=WS
         {
             $depth = $tabs.getText().length();
         }
     )?
-    (
-        ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') { $ordered = true; }
-    |   '-'
-    )
-    WS?
-    (   { $ordered }?
-            list_ordered[$depth]
-    |   { !$ordered }?
-            list_bulleted[$depth]
+    (   LIST_NUMBER WS? list_ordered[$depth]
+    |   LIST_BULLET WS? list_bulleted[$depth]
     )
     ;
 
@@ -80,18 +80,15 @@ list_bulleted [int currentDepth] locals [int depth, boolean ordered = false, boo
     line
     (
         NEWLINE
-        {
-            $depth = 0;
-        }
+        { $depth = 0; }
         (
             tabs=WS
             {
                 $depth = $tabs.getText().length();
             }
         )?
-        (
-            ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') { $ordered = true; }
-        |   '-'
+        (   LIST_NUMBER { $ordered = true; }
+        |   LIST_BULLET
         )
         WS?
         (   { $depth > $currentDepth }?
@@ -127,20 +124,16 @@ sublist_bulleted [int currentDepth] returns [int returnDepth = -1] locals [int d
     (
         { $returnDepth < 0 }?
         NEWLINE
-        {
-            $depth = 0;
-        }
+        { $depth = 0; }
         (
             tabs=WS
             {
                 $depth = $tabs.getText().length();
             }
         )?
-        (
-            ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') { $ordered = true; }
-        |   '-'
+        (   LIST_NUMBER { $ordered = true; }
+        |   LIST_BULLET
         )
-        WS?
         (   { $depth > $currentDepth }?
                 (   { $ordered }?
                         subo=sublist_ordered[$depth]
@@ -181,20 +174,16 @@ list_ordered [int currentDepth] locals [int depth, boolean ordered = false, bool
     line
     (
         NEWLINE
-        {
-            $depth = 0;
-        }
+        { $depth = 0; }
         (
             tabs=WS
             {
                 $depth = $tabs.getText().length();
             }
         )?
-        (
-            ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') { $ordered = true; }
-        |   '-'
+        (   LIST_NUMBER { $ordered = true; }
+        |   LIST_BULLET
         )
-        WS?
         (   { $depth > $currentDepth }?
                 (   { $ordered }?
                         subo=sublist_ordered[$depth]
@@ -228,20 +217,16 @@ sublist_ordered [int currentDepth] returns [int returnDepth = -1] locals [int de
     (
         { $returnDepth < 0 }?
         NEWLINE
-        {
-            $depth = 0;
-        }
+        { $depth = 0; }
         (
             tabs=WS
             {
                 $depth = $tabs.getText().length();
             }
         )?
-        (
-            ('0-'|'1-'|'2-'|'3-'|'4-'|'5-'|'6-'|'7-'|'8-'|'9-'|'$-') { $ordered = true; }
-        |   '-'
+        (   LIST_NUMBER { $ordered = true; }
+        |   LIST_BULLET
         )
-        WS?
         (   { $depth > $currentDepth }?
                 (   { $ordered }?
                         subo=sublist_ordered[$depth]
@@ -369,6 +354,16 @@ TITLE_9: WS? '--------->' WS? ID
         setText(s.substring(10, s.length()).trim());
     };
 
+LIST_BULLET: '-' WS?
+    {
+        setText(getText().trim());
+    };
+
+LIST_NUMBER: ([0-9$])+ WS? '-' WS?
+    {
+        setText(getText().trim());
+    };
+
 DIRECT_LINK: WS? '[[' WS? ~('['|']')+ WS? ']]' WS?
     {
         String s = getText().trim();
@@ -411,17 +406,17 @@ ADRESS_END: WS? ']';
 BOLD: '**';
 ITALIC: '//';
 UNDERLINE: '__';
-STRIKETHROUGH: '==';
+STRIKETHROUGH: '--';
 
 WORD:
         '*'
     |   '/'
     |   '_'
-    |   '='
+    |   '-'
     |   (   '*'NOT_BOLD
         |   '/'NOT_ITALIC
         |   '_'NOT_UNDERLINE
-        |   '='NOT_STRIKETHROUGH
+        |   '-'NOT_STRIKETHROUGH
         |   WORD_CHAR
         )+
     ;
@@ -429,21 +424,21 @@ WORD:
 fragment NOT_BOLD:
     (   '/'NOT_ITALIC
     |   '_'NOT_UNDERLINE
-    |   '='NOT_STRIKETHROUGH
+    |   '-'NOT_STRIKETHROUGH
     |   WORD_CHAR
     );
 
 fragment NOT_ITALIC:
     (   '*'NOT_BOLD
     |   '_'NOT_UNDERLINE
-    |   '='NOT_STRIKETHROUGH
+    |   '-'NOT_STRIKETHROUGH
     |   WORD_CHAR
     );
 
 fragment NOT_UNDERLINE:
     (   '*'NOT_BOLD
     |   '/'NOT_ITALIC
-    |   '='NOT_STRIKETHROUGH
+    |   '-'NOT_STRIKETHROUGH
     |   WORD_CHAR
     );
 
@@ -454,6 +449,6 @@ fragment NOT_STRIKETHROUGH:
     |   WORD_CHAR
     );
 
-fragment WORD_CHAR: ~('*'|'/'|'_'|'='|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']');
+fragment WORD_CHAR: ~('*'|'/'|'_'|'-'|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']'|'<'|'>');
 fragment ID: ~[\n\r{}<>\[\]]+;
 fragment VOID: (' '|'\t'|'\n'|'\r')+;
