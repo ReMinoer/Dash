@@ -1,5 +1,9 @@
 @ECHO OFF
 
+SET GRAMMARNAME=oethel.antlr.Oethel
+SET JAVA_TARGET_DIR=java
+SET JAVA_TARGET_OUT_DIR=out
+
 IF [%1]==[] GOTO USAGE
 
 IF NOT DEFINED JAVA_HOME (
@@ -12,9 +16,9 @@ ECHO CLASSPATH environment variable is not defined ! Create it with ".;antlr_jar
 EXIT /B 203
 )
 
-CD "java/bin/"
+CD "%JAVA_TARGET_DIR%/%JAVA_TARGET_OUT_DIR%/"
 
-"%JAVA_HOME%\bin\java.exe" -cp "%CLASSPATH%" org.antlr.v4.gui.TestRig Oethel parse <../../%*
+"%JAVA_HOME%\bin\java.exe" -cp "%CLASSPATH%" org.antlr.v4.gui.TestRig %GRAMMARNAME% parse <../../%*
 IF errorlevel 1 (
 ECHO Failed to open tree!
 CD ../..
