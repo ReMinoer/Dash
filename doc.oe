@@ -351,6 +351,7 @@ For that reason, Oethel standard suggest its own syntax for common media.
 
 --> Tables
 
+< .table.oe >
 {
     Name        John        Paul        Bob
     Age         22          34          58
@@ -359,6 +360,7 @@ For that reason, Oethel standard suggest its own syntax for common media.
 
 < Example >
 {
+    < .table.oe >
     {
         Name        John        Paul        Bob
         Age         22          34          58
@@ -368,6 +370,7 @@ For that reason, Oethel standard suggest its own syntax for common media.
 
 < Example >
 {
+    < .table.oe >
     {
         Name;John;Paul;Bob
         Age;22;34;58
@@ -377,6 +380,7 @@ For that reason, Oethel standard suggest its own syntax for common media.
 
 < Example >
 {
+    < .table.oe >
     {
         ---------------------------------------------------------
         | Name        | John        | Paul        | Bob         |
@@ -390,6 +394,7 @@ For that reason, Oethel standard suggest its own syntax for common media.
 
 --> Graphs
 
+< .graph.oe >
 {
     Begin
     --> Point A
@@ -405,6 +410,7 @@ For that reason, Oethel standard suggest its own syntax for common media.
 
 < Example >
 {
+    < .graph.oe >
     {
         Begin
         --> Point A
@@ -434,6 +440,7 @@ For that reason, Oethel standard suggest its own syntax for common media.
 
 < Example >
 {
+    < .cs >
     {
         public class Program()
         {

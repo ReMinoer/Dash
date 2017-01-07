@@ -276,7 +276,8 @@ link: DIRECT_LINK | '[' line LINK;
 adress: DEFINITION | ADRESS line ']';
 note: NOTE line;
 
-media: MEDIA;
+media: (media_extension? NEWLINE*) MEDIA;
+media_extension: MEDIA_EXTENSION;
 
 reference: WORD REFERENCE;
 
@@ -298,6 +299,13 @@ MEDIA: WS? '{' VOID? (MEDIA | ~[{}])* VOID? '}' WS?
     {
         String s = getText().trim();
         setText(s.substring(1, s.length() - 1).trim());
+    };
+
+MEDIA_EXTENSION: WS? '<' WS? ('.'[a-zA-Z0-9]+)+ WS? '>' WS?
+    {
+        String s = getText().trim();
+        s = s.substring(1, s.length() - 1).trim();
+        setText(s.substring(1, s.length()).trim());
     };
 
 NEWLINE: WS? (('\r'? '\n' | '\r') | EOF);
@@ -450,5 +458,5 @@ fragment NOT_STRIKETHROUGH:
     );
 
 fragment WORD_CHAR: ~('*'|'/'|'_'|'-'|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']'|'<'|'>');
-fragment ID: ~[\n\r{}<>\[\]]+;
+fragment ID: ~[\n\r.{}<>\[\]]+;
 fragment VOID: (' '|'\t'|'\n'|'\r')+;
