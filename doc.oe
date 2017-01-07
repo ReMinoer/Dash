@@ -248,8 +248,8 @@ You can build a lexic by combining multi-identifier targets and raw internal lin
 You can write a note on a line beginning by a target with a number or { $ } as identifier. { @[$] }.
 Then, it is possible to reference that note with { [content][number] }.
 
-If you use { $ }, the next note not already referenced will be linked[$].
-If you use a number, it will reference the next note in text with that number[1] or, if it didn't exist, the previous one.
+If you use { $ }, the next note not already referenced will be [linked][$].
+If you use a number, it will reference the next note in text with [that number][1] or, if it didn't exist, the previous one.
 
 @[$] Here is a first note.
 @[1] Here is a second note.

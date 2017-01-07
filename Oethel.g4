@@ -82,6 +82,25 @@ title_7: TITLE_7 line;
 title_8: TITLE_8 line;
 title_9: TITLE_9 line;
 
+link: LINK_BEGIN line link_target;
+link_target: LINK_TARGET;
+direct_link: DIRECT_LINK;
+
+address: address_name line ADDRESS_END;
+address_name: ADDRESS_NAME;
+definition: DEFINITION;
+
+reference: LINK_BEGIN line reference_number;
+reference_number: REFERENCE_NUMBER;
+note: note_number line;
+note_number: NOTE;
+
+media: (media_extension? NEWLINE*) media_content;
+media_content: MEDIA_CONTENT;
+media_extension: MEDIA_EXTENSION;
+
+comment: WS? COMMENT_INLINE | WS? COMMENT_BLOCK WS?;
+
 list locals [int depth = 0]:
     (
         tabs=WS
@@ -281,21 +300,8 @@ sublist_ordered [int currentDepth] returns [int returnDepth = -1] locals [int de
     )*
     ;
 
-link: '[' line link_target;
-link_target: LINK;
-direct_link: DIRECT_LINK;
-
-address: address_name line ']';
-address_name: ADDRESS;
-definition: DEFINITION;
-note: NOTE line;
-
-media: (media_extension? NEWLINE*) MEDIA;
-media_extension: MEDIA_EXTENSION;
-
-reference: WORD REFERENCE;
-
-comment: WS? COMMENT_INLINE | WS? COMMENT_BLOCK WS?;
+NEWLINE: WS? (('\r'? '\n' | '\r') | EOF);
+WS: (' ' | '\t')+;
 
 COMMENT_BLOCK: '~~~~' .*? '~~~~'
     {
@@ -309,7 +315,7 @@ COMMENT_INLINE: '~~' WS? ~[\n\r]*
         setText(s.substring(2, s.length()).trim());
     };
 
-MEDIA: WS? '{' VOID? (MEDIA | ~[{}])* VOID? '}' WS?
+MEDIA_CONTENT: WS? '{' VOID? (MEDIA_CONTENT | ~[{}])* VOID? '}' WS?
     {
         String s = getText().trim();
         setText(s.substring(1, s.length() - 1).trim());
@@ -322,71 +328,50 @@ MEDIA_EXTENSION: WS? '<' WS? ('.'[a-zA-Z0-9]+)+ WS? '>' WS?
         setText(s.substring(1, s.length()).trim());
     };
 
-NEWLINE: WS? (('\r'? '\n' | '\r') | EOF);
-WS: (' ' | '\t')+;
-
 HEADER: WS? '<' WS? ID WS? '>' WS?
     {
         String s = getText().trim();
         setText(s.substring(1, s.length() - 1).trim());
     };
 
-TITLE_1: WS? '->' WS?
+TITLE_1: WS? '->' WS?;
+TITLE_2: WS? '-->' WS?;
+TITLE_3: WS? '--->' WS?;
+TITLE_4: WS? '---->' WS?;
+TITLE_5: WS? '----->' WS?;
+TITLE_6: WS? '------>' WS?;
+TITLE_7: WS? '------->' WS?;
+TITLE_8: WS? '-------->' WS?;
+TITLE_9: WS? '--------->' WS?;
+
+LIST_BULLET: '-' WS?;
+LIST_NUMBER: ([0-9$])+ WS? '-' WS?;
+
+NOTE: WS? '@[' WS? ([0-9$]+) WS? ']' WS?
     {
-        setText(getText().trim());
+        String s = getText().trim();
+        setText(s.substring(2, s.length() - 1).trim());
     };
 
-TITLE_2: WS? '-->' WS?
+REFERENCE_NUMBER: WS? '][' WS? ([0-9$]+) WS? ']'
     {
-        setText(getText().trim());
+        String s = getText().trim();
+        setText(s.substring(2, s.length() - 1).trim());
     };
 
-TITLE_3: WS? '--->' WS?
+LINK_TARGET: WS? '][' WS? ~('['|']')+ WS? ']'
     {
-        setText(getText().trim());
-    };
-
-TITLE_4: WS? '---->' WS?
-    {
-        setText(getText().trim());
-    };
-
-TITLE_5: WS? '----->' WS?
-    {
-        setText(getText().trim());
-    };
-
-TITLE_6: WS? '------>' WS?
-    {
-        setText(getText().trim());
-    };
-
-TITLE_7: WS? '------->' WS?
-    {
-        setText(getText().trim());
-    };
-
-TITLE_8: WS? '-------->' WS?
-    {
-        setText(getText().trim());
-    };
-
-TITLE_9: WS? '--------->' WS?
-    {
-        setText(getText().trim());
-    };
-
-LIST_BULLET: '-' WS?
-    {
-        setText(getText().trim());
-    };
-
-LIST_NUMBER: ([0-9$])+ WS? '-' WS?
-    {
-        setText(getText().trim());
+        String s = getText().trim();
+        setText(s.substring(2, s.length() - 1).trim());
     };
 
 DIRECT_LINK: WS? '[[' WS? ~('['|']')+ WS? ']]' WS?
+    {
+        String s = getText().trim();
+        setText(s.substring(2, s.length() - 2).trim());
+    };
+
+ADDRESS_NAME: '@[' WS? ~('['|']')+ WS? '][' WS?
     {
         String s = getText().trim();
         setText(s.substring(2, s.length() - 2).trim());
@@ -396,30 +381,6 @@ DEFINITION: WS? '@[[' WS? ~('['|']')+ WS? ']]' WS?
     {
         String s = getText().trim();
         setText(s.substring(3, s.length() - 2).trim());
-    };
-
-NOTE: WS? '@[' WS? ('$'|[0-9]+) WS? ']' WS?
-    {
-        String s = getText().trim();
-        setText(s.substring(2, s.length() - 1).trim());
-    };
-
-REFERENCE: WS? '[' WS? ('$'|[0-9]+) WS? ']' WS?
-    {
-        String s = getText().trim();
-        setText(s.substring(1, s.length() - 1).trim());
-    };
-
-ADDRESS: '@[' WS? ~('['|']')+ WS? '][' WS?
-    {
-        String s = getText().trim();
-        setText(s.substring(2, s.length() - 2).trim());
-    };
-
-LINK: WS? '][' WS? ~('['|']')+ WS? ']'
-    {
-        String s = getText().trim();
-        setText(s.substring(2, s.length() - 1).trim());
     };
 
 LINK_BEGIN: '[' WS?;
