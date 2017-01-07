@@ -38,7 +38,14 @@ line:
         |   strikethrough
         |   link
         |   adress
-        |   WORD
+        |   text
+        )
+    )+
+    ;
+
+text:
+    (   WS?
+        (   WORD
         |   LINK_BEGIN
         |   ADRESS_END
         |   LIST_BULLET

@@ -147,21 +147,21 @@ In Oethel, { $ } replace numbers when it's possible.
 
 You can combine all these types of lists on different levels if you want.
 
-1- Item 1
+1 - Item 1
     - Sub - item A
     - Sub - item B
-2- Item 2
-    $- Sub - item A
-    $- Sub - item B
+2 - Item 2
+    $ - Sub - item A
+    $ - Sub - item B
 
 < Example >
 {
-    1- Item 1
+    1 - Item 1
         - Sub - item A
         - Sub - item B
-    2- Item 2
-        $- Sub - item A
-        $- Sub - item B
+    2 - Item 2
+        $ - Sub - item A
+        $ - Sub - item B
 }
 
 -> Links
