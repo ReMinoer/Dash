@@ -1,5 +1,16 @@
 grammar Oethel;
 
+/*
+
+-> TO-DO
+
+- Multiple words definition
+- White space counter (tabulation as 4 spaces)
+- Try refactor lists
+- Think about trim and substring usage on tokens
+
+*/
+
 parse:
     NEWLINE*
     (   
@@ -16,7 +27,7 @@ parse:
         |   note
         |   block
         )
-        NEWLINE*
+        NEWLINE+
     )*
     EOF
     ;
@@ -24,7 +35,7 @@ parse:
 block:
     (   header (list | line)
     |   header (NEWLINE+ (list | line) (NEWLINE (list | line))*)* NEWLINE* WS? '>'
-    |   (header NEWLINE)? (list | line) (NEWLINE (list | line))* NEWLINE
+    |   (header NEWLINE)? (list | line) (NEWLINE (list | line))*
     );
 
 line:
@@ -95,7 +106,7 @@ reference_number: REFERENCE_NUMBER;
 note: note_number line;
 note_number: NOTE;
 
-media: (media_extension? NEWLINE*) media_content;
+media: (media_extension NEWLINE?)? media_content;
 media_content: MEDIA_CONTENT;
 media_extension: MEDIA_EXTENSION;
 

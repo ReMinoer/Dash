@@ -4,8 +4,10 @@
 ~~~~
 To-Do
 
+- Redirection (use file as media, convert internal links or references to external link)
 - Keep .œ extension ?
 - Better multi-line blocks
+- Rewrite code snippets and examples
 ~~~~
 
 -> Introduction
@@ -214,34 +216,17 @@ It's also possible to use multiple identifier for a same target by separate them
 }
 
 < Design note >
-You can also use [ and ] as text if needed.
-
-# Internal links
-
-You can have internal links by using a target identifier at the place of the link.
-Here is an internal link : [Link text][Second target]
-
-< Example >
-{
-    [Link text][Second target]
-}
-
-Here is another using its target identifier as text : [[Third target]]
-
-< Example >
-{
-    [[Third target]]
-}
-
-< Design note >
 You can build a lexic by combining multi-identifier targets and raw internal links.
 
 < Example >
 {
     [[Ethel]] is another way to write [[Oethel]].
     ...
-    @[[Oethel,ethel]]: wonderful language
+    @[[oethel,ethel]]: wonderful language
 }
+
+< Design note >
+You can also use [ and ] as text if needed.
 
 -> Notes
 
