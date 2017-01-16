@@ -4,26 +4,22 @@
 ~~~~
 To-Do
 
-- Redirection (use file as media, convert internal links or references to external link)
+- Redirection (external link note)
 - Keep .œ extension ?
 - Better multi-line blocks
 - Rewrite code snippets and examples
 ~~~~
 
--> Introduction
+<-> Introduction
 
-This language is called Œthel. You can also write it "Œ" or "OE".
-
-"Œthel" (or more commonly "ethel") is one of the name given to the character 'œ'. Given that, it's also a recursive name (there is an œthel (Œ) in the word "œthel").
+This language is called Œthel. You can also write it "Œ" or "OE". "Œthel" (or more commonly "ethel") is one of the name given to the character 'œ'. Given that, it's also a recursive name (there is an œthel (Œ) in the word "œthel").
 
 On Windows, you can type these specials characters:
 
 - { Press Alt and type 0140 } give "Œ"
 - { Press Alt and type 0156 } give "œ"
 
--> Extensions
-
-Used file extensions are :
+Used file extensions are:
 
 - .œ : one character geek extension
 - .oe : basic two character extension
@@ -31,14 +27,14 @@ Used file extensions are :
 
 Majuscule extensions are also tolerated.
 
--> Paragraphs
+<-> Paragraphs
 
 You can write paragraphs directly.
 
 Jump two lines to write another paragraphs.
 You can also back to the line in the same paragraph.
 
-< Example >
+< -.oe >
 {
     You can write paragraphs directly.
 
@@ -49,7 +45,7 @@ You can also back to the line in the same paragraph.
 < Design note >
 Come back to the line in the same paragraph is handled in the language because it's a common plain text formatting.
 
--> Decoration
+<-> Decoration
 
 You can use **bold** with { ** ... ** }.
 You can use // italic // with { // ... // }.
@@ -59,18 +55,17 @@ You can use --strikethrough-- with { -- ... -- }.
 < Design note >
 These symbols have been choosen because they are simple to access on a keyboard, refers to their effects and highlight plain text at different degrees.
 
-You can use all these decoration at the same time if you want. You just need to think to always close the last opened decoration before the others.
-**//__Here__ is an --exemple--.//**
+You can use all these decoration at the same time if you want. You just need to think to always close the last opened decoration before the others: **//__Here__ is an --exemple--.//**
 
-< Example >
+< -.oe >
 {
      **//__Here__ is// an --exemple--**.
 }
 
 < Design note >
-These 4 characters can be used in text if they are not double. For example: "4 * 3 / 2 = _ ?"
+These 4 characters can be used in text if they are not double. For example: "4 * 3 / 2 = _ ?".
 
--> Lists
+<-> Lists
 
 You can list items by using { - } at the beginning of lines.
 
@@ -78,7 +73,7 @@ You can list items by using { - } at the beginning of lines.
 -Item B
 -Item C
 
-< Example >
+< -.oe >
 {
     -Item A
     -Item B
@@ -98,7 +93,7 @@ You can describe trees by breaking the alignement with tabulations or spaces.
         - Sub-sub-item B1a
         - Sub-sub-item B1b
 
-< Example >
+< -.oe >
 {
     - Item A
         - Sub-item A1
@@ -121,7 +116,7 @@ You can also create numbered lists with { 1- 2- 3- }.
 2- Item 2
 3- Item 3
 
-< Example >
+< -.oe >
 {
     1- Item 1
     2- Item 2
@@ -129,15 +124,15 @@ You can also create numbered lists with { 1- 2- 3- }.
 }
 
 < Design note >
-Numbers used and order doesn't import. You can put { 1- } on each line if you want. It must just begin by a number. 
+Numbers used and order is not important. You can put { 1- } on each line if you want. It must just begin by a number. 
 
-If you don't want to use numbers in plain text, use { $- }
+If you don't want to use numbers and leave the order to the parser, use { $- }
 
 $-Item 1
 $-Item 2
 $-Item 3
 
-< Example >
+< Snippet >
 {
     $-Item 1
     $-Item 2
@@ -156,38 +151,38 @@ You can combine all these types of lists on different levels if you want.
     $ - Sub - item A
     $ - Sub - item B
 
-< Example >
+< -.oe >
 {
     1 - Item 1
-        - Sub - item A
+        - Sub - item A0
         - Sub - item B
     2 - Item 2
         $ - Sub - item A
         $ - Sub - item B
 }
 
--> Links
+<-> Links
 
 You can put external links in your note by using { [content][adress] }.
 Here is an example : [Link text][http://www.google.com/]
 
-< Example >
+< -.oe >
 {
     [Link text][http://www.google.com/]
 }
 
 If you also want to use the adress as text, use { [[adress]] } like so: [[http://www.google.com/]]
 
-< Example >
+< -.oe >
 {
     [[http://www.google.com/]]
 }
 
--> Targets
+<-> Targets
 
 You can define internal target at a specific position in your document with { @[identifier] }.
 
-< Example >
+< -.oe >
 {
     @[First target]
 }
@@ -195,40 +190,40 @@ You can define internal target at a specific position in your document with { @[
 You can also target a specific content by using { @[identifier][content] }.
 Here is an example : @[Second target][Target text]
 
-< Example >
+< -.oe >
 {
     @[Second target][Target text]
 }
 
 If you want to use the target identifier as text, use { @[[identifier]] } like so: @[[Third target]]
 
-< Example >
+< -.oe >
 {
     @[[Third target]]
 }
 
-It's also possible to use multiple identifier for a same target by separate them with comma.
+It's also possible to use multiple identifier for a same target by separate them with pipes { | }.
 
-< Example >
+< -.oe >
 {
-    @[First target, 1st target][Target text]
-    @[[First target, 1st target]] ~~ First identitier will be used as content here.
+    @[First target | 1st target][Target text]
+    @[[First target | 1st target]]
 }
 
 < Design note >
 You can build a lexic by combining multi-identifier targets and raw internal links.
 
-< Example >
+< -.oe >
 {
     [[Ethel]] is another way to write [[Oethel]].
     ...
-    @[[oethel,ethel]]: wonderful language
+    @[[oethel | ethel]]: wonderful language
 }
 
 < Design note >
 You can also use [ and ] as text if needed.
 
--> Notes
+<-> Notes
 
 You can write a note on a line beginning by a target with a number or { $ } as identifier. { @[$] }.
 Then, it is possible to reference that note with { [content][number] }.
@@ -239,29 +234,33 @@ If you use a number, it will reference the next note in text with [that number][
 @[$] Here is a first note.
 @[1] Here is a second note.
 
--> Titles
+<-> Titles
 
-To add a title, use { -> } at the beginning of the line.
-You can define subtitles by adding more { - } at the beginning.
+To add a title, use { <-> } at the beginning of the line.
+You can define subtitles by adding more { - } inside brackets.
 
-< Example >
+< -.oe >
 {
-    --> Title 2
+    <-> Title 1
+
+    Paragraph of Title 1
+
+    <--> Title 2
 
     Paragraph of Title 2
 
-    ---> Title 3
+    <---> Title 3
 
     Paragraph of Title 3
 }
 
--> Blocks
+<-> Blocks
 
 You can also define structural blocks for highlight some paragraphs.
 
 < Message > Here is a message on one line.
 
-< Example >
+< -.oe >
 {
     < Code > Here is a quote on one line.
 }
@@ -269,7 +268,7 @@ You can also define structural blocks for highlight some paragraphs.
 < Warning >
 Here is a warning on one line.
 
-< Example >
+< -.oe >
 {
     < Warning >
     Here is a warning on one line, declared on previous line.
@@ -281,7 +280,7 @@ Here is a note.
 On multiple line.
 >
 
-< Example >
+< -.oe >
 {
     < Note >
     Here is a note.
@@ -291,27 +290,26 @@ On multiple line.
 }
 
 < Design note >
-In fact, titles and quotes are blocks. Because there are common in various output format and can be inline, they have there own syntax.
-Titles ({ -> }) are combining lists and blocks syntax. Quotes ({ > }) are the more generic blocks.
+In fact, titles are blocks. Because there are common in various output format and can be inline, they have there own syntax. Titles ({ <-> }) are combining lists and blocks syntax.
 
--> Media
+<-> Media
 
 If you want to insert a media (like a picture, a video or a table) or some text written in another language (like a code sample), you must use { { ... } }.
-To indicate the type of media, it must be preceed by a header providing the file extension used for this type of media.
+To indicate the type of media, it must be preceed by a header providing the file extension used for this type of media. An extension must at least contains one point {.}.
 
 < Design note >
-Supported media depend of your converter and of the supoort format. Anyway, converted file must provide an alternative output if the media can't be displayed, like a link or a summary.
+Supported media depend of your converter and its supported format. Anyway, converted file must provide an alternative output if the media can't be displayed, like a link or a summary.
 
 If the media that you want to display is inside a file, just provide the path.
 
-< Example >
+< -.oe >
 {
     < .ext > { path/file.ext }
 }
 
 If the media can be describe directly in your file with its own language, write it directly.
 
-< Example >
+< -.oe >
 {
     < .ext >
     {
@@ -319,43 +317,67 @@ If the media can be describe directly in your file with its own language, write 
     }
 }
 
-If you don't indicate a file extension or if it is unknown and data isn't binary, media will be displayed as plain text. 
+If you don't indicate a file extension or if it is unknown and data isn't binary, media will be displayed as plain text.
 
-< Design note >
-Try to use understandable languages when you describe directly your media. Oethel is a textual language and shouldn't use binary data.
-For that reason, Oethel standard suggest its own syntax for common media.
+You can also use prefix to force the kind of display in ambigous cases :
 
---> Images/Videos
+- {+} will force default graphic form
+- {-} will force default textual form
 
-< .png > { cat.png }
-
-< Example >
+< -.oe >
 {
-    < .png > { cat.png }
-}
-
---> Tables
-
-< .table.oe >
-{
-    Name        John        Paul        Bob
-    Age         22          34          58
-    Happy?      Yes         Yes         No
-}
-
-< Example >
-{
-    < .table.oe >
     {
-        Name        John        Paul        Bob
-        Age         22          34          58
-        Happy?      Yes         Yes         No
+        ~~ Markdown is a plain-text document language like Oehtel
+
+        < .md > { # Markdown Title } ~~ Display with converter default representation
+        < +.md > { # Markdown Title } ~~ Display a title
+        < -.md > { # Markdown Title } ~~ Display "# Markdown Title" as Markdown language snippet
+
+        ~~ gitignore is a language containing folder and file paths
+
+        < .gitignore > { folder/.gitignore } ~~ Display content of folder/.gitignore file
+        < -.gitignore > { folder/.gitignore } ~~ Display "folder/.gitignore" as gitignore language snippet
     }
 }
 
-< Example >
+< Design note >
+Try to use understandable languages when you describe directly your media. Oethel is a textual language and shouldn't use binary data.
+
+<--> Images
+
+< .jpg > { images/cat }
+< .png > { https://www.google.fr/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png }
+
+< Snippet >
+< .oe >
 {
-    < .table.oe >
+    < .jpg > { images/cat }
+    < .png > { https://www.google.fr/images/branding/googlelogo/2x/googlelogo_color_272x92dp }
+}
+
+<--> Videos
+
+< .mp4 > { videos/cat }
+< www.youtube.com > { LJttZ_Zfiw0 }
+
+< -.oe >
+{
+    < .mp4 > { videos/cat.mp4 }
+    < www.youtube.com > { LJttZ_Zfiw0 }
+}
+
+<--> Tables
+
+< .csv >
+{
+    Name;John;Paul;Bob
+    Age;22;34;58
+    Happy?;Yes;Yes;No
+}
+
+< -.oe >
+{
+    < .csv >
     {
         Name;John;Paul;Bob
         Age;22;34;58
@@ -363,56 +385,42 @@ For that reason, Oethel standard suggest its own syntax for common media.
     }
 }
 
-< Example >
+<--> Graphs
+
+< .graph >
 {
-    < .table.oe >
+    S* Start
+    --> A
+    A* Point A
+    -- If µ >= 0 --> B
+    -- Else --> C
+    B* Point B
+    --> E
+    C* Point C
+    --> E
+    E* End
+}
+
+< -.oe >
+{
+    < .graph >
     {
-        ---------------------------------------------------------
-        | Name        | John        | Paul        | Bob         |
-        ---------------------------------------------------------
-        | Age         | 22          | 34          | 58          |
-        ---------------------------------------------------------
-        | Happy?      | Yes         | Yes         | No          |
-        ---------------------------------------------------------
+        S* Start
+        --> A
+        A* Point A
+        -- If µ >= 0 --> B
+        -- Else --> C
+        B* Point B
+        --> E
+        C* Point C
+        --> E
+        E* End
     }
 }
 
---> Graphs
+<--> Code
 
-< .graph.oe >
-{
-    Begin
-    --> Point A
-    Point A
-    -- If µ >= 0 --> Point B
-    -- Else --> Point C
-    Point B
-    --> End
-    Point C
-    --> End
-    End
-}
-
-< Example >
-{
-    < .graph.oe >
-    {
-        Begin
-        --> Point A
-        Point A
-        -- If µ >= 0 --> Point B
-        -- Else --> Point C
-        Point B
-        --> End
-        Point C
-        --> End
-        End
-    }
-}
-
---> Code
-
-< .cs >
+< -.cs >
 {
     public class Program()
     {
@@ -423,9 +431,9 @@ For that reason, Oethel standard suggest its own syntax for common media.
     }
 }
 
-< Example >
+< -.oe >
 {
-    < .cs >
+    < -.cs >
     {
         public class Program()
         {
@@ -440,7 +448,7 @@ For that reason, Oethel standard suggest its own syntax for common media.
 < Design note >
 Converter will use provided extension to apply syntax color highlighting.
 
--> Comments
+<-> Comments
 
 You can use comments by using { ~~ } at the beginning of a line.
 
@@ -457,5 +465,4 @@ on multiple lines
 ~~~~
 
 < Design note >
-Some output format can handle comments so they are not always ignoring.
-
+Some document output format can handle comments so they are not always ignoring.
