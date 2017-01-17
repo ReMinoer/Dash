@@ -34,7 +34,7 @@ You can write paragraphs directly.
 Jump two lines to write another paragraphs.
 You can also back to the line in the same paragraph.
 
-< -.oe >
+< .oe- >
 {
     You can write paragraphs directly.
 
@@ -57,7 +57,7 @@ These symbols have been choosen because they are simple to access on a keyboard,
 
 You can use all these decoration at the same time if you want. You just need to think to always close the last opened decoration before the others: **//__Here__ is an --exemple--.//**
 
-< -.oe >
+< .oe- >
 {
      **//__Here__ is// an --exemple--**.
 }
@@ -73,7 +73,7 @@ You can list items by using { - } at the beginning of lines.
 -Item B
 -Item C
 
-< -.oe >
+< .oe- >
 {
     -Item A
     -Item B
@@ -93,7 +93,7 @@ You can describe trees by breaking the alignement with tabulations or spaces.
         - Sub-sub-item B1a
         - Sub-sub-item B1b
 
-< -.oe >
+< .oe- >
 {
     - Item A
         - Sub-item A1
@@ -116,7 +116,7 @@ You can also create numbered lists with { 1- 2- 3- }.
 2- Item 2
 3- Item 3
 
-< -.oe >
+< .oe- >
 {
     1- Item 1
     2- Item 2
@@ -128,15 +128,15 @@ Numbers used and order is not important. You can put { 1- } on each line if you 
 
 If you don't want to use numbers and leave the order to the parser, use { $- }
 
-$-Item 1
-$-Item 2
-$-Item 3
+$- Item 1
+$- Item 2
+$- Item 3
 
 < Snippet >
 {
-    $-Item 1
-    $-Item 2
-    $-Item 3
+    $- Item 1
+    $- Item 2
+    $- Item 3
 }
 
 < Design note >
@@ -151,7 +151,7 @@ You can combine all these types of lists on different levels if you want.
     $ - Sub - item A
     $ - Sub - item B
 
-< -.oe >
+< .oe- >
 {
     1 - Item 1
         - Sub - item A0
@@ -166,14 +166,14 @@ You can combine all these types of lists on different levels if you want.
 You can put external links in your note by using { [content][adress] }.
 Here is an example : [Link text][http://www.google.com/]
 
-< -.oe >
+< .oe- >
 {
     [Link text][http://www.google.com/]
 }
 
 If you also want to use the adress as text, use { [[adress]] } like so: [[http://www.google.com/]]
 
-< -.oe >
+< .oe- >
 {
     [[http://www.google.com/]]
 }
@@ -182,42 +182,34 @@ If you also want to use the adress as text, use { [[adress]] } like so: [[http:/
 
 You can define internal target at a specific position in your document with { @[identifier] }.
 
-< -.oe >
+< .oe- >
 {
     @[First target]
 }
 
-You can also target a specific content by using { @[identifier][content] }.
-Here is an example : @[Second target][Target text]
+You can also target a specific content by using { @[identifier] Text }.
+Here is an example : @[Second target] Text
 
-< -.oe >
+< .oe- >
 {
-    @[Second target][Target text]
-}
-
-If you want to use the target identifier as text, use { @[[identifier]] } like so: @[[Third target]]
-
-< -.oe >
-{
-    @[[Third target]]
+    @[Second target] Text
 }
 
 It's also possible to use multiple identifier for a same target by separate them with pipes { | }.
 
-< -.oe >
+< .oe- >
 {
     @[First target | 1st target][Target text]
-    @[[First target | 1st target]]
 }
 
 < Design note >
 You can build a lexic by combining multi-identifier targets and raw internal links.
 
-< -.oe >
+< .oe- >
 {
     [[Ethel]] is another way to write [[Oethel]].
     ...
-    @[[oethel | ethel]]: wonderful language
+    @[oethel | ethel] Oethel: wonderful language
 }
 
 < Design note >
@@ -239,7 +231,7 @@ If you use a number, it will reference the next note in text with [that number][
 To add a title, use { <-> } at the beginning of the line.
 You can define subtitles by adding more { - } inside brackets.
 
-< -.oe >
+< .oe- >
 {
     <-> Title 1
 
@@ -260,7 +252,7 @@ You can also define structural blocks for highlight some paragraphs.
 
 < Message > Here is a message on one line.
 
-< -.oe >
+< .oe- >
 {
     < Code > Here is a quote on one line.
 }
@@ -268,7 +260,7 @@ You can also define structural blocks for highlight some paragraphs.
 < Warning >
 Here is a warning on one line.
 
-< -.oe >
+< .oe- >
 {
     < Warning >
     Here is a warning on one line, declared on previous line.
@@ -280,7 +272,7 @@ Here is a note.
 On multiple line.
 >
 
-< -.oe >
+< .oe- >
 {
     < Note >
     Here is a note.
@@ -302,14 +294,14 @@ Supported media depend of your converter and its supported format. Anyway, conve
 
 If the media that you want to display is inside a file, just provide the path.
 
-< -.oe >
+< .oe- >
 {
     < .ext > { path/file.ext }
 }
 
 If the media can be describe directly in your file with its own language, write it directly.
 
-< -.oe >
+< .oe- >
 {
     < .ext >
     {
@@ -324,7 +316,7 @@ You can also use prefix to force the kind of display in ambigous cases :
 - {+} will force default graphic form
 - {-} will force default textual form
 
-< -.oe >
+< .oe- >
 {
     {
         ~~ Markdown is a plain-text document language like Oehtel
@@ -348,8 +340,7 @@ Try to use understandable languages when you describe directly your media. Oethe
 < .jpg > { images/cat }
 < .png > { https://www.google.fr/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png }
 
-< Snippet >
-< .oe >
+< .oe- >
 {
     < .jpg > { images/cat }
     < .png > { https://www.google.fr/images/branding/googlelogo/2x/googlelogo_color_272x92dp }
@@ -358,9 +349,9 @@ Try to use understandable languages when you describe directly your media. Oethe
 <--> Videos
 
 < .mp4 > { videos/cat }
-< www.youtube.com > { LJttZ_Zfiw0 }
+< .youtube.com > { LJttZ_Zfiw0 }
 
-< -.oe >
+< .oe- >
 {
     < .mp4 > { videos/cat.mp4 }
     < www.youtube.com > { LJttZ_Zfiw0 }
@@ -375,7 +366,7 @@ Try to use understandable languages when you describe directly your media. Oethe
     Happy?;Yes;Yes;No
 }
 
-< -.oe >
+< .oe- >
 {
     < .csv >
     {
@@ -401,7 +392,7 @@ Try to use understandable languages when you describe directly your media. Oethe
     E* End
 }
 
-< -.oe >
+< .oe- >
 {
     < .graph >
     {
@@ -420,7 +411,7 @@ Try to use understandable languages when you describe directly your media. Oethe
 
 <--> Code
 
-< -.cs >
+< .cs- >
 {
     public class Program()
     {
@@ -431,9 +422,9 @@ Try to use understandable languages when you describe directly your media. Oethe
     }
 }
 
-< -.oe >
+< .oe- >
 {
-    < -.cs >
+    < .cs- >
     {
         public class Program()
         {

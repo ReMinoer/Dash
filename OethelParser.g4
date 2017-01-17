@@ -1,20 +1,24 @@
-grammar Oethel;
+parser grammar OethelParser;
+
+options { tokenVocab=OethelLexer; }
 
 /*
 
 -> TO-DO
 
+- Pair link modes
+- New line mode
 - Multiple words definition
 - White space counter (tabulation as 4 spaces)
 - Try refactor lists
-- Think about trim and substring usage on tokens
 
 */
 
 parse:
     NEWLINE*
     (   
-        (   comment
+        (   comment_block
+        |   comment_inline
         |   title_1 
         |   title_2
         |   title_3
@@ -27,20 +31,21 @@ parse:
         |   note
         |   block
         )
-        NEWLINE+
+        NEWLINE*
     )*
     EOF
     ;
 
 block:
-    (   header (list | line)
-    |   header (NEWLINE+ (list | line) (NEWLINE (list | line))*)* NEWLINE* WS? '>'
+    (   header (list | line) NEWLINE
+    |   header (NEWLINE+ (list | line) (NEWLINE (list | line))*)* NEWLINE* WS? BLOCK_CLOSE
     |   (header NEWLINE)? (list | line) (NEWLINE (list | line))*
     );
 
 line:
     (   WS?
-        (   comment
+        (   comment_block
+        |   comment_inline
         |   reference
         |   media
         |   bold
@@ -50,7 +55,6 @@ line:
         |   link
         |   direct_link
         |   address
-        |   definition
         |   text
         )
     )+
@@ -59,8 +63,8 @@ line:
 text:
     (   WS?
         (   WORD
-        |   LINK_BEGIN
-        |   ADDRESS_END
+        |   LINK_OPEN
+        |   BRACKET_CLOSE
         |   LIST_BULLET
         |   LIST_NUMBER
         |   TITLE_1
@@ -81,7 +85,8 @@ italic: ITALIC WS? line WS? ITALIC;
 underline: UNDERLINE WS? line WS? UNDERLINE;
 strikethrough: STRIKETHROUGH WS? line WS? STRIKETHROUGH;
 
-header: HEADER;
+header: HEADER_OPEN header_content HEADER_CLOSE;
+header_content: HEADER_CONTENT;
 
 title_1: TITLE_1 line;
 title_2: TITLE_2 line;
@@ -93,24 +98,30 @@ title_7: TITLE_7 line;
 title_8: TITLE_8 line;
 title_9: TITLE_9 line;
 
-link: LINK_BEGIN line link_target;
-link_target: LINK_TARGET;
-direct_link: DIRECT_LINK;
+link: LINK_OPEN line LINK_MIDDLE link_content LINK_CLOSE;
+link_content: LINK_CONTENT;
+direct_link: DIRECT_LINK_OPEN direct_link_content DIRECT_LINK_CLOSE;
+direct_link_content: DIRECT_LINK_CONTENT;
 
-address: address_name line ADDRESS_END;
-address_name: ADDRESS_NAME;
-definition: DEFINITION;
+address: ADDRESS_OPEN address_content (ADDRESS_SEPARATOR address_content)* ADDRESS_CLOSE;
+address_content: ADDRESS_CONTENT;
 
-reference: LINK_BEGIN line reference_number;
+reference: LINK_OPEN line LINK_MIDDLE reference_number LINK_CLOSE;
 reference_number: REFERENCE_NUMBER;
-note: note_number line;
-note_number: NOTE;
 
-media: (media_extension NEWLINE?)? media_content;
+note: ADDRESS_OPEN note_number ADDRESS_CLOSE line;
+note_number: NOTE_NUMBER;
+
+media: (EXTENSION_OPEN media_extension (extension_plus | extension_minus)? EXTENSION_CLOSE NEWLINE?)? MEDIA_OPEN media_content MEDIA_CLOSE;
 media_content: MEDIA_CONTENT;
-media_extension: MEDIA_EXTENSION;
+media_extension: EXTENSION_CONTENT;
+extension_plus: EXTENSION_PLUS;
+extension_minus: EXTENSION_MINUS;
 
-comment: WS? COMMENT_INLINE | WS? COMMENT_BLOCK WS?;
+comment_inline: COMMENT_INLINE_OPEN comment_inline_content COMMENT_INLINE_CLOSE;
+comment_inline_content: COMMENT_INLINE_CONTENT;
+comment_block: COMMENT_BLOCK_OPEN comment_block_content COMMENT_BLOCK_CLOSE;
+comment_block_content: COMMENT_BLOCK_CONTENT;
 
 list locals [int depth = 0]:
     (
@@ -310,139 +321,3 @@ sublist_ordered [int currentDepth] returns [int returnDepth = -1] locals [int de
         )
     )*
     ;
-
-NEWLINE: WS? (('\r'? '\n' | '\r') | EOF);
-WS: (' ' | '\t')+;
-
-COMMENT_BLOCK: '~~~~' .*? '~~~~'
-    {
-        String s = getText();
-        setText(s.substring(3, s.length() - 3).trim());
-    };
-
-COMMENT_INLINE: '~~' WS? ~[\n\r]*
-    {
-        String s = getText();
-        setText(s.substring(2, s.length()).trim());
-    };
-
-MEDIA_CONTENT: WS? '{' VOID? (MEDIA_CONTENT | ~[{}])* VOID? '}' WS?
-    {
-        String s = getText().trim();
-        setText(s.substring(1, s.length() - 1).trim());
-    };
-
-MEDIA_EXTENSION: WS? '<' WS? ('.'[a-zA-Z0-9]+)+ WS? '>' WS?
-    {
-        String s = getText().trim();
-        s = s.substring(1, s.length() - 1).trim();
-        setText(s.substring(1, s.length()).trim());
-    };
-
-HEADER: WS? '<' WS? ID WS? '>' WS?
-    {
-        String s = getText().trim();
-        setText(s.substring(1, s.length() - 1).trim());
-    };
-
-TITLE_1: WS? '->' WS?;
-TITLE_2: WS? '-->' WS?;
-TITLE_3: WS? '--->' WS?;
-TITLE_4: WS? '---->' WS?;
-TITLE_5: WS? '----->' WS?;
-TITLE_6: WS? '------>' WS?;
-TITLE_7: WS? '------->' WS?;
-TITLE_8: WS? '-------->' WS?;
-TITLE_9: WS? '--------->' WS?;
-
-LIST_BULLET: '-' WS?;
-LIST_NUMBER: ([0-9$])+ WS? '-' WS?;
-
-NOTE: WS? '@[' WS? ([0-9$]+) WS? ']' WS?
-    {
-        String s = getText().trim();
-        setText(s.substring(2, s.length() - 1).trim());
-    };
-
-REFERENCE_NUMBER: WS? '][' WS? ([0-9$]+) WS? ']'
-    {
-        String s = getText().trim();
-        setText(s.substring(2, s.length() - 1).trim());
-    };
-
-LINK_TARGET: WS? '][' WS? ~('['|']')+ WS? ']'
-    {
-        String s = getText().trim();
-        setText(s.substring(2, s.length() - 1).trim());
-    };
-
-DIRECT_LINK: WS? '[[' WS? ~('['|']')+ WS? ']]' WS?
-    {
-        String s = getText().trim();
-        setText(s.substring(2, s.length() - 2).trim());
-    };
-
-ADDRESS_NAME: '@[' WS? ~('['|']')+ WS? '][' WS?
-    {
-        String s = getText().trim();
-        setText(s.substring(2, s.length() - 2).trim());
-    };
-
-DEFINITION: WS? '@[[' WS? ~('['|']')+ WS? ']]' WS?
-    {
-        String s = getText().trim();
-        setText(s.substring(3, s.length() - 2).trim());
-    };
-
-LINK_BEGIN: '[' WS?;
-ADDRESS_END: WS? ']';
-
-BOLD: '**';
-ITALIC: '//';
-UNDERLINE: '__';
-STRIKETHROUGH: '--';
-
-WORD:
-        '*'
-    |   '/'
-    |   '_'
-    |   '-'
-    |   (   '*'NOT_BOLD
-        |   '/'NOT_ITALIC
-        |   '_'NOT_UNDERLINE
-        |   '-'NOT_STRIKETHROUGH
-        |   WORD_CHAR
-        )+
-    ;
-
-fragment NOT_BOLD:
-    (   '/'NOT_ITALIC
-    |   '_'NOT_UNDERLINE
-    |   '-'NOT_STRIKETHROUGH
-    |   WORD_CHAR
-    );
-
-fragment NOT_ITALIC:
-    (   '*'NOT_BOLD
-    |   '_'NOT_UNDERLINE
-    |   '-'NOT_STRIKETHROUGH
-    |   WORD_CHAR
-    );
-
-fragment NOT_UNDERLINE:
-    (   '*'NOT_BOLD
-    |   '/'NOT_ITALIC
-    |   '-'NOT_STRIKETHROUGH
-    |   WORD_CHAR
-    );
-
-fragment NOT_STRIKETHROUGH:
-    (   '*'NOT_BOLD
-    |   '/'NOT_ITALIC
-    |   '_'NOT_UNDERLINE
-    |   WORD_CHAR
-    );
-
-fragment WORD_CHAR: ~('*'|'/'|'_'|'-'|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']'|'<'|'>');
-fragment ID: ~[\n\r.{}<>\[\]]+;
-fragment VOID: (' '|'\t'|'\n'|'\r')+;

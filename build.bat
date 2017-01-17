@@ -1,6 +1,8 @@
 @ECHO OFF
 
 SET GRAMMARNAME=Oethel
+SET PARSERNAME=OethelParser
+SET LEXERNAME=OethelLexer
 SET PACKAGE=oethel.antlr
 SET JAVA_TARGET_DIR=java
 SET JAVA_TARGET_SRC_DIR=src/oethel/antlr
@@ -20,7 +22,13 @@ IF EXIST "%JAVA_TARGET_DIR%/%JAVA_TARGET_SRC_DIR%" RMDIR /S /Q "%JAVA_TARGET_DIR
 
 ECHO Compile grammar to Java...
 
-"%JAVA_HOME%\bin\java.exe" -cp "%CLASSPATH%" org.antlr.v4.Tool "%GRAMMARNAME%.g4" -o "%JAVA_TARGET_DIR%/%JAVA_TARGET_SRC_DIR%/" -package "%PACKAGE%" -no-listener -visitor
+"%JAVA_HOME%\bin\java.exe" -cp "%CLASSPATH%" org.antlr.v4.Tool "%LEXERNAME%.g4" -o "%JAVA_TARGET_DIR%/%JAVA_TARGET_SRC_DIR%/" -package "%PACKAGE%" -no-listener -visitor
+IF errorlevel 1 (
+ECHO Compilation failed!
+EXIT /B %errorlevel%
+)
+
+"%JAVA_HOME%\bin\java.exe" -cp "%CLASSPATH%" org.antlr.v4.Tool "%PARSERNAME%.g4" -o "%JAVA_TARGET_DIR%/%JAVA_TARGET_SRC_DIR%/" -package "%PACKAGE%" -no-listener -visitor
 IF errorlevel 1 (
 ECHO Compilation failed!
 EXIT /B %errorlevel%
