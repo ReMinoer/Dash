@@ -36,7 +36,7 @@ ADDRESS_OPEN: '@[' -> pushMode(Address);
 BOLD: '**';
 ITALIC: '//';
 UNDERLINE: '__';
-STRIKETHROUGH: '--';
+STRIKETHROUGH: '==';
 
 WORD:
         '*'

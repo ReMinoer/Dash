@@ -10,9 +10,9 @@ To-Do
 - Rewrite code snippets and examples
 ~~~~
 
-<-> Introduction
+<-> Identity
 
-This language is called Œthel. You can also write it "Œ" or "OE". "Œthel" (or more commonly "ethel") is one of the name given to the character 'œ'. Given that, it's also a recursive name (there is an œthel (Œ) in the word "œthel").
+This language is called Œthel. "Œthel" (or more commonly "ethel") is one of the name given to the character 'œ'. It's also a recursive name (there is an œthel (Œ) in the word "œthel").
 
 On Windows, you can type these specials characters:
 
@@ -48,18 +48,18 @@ Come back to the line in the same paragraph is handled in the language because i
 <-> Decoration
 
 You can use **bold** with { ** ... ** }.
-You can use // italic // with { // ... // }.
+You can use //italic// with { // ... // }.
 You can use __underline__ with { __ ... __ }.
-You can use --strikethrough-- with { -- ... -- }.
+You can use ==strikethrough== with { == ... == }.
 
 < Design note >
 These symbols have been choosen because they are simple to access on a keyboard, refers to their effects and highlight plain text at different degrees.
 
-You can use all these decoration at the same time if you want. You just need to think to always close the last opened decoration before the others: **//__Here__ is an --exemple--.//**
+You can use all these decoration at the same time if you want. You just need to think to always close the last opened decoration before the others: **//__Here__ is an ==exemple==.//**
 
 < .oe- >
 {
-     **//__Here__ is// an --exemple--**.
+     **//__Here__ is// an ==exemple==**.
 }
 
 < Design note >
@@ -187,19 +187,11 @@ You can define internal target at a specific position in your document with { @[
     @[First target]
 }
 
-You can also target a specific content by using { @[identifier] Text }.
-Here is an example : @[Second target] Text
-
-< .oe- >
-{
-    @[Second target] Text
-}
-
 It's also possible to use multiple identifier for a same target by separate them with pipes { | }.
 
 < .oe- >
 {
-    @[First target | 1st target][Target text]
+    @[First target | 1st target]
 }
 
 < Design note >
@@ -209,7 +201,8 @@ You can build a lexic by combining multi-identifier targets and raw internal lin
 {
     [[Ethel]] is another way to write [[Oethel]].
     ...
-    @[oethel | ethel] Oethel: wonderful language
+    @[oethel | ethel]
+    Oethel: wonderful language
 }
 
 < Design note >
@@ -322,13 +315,13 @@ You can also use prefix to force the kind of display in ambigous cases :
         ~~ Markdown is a plain-text document language like Oehtel
 
         < .md > { # Markdown Title } ~~ Display with converter default representation
-        < +.md > { # Markdown Title } ~~ Display a title
-        < -.md > { # Markdown Title } ~~ Display "# Markdown Title" as Markdown language snippet
+        < .md+ > { # Markdown Title } ~~ Display a title
+        < .md- > { # Markdown Title } ~~ Display "# Markdown Title" as Markdown language snippet
 
         ~~ gitignore is a language containing folder and file paths
 
         < .gitignore > { folder/.gitignore } ~~ Display content of folder/.gitignore file
-        < -.gitignore > { folder/.gitignore } ~~ Display "folder/.gitignore" as gitignore language snippet
+        < .gitignore- > { folder/.gitignore } ~~ Display "folder/.gitignore" as gitignore language snippet
     }
 }
 
@@ -354,7 +347,7 @@ Try to use understandable languages when you describe directly your media. Oethe
 < .oe- >
 {
     < .mp4 > { videos/cat.mp4 }
-    < www.youtube.com > { LJttZ_Zfiw0 }
+    < .youtube.com > { LJttZ_Zfiw0 }
 }
 
 <--> Tables
