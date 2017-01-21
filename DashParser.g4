@@ -124,25 +124,23 @@ comment_block_content: COMMENT_BLOCK_CONTENT;
 list locals [int depth = 0]:
     (
         tabs=WS
-        {
-            $depth = $tabs.getText().length();
-        }
+        /*<#>*/ { $depth = $tabs.getText().length(); }
+        /*<csharp> { $depth = $tabs.Text.Length; } */
     )?
     (   LIST_NUMBER WS? list_ordered[$depth]
     |   LIST_BULLET WS? list_bulleted[$depth]
     )
     ;
 
-list_bulleted [int currentDepth] locals [int depth, boolean ordered = false, boolean stop = false]:
+list_bulleted [int currentDepth] locals /*<#>*/ [int depth, boolean ordered = false, boolean stop = false] /* <csharp> [int depth, bool ordered = false, bool stop = false] */:
     line
     (
         NEWLINE
         { $depth = 0; }
         (
             tabs=WS
-            {
-                $depth = $tabs.getText().length();
-            }
+            /*<#>*/ { $depth = $tabs.getText().length(); }
+            /*<csharp> { $depth = $tabs.Text.Length; } */
         )?
         (   LIST_NUMBER { $ordered = true; }
         |   LIST_BULLET
@@ -184,9 +182,8 @@ sublist_bulleted [int currentDepth] returns [int returnDepth = -1] locals [int d
         { $depth = 0; }
         (
             tabs=WS
-            {
-                $depth = $tabs.getText().length();
-            }
+            /*<#>*/ { $depth = $tabs.getText().length(); }
+            /*<csharp> { $depth = $tabs.Text.Length; } */
         )?
         (   LIST_NUMBER { $ordered = true; }
         |   LIST_BULLET
@@ -234,9 +231,8 @@ list_ordered [int currentDepth] locals [int depth, boolean ordered = false, bool
         { $depth = 0; }
         (
             tabs=WS
-            {
-                $depth = $tabs.getText().length();
-            }
+            /*<#>*/ { $depth = $tabs.getText().length(); }
+            /*<csharp> { $depth = $tabs.Text.Length; } */
         )?
         (   LIST_NUMBER { $ordered = true; }
         |   LIST_BULLET
@@ -277,9 +273,8 @@ sublist_ordered [int currentDepth] returns [int returnDepth = -1] locals [int de
         { $depth = 0; }
         (
             tabs=WS
-            {
-                $depth = $tabs.getText().length();
-            }
+            /*<#>*/ { $depth = $tabs.getText().length(); }
+            /*<csharp> { $depth = $tabs.Text.Length; } */
         )?
         (   LIST_NUMBER { $ordered = true; }
         |   LIST_BULLET
