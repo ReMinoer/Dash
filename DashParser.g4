@@ -1,14 +1,12 @@
-parser grammar OethelParser;
+parser grammar DashParser;
 
-options { tokenVocab=OethelLexer; }
+options { tokenVocab=DashLexer; }
 
 /*
 
 -> TO-DO
 
-- Pair link modes
-- New line mode
-- Multiple words definition
+- New line mode ?
 - White space counter (tabulation as 4 spaces)
 - Try refactor lists
 

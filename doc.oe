@@ -1,5 +1,5 @@
-< Title > Documentation Language Œthel
-< Subtitle > Optimal. Ergonomic. Textual. Highlighting. Evolved. Language.
+< Title > Dash Language Documentation
+< Subtitle > Documents Advanced Syntax by Highlighting
 
 ~~~~
 To-Do
@@ -12,18 +12,17 @@ To-Do
 
 <-> Identity
 
-This language is called Œthel. "Œthel" (or more commonly "ethel") is one of the name given to the character 'œ'. It's also a recursive name (there is an œthel (Œ) in the word "œthel").
+This language is called Dash. His name come from the multiples definition of the word :
 
-On Windows, you can type these specials characters:
-
-- { Press Alt and type 0140 } give "Œ"
-- { Press Alt and type 0156 } give "œ"
+- Dash as the name for the **character** {-}, used a lot in the language.
+- Dash as a **fast** movement, corresponding to a quick-note language.
+- Dash as a small amount of something, giving the idea of **subtility** and **optimization**.
+- Dash as the action of **destroy**, with one target : the //Markdown// language.
 
 Used file extensions are:
 
-- .œ : one character geek extension
-- .oe : basic two character extension
-- .oethel : name extension
+- .dh : basic two character extension
+- .dash : name extension
 
 Majuscule extensions are also tolerated.
 
@@ -140,7 +139,7 @@ $- Item 3
 }
 
 < Design note >
-In Oethel, { $ } replace numbers when it's possible.
+In Dash, { $ } replace numbers when it's possible.
 
 You can combine all these types of lists on different levels if you want.
 
@@ -199,10 +198,10 @@ You can build a lexic by combining multi-identifier targets and raw internal lin
 
 < .oe- >
 {
-    [[Ethel]] is another way to write [[Oethel]].
+    [[Ethel]] is another way to write [[Dash]].
     ...
-    @[oethel | ethel]
-    Oethel: wonderful language
+    @[dash | ethel]
+    Dash: wonderful language
 }
 
 < Design note >
@@ -326,7 +325,7 @@ You can also use prefix to force the kind of display in ambigous cases :
 }
 
 < Design note >
-Try to use understandable languages when you describe directly your media. Oethel is a textual language and shouldn't use binary data.
+Try to use understandable languages when you describe directly your media. Dash is a textual language and shouldn't use binary data.
 
 <--> Images
 

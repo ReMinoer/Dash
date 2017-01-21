@@ -1,6 +1,6 @@
 @ECHO OFF
 
-SET GRAMMARNAME=oethel.antlr.Oethel
+SET GRAMMARNAME=dash.antlr.Dash
 SET JAVA_TARGET_DIR=java
 SET JAVA_TARGET_OUT_DIR=out
 

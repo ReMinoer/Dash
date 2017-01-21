@@ -1,4 +1,4 @@
-lexer grammar OethelLexer;
+lexer grammar DashLexer;
 
 NEWLINE: WS? (('\r'? '\n' | '\r') | EOF);
 WS: (' ' | '\t')+;
