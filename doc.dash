@@ -32,7 +32,7 @@ You can write paragraphs directly.
 Jump two lines to write another paragraphs.
 You can also back to the line in the same paragraph.
 
-< .oe- >
+< .dash- >
 {
     You can write paragraphs directly.
 
@@ -55,7 +55,7 @@ These symbols have been choosen because they are simple to access on a keyboard,
 
 You can use all these decoration at the same time if you want. You just need to think to always close the last opened decoration before the others: --//__Here__ is an ==exemple==.//--
 
-< .oe- >
+< .dash- >
 {
      --//__Here__ is// an ==exemple==--.
 }
@@ -71,7 +71,7 @@ You can list items by using { - } at the beginning of lines.
 -Item B
 -Item C
 
-< .oe- >
+< .dash- >
 {
     -Item A
     -Item B
@@ -91,7 +91,7 @@ You can describe trees by breaking the alignement with tabulations or spaces.
         - Sub-sub-item B1a
         - Sub-sub-item B1b
 
-< .oe- >
+< .dash- >
 {
     - Item A
         - Sub-item A1
@@ -114,7 +114,7 @@ You can also create numbered lists with { 1- 2- 3- }.
 2- Item 2
 3- Item 3
 
-< .oe- >
+< .dash- >
 {
     1- Item 1
     2- Item 2
@@ -130,7 +130,7 @@ $- Item 1
 $- Item 2
 $- Item 3
 
-< .oe- >
+< .dash- >
 {
     $- Item 1
     $- Item 2
@@ -149,7 +149,7 @@ You can combine all these types of lists on different levels if you want.
     $ - Sub - item A
     $ - Sub - item B
 
-< .oe- >
+< .dash- >
 {
     1 - Item 1
         - Sub - item A0
@@ -164,14 +164,14 @@ You can combine all these types of lists on different levels if you want.
 You can put external links in your note by using { [content][adress] }.
 Here is an example : [Link text][http://www.google.com/]
 
-< .oe- >
+< .dash- >
 {
     [Link text][http://www.google.com/]
 }
 
 If you also want to use the adress as text, use { [[adress]] } like so: [[http://www.google.com/]]
 
-< .oe- >
+< .dash- >
 {
     [[http://www.google.com/]]
 }
@@ -180,7 +180,7 @@ If you also want to use the adress as text, use { [[adress]] } like so: [[http:/
 
 You can define internal target at a specific position in your document with { @[identifier] }.
 
-< .oe- >
+< .dash- >
 {
     @[First target]
 }
@@ -193,7 +193,7 @@ Internal target identification will ignore the case.
 
 It's also possible to use multiple identifier for a same target by separate them with pipes { | }.
 
-< .oe- >
+< .dash- >
 {
     @[First target | 1st target]
 }
@@ -201,7 +201,7 @@ It's also possible to use multiple identifier for a same target by separate them
 < Design note >
 You can build a lexic by combining multi-identifier targets and raw internal links.
 
-< .oe- >
+< .dash- >
 {
     [[Dash]] stands for "[[Documents Advanced Syntax by Highlighting]]".
     ...
@@ -228,7 +228,7 @@ If you use a number, it will reference the next note in text with [that number][
 To add a title, use { <-> } at the beginning of the line.
 You can define subtitles by adding more { - } inside brackets.
 
-< .oe- >
+< .dash- >
 {
     <-> Title 1
 
@@ -249,7 +249,7 @@ You can also define structural blocks for highlight some paragraphs.
 
 < Message > Here is a message on one line.
 
-< .oe- >
+< .dash- >
 {
     < Code > Here is a quote on one line.
 }
@@ -257,7 +257,7 @@ You can also define structural blocks for highlight some paragraphs.
 < Warning >
 Here is a warning on one line.
 
-< .oe- >
+< .dash- >
 {
     < Warning >
     Here is a warning on one line, declared on previous line.
@@ -269,7 +269,7 @@ Here is a note.
 On multiple line.
 >
 
-< .oe- >
+< .dash- >
 {
     < Note >
     Here is a note.
@@ -291,14 +291,14 @@ Supported media depend of your converter and its supported format. Anyway, conve
 
 If the media that you want to display is inside a file, just provide the path.
 
-< .oe- >
+< .dash- >
 {
     < .ext > { path/file.ext }
 }
 
 If the media can be describe directly in your file with its own language, write it directly.
 
-< .oe- >
+< .dash- >
 {
     < .ext >
     {
@@ -313,10 +313,10 @@ You can also use prefix to force the kind of display in ambigous cases :
 - {+} will force converter to use its default graphic form
 - {-} will force converter to use its default textual form
 
-< .oe- >
+< .dash- >
 {
     {
-        ~~ Markdown is a plain-text document language like Oehtel
+        ~~ Markdown is a plain-text document language like Dash
 
         < .md > { # Markdown Title } ~~ Display with converter default representation
         < .md+ > { # Markdown Title } ~~ Display a title in a frame
@@ -337,7 +337,7 @@ Try to use understandable languages when you describe directly your media. Dash 
 < .jpg > { images/cat }
 < .png > { https://www.google.fr/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png }
 
-< .oe- >
+< .dash- >
 {
     < .jpg > { images/cat }
     < .png > { https://www.google.fr/images/branding/googlelogo/2x/googlelogo_color_272x92dp }
@@ -348,7 +348,7 @@ Try to use understandable languages when you describe directly your media. Dash 
 < .mp4 > { videos/cat }
 < .youtube.com > { LJttZ_Zfiw0 }
 
-< .oe- >
+< .dash- >
 {
     < .mp4 > { videos/cat.mp4 }
     < .youtube.com > { LJttZ_Zfiw0 }
@@ -363,7 +363,7 @@ Try to use understandable languages when you describe directly your media. Dash 
     Happy?;Yes;Yes;No
 }
 
-< .oe- >
+< .dash- >
 {
     < .csv >
     {
@@ -389,7 +389,7 @@ Try to use understandable languages when you describe directly your media. Dash 
     E* End
 }
 
-< .oe- >
+< .dash- >
 {
     < .graph >
     {
@@ -419,7 +419,7 @@ Try to use understandable languages when you describe directly your media. Dash 
     }
 }
 
-< .oe- >
+< .dash- >
 {
     < .cs- >
     {
