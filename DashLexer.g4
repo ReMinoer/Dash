@@ -33,7 +33,7 @@ BRACKET_CLOSE: ']';
 
 ADDRESS_OPEN: '@[' -> pushMode(Address);
 
-BOLD: '**';
+BOLD: '--';
 ITALIC: '//';
 UNDERLINE: '__';
 STRIKETHROUGH: '==';

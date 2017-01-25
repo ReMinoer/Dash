@@ -13,10 +13,10 @@ To-Do
 
 This language is called Dash. His name come from the multiples definition of the word :
 
-- Dash as the name for the **character** {-}, used a lot in the language.
-- Dash as a **fast** movement, corresponding to a quick-note language.
-- Dash as a small amount of something, giving the idea of **subtility** and **optimization**.
-- Dash as the action of **destroy**, with one target : the //Markdown// language.
+- Dash as the name for the --character-- {-}, used a lot in the language.
+- Dash as a --fast-- movement, corresponding to a quick-note language.
+- Dash as a small amount of something, giving the idea of --subtility-- and --optimization--.
+- Dash as the action of --destroy--, with one target : the // Markdown // language.
 
 Used file extensions are:
 
@@ -45,7 +45,7 @@ Come back to the line in the same paragraph is handled in the language because i
 
 <-> Decoration
 
-You can use **bold** with { ** ... ** }.
+You can use --bold-- with { -- ... -- }.
 You can use //italic// with { // ... // }.
 You can use __underline__ with { __ ... __ }.
 You can use ==strikethrough== with { == ... == }.
@@ -53,11 +53,11 @@ You can use ==strikethrough== with { == ... == }.
 < Design note >
 These symbols have been choosen because they are simple to access on a keyboard, refers to their effects and highlight plain text at different degrees.
 
-You can use all these decoration at the same time if you want. You just need to think to always close the last opened decoration before the others: **//__Here__ is an ==exemple==.//**
+You can use all these decoration at the same time if you want. You just need to think to always close the last opened decoration before the others: --//__Here__ is an ==exemple==.//--
 
 < .oe- >
 {
-     **//__Here__ is// an ==exemple==**.
+     --//__Here__ is// an ==exemple==--.
 }
 
 < Design note >
