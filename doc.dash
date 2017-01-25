@@ -5,7 +5,6 @@
 To-Do
 
 - Redirection (external link note)
-- Better multi-line blocks
 - Rewrite code snippets and examples
 ~~~~
 
@@ -264,18 +263,18 @@ Here is a warning on one line.
 }
 
 < Note >
-Here is a note.
+Here is a note
 
-On multiple line.
->
+With multiple paragraphs.
+</>
 
 < .dash- >
 {
     < Note >
-    Here is a note.
+    Here is a note
 
-    On multiple line.
-    >
+    With multiple paragraphs.
+    </>
 }
 
 < Design note >

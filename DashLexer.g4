@@ -3,7 +3,7 @@ lexer grammar DashLexer;
 NEWLINE: WS? (('\r'? '\n' | '\r') | EOF);
 WS: (' ' | '\t')+;
 
-BLOCK_CLOSE: '>';
+BLOCK_CLOSE: '</>';
 
 COMMENT_BLOCK_OPEN: '~~~~' VOID? -> pushMode(CommentBlock);
 COMMENT_INLINE_OPEN: '~~' WS? -> pushMode(CommentInline);
