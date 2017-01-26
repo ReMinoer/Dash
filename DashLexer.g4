@@ -33,20 +33,20 @@ BRACKET_CLOSE: ']';
 
 ADDRESS_OPEN: '@[' -> pushMode(Address);
 
-BOLD: '--';
+BOLD: '""';
 ITALIC: '//';
 UNDERLINE: '__';
 STRIKETHROUGH: '==';
 
 WORD:
-        '*'
+        '"'
     |   '/'
     |   '_'
-    |   '-'
-    |   (   '*'NOT_BOLD
+    |   '='
+    |   (   '"'NOT_BOLD
         |   '/'NOT_ITALIC
         |   '_'NOT_UNDERLINE
-        |   '-'NOT_STRIKETHROUGH
+        |   '='NOT_STRIKETHROUGH
         |   WORD_CHAR
         )+
     ;
@@ -54,32 +54,32 @@ WORD:
 fragment NOT_BOLD:
     (   '/'NOT_ITALIC
     |   '_'NOT_UNDERLINE
-    |   '-'NOT_STRIKETHROUGH
+    |   '='NOT_STRIKETHROUGH
     |   WORD_CHAR
     );
 
 fragment NOT_ITALIC:
-    (   '*'NOT_BOLD
+    (   '"'NOT_BOLD
     |   '_'NOT_UNDERLINE
-    |   '-'NOT_STRIKETHROUGH
+    |   '='NOT_STRIKETHROUGH
     |   WORD_CHAR
     );
 
 fragment NOT_UNDERLINE:
-    (   '*'NOT_BOLD
+    (   '"'NOT_BOLD
     |   '/'NOT_ITALIC
-    |   '-'NOT_STRIKETHROUGH
+    |   '='NOT_STRIKETHROUGH
     |   WORD_CHAR
     );
 
 fragment NOT_STRIKETHROUGH:
-    (   '*'NOT_BOLD
+    (   '"'NOT_BOLD
     |   '/'NOT_ITALIC
     |   '_'NOT_UNDERLINE
     |   WORD_CHAR
     );
 
-fragment WORD_CHAR: ~('*'|'/'|'_'|'-'|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']'|'<'|'>');
+fragment WORD_CHAR: ~('"'|'/'|'_'|'='|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']'|'<'|'>');
 fragment ID: ~[\n\r.{}<>\[\]]+;
 fragment VOID: (' '|'\t'|'\n'|'\r')+;
 
