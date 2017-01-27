@@ -4,7 +4,7 @@
 ~~~~
 To-Do
 
-- Redirection (external link note)
+- Multiple paragraph lists
 - Rewrite code snippets and examples
 ~~~~
 
@@ -221,6 +221,17 @@ If you use a number, it will reference the next note in text with [that number][
 
 @[$] Here is a first note.
 @[1] Here is a second note.
+
+If the note contains only a direct link, it will work as a redirection. You can use that [feature][$] to avoid write a [link][$] path in a paragraph or use the same path twice.
+
+@[$] [[https://www.google.fr/search?q=feature]]
+
+< .dash- >
+{
+    You can use that [feature][$] to avoid put the [link][$] in a paragraph.
+    ...
+    @[$] [[https://www.google.fr/search?q=feature]]
+}
 
 <-> Titles
 
