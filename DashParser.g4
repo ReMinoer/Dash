@@ -61,10 +61,12 @@ line:
 text:
     (   WS?
         (   WORD
-        |   LINK_OPEN
-        |   BRACKET_CLOSE
-        |   LIST_BULLET
-        |   LIST_NUMBER
+        |   BLOCK_CLOSE
+        |   COMMENT_BLOCK_OPEN
+        |   COMMENT_INLINE_OPEN
+        |   MEDIA_OPEN
+        |   EXTENSION_OPEN
+        |   HEADER_OPEN
         |   TITLE_1
         |   TITLE_2
         |   TITLE_3
@@ -74,6 +76,29 @@ text:
         |   TITLE_7
         |   TITLE_8
         |   TITLE_9
+        |   LIST_BULLET
+        |   LIST_NUMBER
+        |   LINK_OPEN
+        |   BRACKET_CLOSE
+        |   ADDRESS_OPEN
+        |   BOLD
+        |   ITALIC
+        |   UNDERLINE
+        |   STRIKETHROUGH
+        |   COMMENT_BLOCK_CONTENT
+        |   COMMENT_INLINE_CONTENT
+        |   COMMENT_INLINE_CONTENT
+        |   MEDIA_CONTENT
+        |   EXTENSION_MINUS
+        |   EXTENSION_PLUS
+        |   EXTENSION_CONTENT
+        |   HEADER_CONTENT
+        |   REFERENCE_NUMBER
+        |   LINK_CONTENT
+        |   DIRECT_LINK_CONTENT
+        |   NOTE_NUMBER
+        |   ADDRESS_SEPARATOR
+        |   ADDRESS_CONTENT
         )
     )+
     ;
