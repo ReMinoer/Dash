@@ -12,7 +12,7 @@ options { tokenVocab=DashLexer; }
 
 */
 
-/*<#>*/
+/*<>*/
 @members
 {
 private int whiteSpaceSize(String whiteSpace) {
@@ -178,7 +178,7 @@ comment_block_content: COMMENT_BLOCK_CONTENT;
 list locals [int depth = 0]:
     (
         tabs=WS
-        /*<#>*/ { $depth = whiteSpaceSize($tabs.getText()); }
+        /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
         /*<csharp> { $depth = WhiteSpaceSize($tabs.Text); } */
     )?
     (   LIST_NUMBER WS? list_ordered[$depth]
@@ -186,14 +186,14 @@ list locals [int depth = 0]:
     )
     ;
 
-list_bulleted [int currentDepth] locals /*<#>*/ [int depth, boolean ordered = false, boolean stop = false] /* <csharp> [int depth, bool ordered = false, bool stop = false] */:
+list_bulleted [int currentDepth] locals /*<>*/ [int depth, boolean ordered = false, boolean stop = false] /* <csharp> [int depth, bool ordered = false, bool stop = false] */:
     line
     (
         NEWLINE
         { $depth = 0; }
         (
             tabs=WS
-            /*<#>*/ { $depth = whiteSpaceSize($tabs.getText()); }
+            /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
             /*<csharp> { $depth = WhiteSpaceSize($tabs.Text); } */
         )?
         (   LIST_NUMBER { $ordered = true; }
@@ -236,7 +236,7 @@ sublist_bulleted [int currentDepth] returns [int returnDepth = -1] locals [int d
         { $depth = 0; }
         (
             tabs=WS
-            /*<#>*/ { $depth = whiteSpaceSize($tabs.getText()); }
+            /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
             /*<csharp> { $depth = WhiteSpaceSize($tabs.Text); } */
         )?
         (   LIST_NUMBER { $ordered = true; }
@@ -285,7 +285,7 @@ list_ordered [int currentDepth] locals [int depth, boolean ordered = false, bool
         { $depth = 0; }
         (
             tabs=WS
-            /*<#>*/ { $depth = whiteSpaceSize($tabs.getText()); }
+            /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
             /*<csharp> { $depth = WhiteSpaceSize($tabs.Text); } */
         )?
         (   LIST_NUMBER { $ordered = true; }
@@ -327,7 +327,7 @@ sublist_ordered [int currentDepth] returns [int returnDepth = -1] locals [int de
         { $depth = 0; }
         (
             tabs=WS
-            /*<#>*/ { $depth = whiteSpaceSize($tabs.getText()); }
+            /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
             /*<csharp> { $depth = WhiteSpaceSize($tabs.Text); } */
         )?
         (   LIST_NUMBER { $ordered = true; }
