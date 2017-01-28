@@ -12,6 +12,34 @@ options { tokenVocab=DashLexer; }
 
 */
 
+/*<#>*/
+@members
+{
+private int whiteSpaceSize(String whiteSpace) {
+    int size = 0;
+    for (char c: whiteSpace.toCharArray())
+        switch (c) {
+            case ' ': size++; break;
+            case '\t': size += 4; break;
+        }
+    return size;
+}
+}
+/*<csharp>
+@members
+{
+private int WhiteSpaceSize(string whiteSpace) {
+    int size = 0;
+    foreach (char c in whiteSpace)
+        switch (c) {
+            case ' ': size++; break;
+            case '\t': size += 4; break;
+        }
+    return size;
+}
+}
+*/
+
 parse:
     NEWLINE*
     (   
@@ -150,8 +178,8 @@ comment_block_content: COMMENT_BLOCK_CONTENT;
 list locals [int depth = 0]:
     (
         tabs=WS
-        /*<#>*/ { $depth = $tabs.getText().length(); }
-        /*<csharp> { $depth = $tabs.Text.Length; } */
+        /*<#>*/ { $depth = whiteSpaceSize($tabs.getText()); }
+        /*<csharp> { $depth = WhiteSpaceSize($tabs.Text); } */
     )?
     (   LIST_NUMBER WS? list_ordered[$depth]
     |   LIST_BULLET WS? list_bulleted[$depth]
@@ -165,8 +193,8 @@ list_bulleted [int currentDepth] locals /*<#>*/ [int depth, boolean ordered = fa
         { $depth = 0; }
         (
             tabs=WS
-            /*<#>*/ { $depth = $tabs.getText().length(); }
-            /*<csharp> { $depth = $tabs.Text.Length; } */
+            /*<#>*/ { $depth = whiteSpaceSize($tabs.getText()); }
+            /*<csharp> { $depth = WhiteSpaceSize($tabs.Text); } */
         )?
         (   LIST_NUMBER { $ordered = true; }
         |   LIST_BULLET
@@ -208,8 +236,8 @@ sublist_bulleted [int currentDepth] returns [int returnDepth = -1] locals [int d
         { $depth = 0; }
         (
             tabs=WS
-            /*<#>*/ { $depth = $tabs.getText().length(); }
-            /*<csharp> { $depth = $tabs.Text.Length; } */
+            /*<#>*/ { $depth = whiteSpaceSize($tabs.getText()); }
+            /*<csharp> { $depth = WhiteSpaceSize($tabs.Text); } */
         )?
         (   LIST_NUMBER { $ordered = true; }
         |   LIST_BULLET
@@ -257,8 +285,8 @@ list_ordered [int currentDepth] locals [int depth, boolean ordered = false, bool
         { $depth = 0; }
         (
             tabs=WS
-            /*<#>*/ { $depth = $tabs.getText().length(); }
-            /*<csharp> { $depth = $tabs.Text.Length; } */
+            /*<#>*/ { $depth = whiteSpaceSize($tabs.getText()); }
+            /*<csharp> { $depth = WhiteSpaceSize($tabs.Text); } */
         )?
         (   LIST_NUMBER { $ordered = true; }
         |   LIST_BULLET
@@ -299,8 +327,8 @@ sublist_ordered [int currentDepth] returns [int returnDepth = -1] locals [int de
         { $depth = 0; }
         (
             tabs=WS
-            /*<#>*/ { $depth = $tabs.getText().length(); }
-            /*<csharp> { $depth = $tabs.Text.Length; } */
+            /*<#>*/ { $depth = whiteSpaceSize($tabs.getText()); }
+            /*<csharp> { $depth = WhiteSpaceSize($tabs.Text); } */
         )?
         (   LIST_NUMBER { $ordered = true; }
         |   LIST_BULLET
