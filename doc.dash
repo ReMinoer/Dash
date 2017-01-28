@@ -10,7 +10,9 @@ To-Do
 
 <-> Identity
 
-This language is called Dash. His name come from the multiples definition of the word :
+This language is called Dash. It's a markup language to write structured documents with a good plain-text feel.
+
+His name come from the multiples definition of the word :
 
 - Dash as the name for the **character** {-}, used a lot in the language.
 - Dash as a **fast** movement, corresponding to a quick-note language.
@@ -44,15 +46,17 @@ Come back to the line in the same paragraph is handled in the language because i
 
 <-> Decoration
 
-You can use **bold** with { ** ... ** }.
-You can use //italic// with { // ... // }.
-You can use __underline__ with { __ ... __ }.
-You can use ==strikethrough== with { == ... == }.
+- You can use **bold** with { ** ... ** }.
+- You can use //italic// with { // ... // }.
+- You can use __underline__ with { __ ... __ }.
+- You can use ==strikethrough== with { == ... == }.
 
 < Design note >
 These symbols have been choosen because they are simple to access on a keyboard, refers to their effects and highlight plain text at different degrees.
 
-You can use all these decoration at the same time if you want. You just need to think to always close the last opened decoration before the others: **//__Here__ is an ==exemple==.//**
+You can use all these decoration at the same time if you want. You just need to think to always close the last opened decoration before the others.
+
+**//__Here__ is an ==exemple==.//**
 
 < .dash- >
 {
@@ -121,7 +125,7 @@ You can also create numbered lists with { 1- 2- 3- }.
 }
 
 < Design note >
-Numbers used and order is not important. You can put { 1- } on each line if you want. It must just begin by a number. 
+Numbers used will be ignored by the parser. It will use items order to number them.
 
 If you don't want to use numbers and leave the order to the parser, use { $- }
 
@@ -151,7 +155,7 @@ You can combine all these types of lists on different levels if you want.
 < .dash- >
 {
     1 - Item 1
-        - Sub - item A0
+        - Sub - item A
         - Sub - item B
     2 - Item 2
         $ - Sub - item A
@@ -186,15 +190,16 @@ You can define internal target at a specific position in your document with { @[
 
 Then, you can use that same identifier as adress for a link. For example: [Link text][target]
 
-@[target]
+@[target|same target]
 < Design note >
-Internal target identification will ignore the case.
+Internal target identification will ignore the case. "TARGET" is equal to "target".
 
 It's also possible to use multiple identifier for a same target by separate them with pipes { | }.
+For example : [Other link text][Same Target]
 
 < .dash- >
 {
-    @[First target | 1st target]
+    @[target|other target]
 }
 
 < Design note >
@@ -255,17 +260,17 @@ You can define subtitles by adding more { - } inside brackets.
 
 <-> Blocks
 
-You can also define structural blocks for highlight some paragraphs.
+You can also define structural blocks for highlight some paragraphs. For that, you must add a header before the paragraph, like so: { < Type > }
 
 < Message > Here is a message on one line.
 
 < .dash- >
 {
-    < Code > Here is a quote on one line.
+    < Message > Here is a quote on one line.
 }
 
 < Warning >
-Here is a warning on one line.
+Here is a warning on one line, declared on previous line.
 
 < .dash- >
 {
@@ -289,22 +294,15 @@ With multiple paragraphs.
 }
 
 < Design note >
-In fact, titles are blocks. Because there are common in various output format and can be inline, they have there own syntax, combining lists and blocks syntax.
+In fact, titles are blocks. Because there are very common, they have there own syntax, combining lists and blocks syntax.
 
 <-> Media
 
 If you want to insert a media (like a picture, a video or a table) or some text written in another language (like a code sample), you must use { { ... } }.
-To indicate the type of media, it must be preceed by a header providing the file extension used for this type of media. An extension must begin by a point {.}.
+To indicate the type of media, it must be preceed by a block header providing the file extension used for this type of media. An extension must begin by a point {.}, like so: { < .ext > }
 
 < Design note >
-Supported media depend of your converter and its supported format. Anyway, converted file must provide an alternative output if the media can't be displayed, like a link or a summary.
-
-If the media that you want to display is inside a file, just provide the path.
-
-< .dash- >
-{
-    < .ext > { path/file.ext }
-}
+Supported media depend of your converter and its supported formats. Anyway, converted file must provide an alternative output if the media can't be displayed, like a link or a summary.
 
 If the media can be describe directly in your file with its own language, write it directly.
 
@@ -317,6 +315,13 @@ If the media can be describe directly in your file with its own language, write 
 }
 
 If you don't indicate a file extension or if it is unknown and data isn't binary, media will be displayed as plain text.
+
+If the media that you want to display is inside a file, just provide the path.
+
+< .dash- >
+{
+    < .ext > { path/file.ext }
+}
 
 You can also use prefix to force the kind of display in ambigous cases :
 
@@ -340,7 +345,7 @@ You can also use prefix to force the kind of display in ambigous cases :
 }
 
 < Design note >
-Try to use understandable languages when you describe directly your media. Dash is a textual language and shouldn't use binary data.
+Try to use understandable languages when you describe directly your media. Dash is a plain-text oriented language and shouldn't contains binary data.
 
 <--> Images
 
@@ -380,39 +385,6 @@ Try to use understandable languages when you describe directly your media. Dash 
         Name;John;Paul;Bob
         Age;22;34;58
         Happy?;Yes;Yes;No
-    }
-}
-
-<--> Graphs
-
-< .graph >
-{
-    S* Start
-    --> A
-    A* Point A
-    -- If µ >= 0 --> B
-    -- Else --> C
-    B* Point B
-    --> E
-    C* Point C
-    --> E
-    E* End
-}
-
-< .dash- >
-{
-    < .graph >
-    {
-        S* Start
-        --> A
-        A* Point A
-        -- If µ >= 0 --> B
-        -- Else --> C
-        B* Point B
-        --> E
-        C* Point C
-        --> E
-        E* End
     }
 }
 

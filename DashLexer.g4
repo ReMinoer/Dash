@@ -24,7 +24,7 @@ TITLE_8: WS? '<-------->' WS?;
 TITLE_9: WS? '<--------->' WS?;
 
 LIST_BULLET: '-' WS?;
-LIST_NUMBER: ([0-9$])+ WS? '-' WS?;
+LIST_NUMBER: NUMBER WS? '-' WS?;
 
 LINK_OPEN: '[';
 LINK_MIDDLE: '][' -> pushMode(Link);
@@ -80,11 +80,11 @@ fragment NOT_STRIKETHROUGH:
     );
 
 fragment WORD_CHAR: ~('*'|'/'|'_'|'='|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']'|'<'|'>');
-fragment ID: ~[\n\r.{}<>\[\]]+;
+fragment NUMBER: [0-9$]+;
 fragment VOID: (' '|'\t'|'\n'|'\r')+;
 
 mode CommentBlock;
-COMMENT_BLOCK_CONTENT: ~[~]+;
+COMMENT_BLOCK_CONTENT: (('~' ('~' '~'?)?)? ~[~])+;
 COMMENT_BLOCK_CLOSE:  VOID? '~~~~' -> popMode;
 
 mode CommentInline;
@@ -106,7 +106,7 @@ HEADER_CONTENT: ~[\n\r.{}<>\[\]]+;
 HEADER_CLOSE: VOID? '>' WS? -> popMode;
 
 mode Link;
-REFERENCE_NUMBER: [0-9$]+;
+REFERENCE_NUMBER: NUMBER;
 LINK_CONTENT: ~[\n\r{}\[\]]+;
 LINK_CLOSE: ']' -> popMode;
 
@@ -115,7 +115,7 @@ DIRECT_LINK_CONTENT: ~[\n\r{}\[\]]+;
 DIRECT_LINK_CLOSE: ']]' -> popMode;
 
 mode Address;
-NOTE_NUMBER: [0-9$]+;
+NOTE_NUMBER: NUMBER;
 ADDRESS_SEPARATOR: '|';
 ADDRESS_CONTENT: ~[\n\r{}\[\]|]+;
 ADDRESS_CLOSE: ']' -> popMode;
