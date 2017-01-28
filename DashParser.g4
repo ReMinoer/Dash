@@ -99,6 +99,7 @@ text:
         |   NOTE_NUMBER
         |   ADDRESS_SEPARATOR
         |   ADDRESS_CONTENT
+        |   ADDRESS_CLOSE
         )
     )+
     ;
