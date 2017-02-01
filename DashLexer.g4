@@ -31,7 +31,7 @@ LINK_MIDDLE: '][' -> pushMode(Link);
 DIRECT_LINK_OPEN: '[[' -> pushMode(DirectLink);
 BRACKET_CLOSE: ']';
 
-ADDRESS_OPEN: '@[' -> pushMode(Address);
+ADDRESS_OPEN: VOID? '@[' -> pushMode(Address);
 
 BOLD: '**';
 ITALIC: '//';
@@ -92,30 +92,30 @@ COMMENT_INLINE_CONTENT: ~[\n\r]+;
 COMMENT_INLINE_CLOSE: WS? (('\r'? '\n' | '\r') | EOF) -> popMode;
 
 mode Media;
-MEDIA_CONTENT: ('{' MEDIA_CONTENT '}' | ~[{}]+)+;
+MEDIA_CONTENT: ('{' MEDIA_CONTENT '}' | ~[}]+)+;
 MEDIA_CLOSE: VOID? '}' WS? -> popMode;
 
 mode Extension;
 EXTENSION_MINUS: '-';
 EXTENSION_PLUS: '+';
-EXTENSION_CONTENT: [a-zA-Z0-9]+ ('.'[a-zA-Z0-9]+)*;
+EXTENSION_CONTENT: ('<' EXTENSION_CONTENT '>' | ~('>'|'-'|'+')+)+;
 EXTENSION_CLOSE: VOID? '>' WS? -> popMode;
 
 mode Header;
-HEADER_CONTENT: ~[\n\r.{}<>\[\]]+;
+HEADER_CONTENT: ('<' HEADER_CONTENT '>' | ~[>]+)+;
 HEADER_CLOSE: VOID? '>' WS? -> popMode;
 
 mode Link;
 REFERENCE_NUMBER: NUMBER;
-LINK_CONTENT: ~[\n\r{}\[\]]+;
+LINK_CONTENT: ('[' LINK_CONTENT ']' | ~[\]]+)+;
 LINK_CLOSE: ']' -> popMode;
 
 mode DirectLink;
-DIRECT_LINK_CONTENT: ~[\n\r{}\[\]]+;
+DIRECT_LINK_CONTENT: ('[' DIRECT_LINK_CONTENT ']' | ~[\]]+)+;
 DIRECT_LINK_CLOSE: ']]' -> popMode;
 
 mode Address;
 NOTE_NUMBER: NUMBER;
 ADDRESS_SEPARATOR: '|';
-ADDRESS_CONTENT: ~[\n\r{}\[\]|]+;
-ADDRESS_CLOSE: ']' -> popMode;
+ADDRESS_CONTENT: ('[' ADDRESS_CONTENT ']' | ~[\]]+)+;
+ADDRESS_CLOSE: ']' VOID? -> popMode;

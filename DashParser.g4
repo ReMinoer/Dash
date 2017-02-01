@@ -109,10 +109,6 @@ text:
         |   LINK_OPEN
         |   BRACKET_CLOSE
         |   ADDRESS_OPEN
-        |   BOLD
-        |   ITALIC
-        |   UNDERLINE
-        |   STRIKETHROUGH
         |   COMMENT_BLOCK_CONTENT
         |   COMMENT_INLINE_CONTENT
         |   COMMENT_INLINE_CONTENT
@@ -164,11 +160,9 @@ reference_number: REFERENCE_NUMBER;
 note: ADDRESS_OPEN note_number ADDRESS_CLOSE line;
 note_number: NOTE_NUMBER;
 
-media: (EXTENSION_OPEN media_extension (extension_plus | extension_minus)? EXTENSION_CLOSE NEWLINE?)? MEDIA_OPEN media_content MEDIA_CLOSE;
+media: (EXTENSION_OPEN media_extension (EXTENSION_PLUS | EXTENSION_MINUS)? EXTENSION_CLOSE NEWLINE?)? MEDIA_OPEN media_content? MEDIA_CLOSE;
 media_content: MEDIA_CONTENT;
-media_extension: EXTENSION_CONTENT;
-extension_plus: EXTENSION_PLUS;
-extension_minus: EXTENSION_MINUS;
+media_extension: ((EXTENSION_PLUS | EXTENSION_MINUS)* EXTENSION_CONTENT)*;
 
 comment_inline: COMMENT_INLINE_OPEN comment_inline_content COMMENT_INLINE_CLOSE;
 comment_inline_content: COMMENT_INLINE_CONTENT;
