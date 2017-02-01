@@ -330,18 +330,16 @@ You can also use prefix to force the kind of display in ambigous cases :
 
 < .dash- >
 {
-    {
-        ~~ Markdown is a plain-text document language like Dash
+    ~~ Markdown is a plain-text document language like Dash
 
-        < .md > { # Markdown Title } ~~ Display with converter default representation
-        < .md+ > { # Markdown Title } ~~ Display a title in a frame
-        < .md- > { # Markdown Title } ~~ Display "# Markdown Title" as Markdown language snippet
+    < .md > { # Markdown Title } ~~ Display with converter default representation
+    < .md+ > { # Markdown Title } ~~ Display a title in a frame
+    < .md- > { # Markdown Title } ~~ Display "# Markdown Title" as Markdown language snippet
 
-        ~~ gitignore is a language containing folder and file paths
+    ~~ gitignore is a language containing folder and file paths
 
-        < .gitignore > { folder/.gitignore } ~~ Display content of folder/.gitignore file
-        < .gitignore- > { folder/.gitignore } ~~ Display "folder/.gitignore" as gitignore language snippet
-    }
+    < .gitignore > { folder/.gitignore } ~~ Display content of folder/.gitignore file
+    < .gitignore- > { folder/.gitignore } ~~ Display "folder/.gitignore" as gitignore language snippet
 }
 
 < Design note >
