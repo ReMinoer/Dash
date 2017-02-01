@@ -2,14 +2,8 @@ parser grammar DashParser;
 
 options { tokenVocab=DashLexer; }
 
-/*
-
--> TO-DO
-
-- New line mode ?
-- White space counter (tabulation as 4 spaces)
+/* TO-DO
 - Try refactor lists
-
 */
 
 /*<>*/
