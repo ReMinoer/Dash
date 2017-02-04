@@ -276,19 +276,25 @@ Here is a warning on one line, declared on previous line.
     Here is a warning on one line, declared on previous line.
 }
 
-< Note >
+You can also start a section with multiple block from the same type with { << Type >> }. It will end at the next header. To come back to default paragraph blocks, use the empty header { <> }.
+
+<< Note >>
 Here is a note
 
 With multiple paragraphs.
-</>
+<>
+
+Here is normal paragraph
 
 < .dash- >
 {
-    < Note >
+    << Note >>
     Here is a note
 
     With multiple paragraphs.
-    </>
+    <>
+
+    Here is normal paragraph
 }
 
 < Design note >
