@@ -10,7 +10,7 @@ MEDIA_OPEN: WS? '{' WS? NEWLINE* -> pushMode(Media);
 EXTENSION_OPEN: WS? '<' VOID? '.' -> pushMode(Extension);
 
 HEADER_OPEN: WS? '<' VOID? -> pushMode(Header);
-BLOCK_CLOSE: '</>';
+HEADER_MODE_OPEN: WS? '<' VOID? '<' VOID? -> pushMode(HeaderMode);
 
 TITLE_1: WS? '<->' WS?;
 TITLE_2: WS? '<-->' WS?;
@@ -78,7 +78,7 @@ fragment NOT_STRIKETHROUGH:
     |   WORD_CHAR
     );
 
-fragment WORD_CHAR: ~('*'|'/'|'_'|'='|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']'|'<'|'>');
+fragment WORD_CHAR: ~('*'|'/'|'_'|'='|'-'|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']'|'<'|'>');
 fragment NUMBER: [0-9$]+;
 fragment VOID: (' '|'\t'|'\n'|'\r')+;
 
@@ -103,6 +103,10 @@ EXTENSION_PLUS: '+';
 mode Header;
 HEADER_CONTENT: (VOID? ('<' HEADER_CONTENT VOID? '>' | ~('>'|' '|'\t'|'\n'|'\r')+))+;
 HEADER_CLOSE: VOID? '>' WS? -> popMode;
+
+mode HeaderMode;
+HEADER_MODE_CONTENT: (VOID? ('<' HEADER_MODE_CONTENT VOID? '>' | ~('>'|' '|'\t'|'\n'|'\r')+))+;
+HEADER_MODE_CLOSE: VOID? '>' VOID? '>' WS? -> popMode;
 
 mode Link;
 LINK_CONTENT: (VOID? ('[' LINK_CONTENT VOID? ']' | ~(']'|' '|'\t'|'\n'|'\r')+))+;

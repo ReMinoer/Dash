@@ -49,17 +49,16 @@ parse:
         |   title_8
         |   title_9
         |   note
+        |   header_mode
         |   block
         )
         NEWLINE*
     )*
-    EOF
     ;
 
 block:
     (   header (list | line) NEWLINE
-    |   header (NEWLINE+ (list | line) (NEWLINE (list | line))*)* NEWLINE* WS? BLOCK_CLOSE
-    |   (header NEWLINE)? (list | line) (NEWLINE (list | line))*
+    |   (header NEWLINE)? (list | line) (NEWLINE (list | line))* (NEWLINE NEWLINE | EOF)
     );
 
 line:
@@ -76,51 +75,135 @@ line:
         |   direct_link
         |   address
         |   text
+        |   others
         )
     )+
     ;
 
-text:
+link_line:
     (   WS?
-        (   WORD
-        |   BLOCK_CLOSE
-        |   COMMENT_BLOCK_OPEN
-        |   COMMENT_INLINE_OPEN
-        |   MEDIA_OPEN
-        |   EXTENSION_OPEN
-        |   HEADER_OPEN
-        |   TITLE_1
-        |   TITLE_2
-        |   TITLE_3
-        |   TITLE_4
-        |   TITLE_5
-        |   TITLE_6
-        |   TITLE_7
-        |   TITLE_8
-        |   TITLE_9
-        |   LIST_BULLET
-        |   LIST_NUMBER
-        |   LINK_OPEN
-        |   BRACKET_CLOSE
-        |   ADDRESS_OPEN
-        |   COMMENT_BLOCK_CONTENT
-        |   COMMENT_INLINE_CONTENT
-        |   COMMENT_INLINE_CONTENT
-        |   MEDIA_CONTENT
-        |   EXTENSION_MINUS
-        |   EXTENSION_PLUS
-        |   EXTENSION_CONTENT
-        |   HEADER_CONTENT
-        |   REFERENCE_NUMBER
-        |   LINK_CONTENT
-        |   DIRECT_LINK_CONTENT
-        |   NOTE_NUMBER
-        |   ADDRESS_SEPARATOR
-        |   ADDRESS_CONTENT
-        |   ADDRESS_CLOSE
+        (   comment_block
+        |   comment_inline
+        |   reference
+        |   media
+        |   bold
+        |   italic
+        |   underline
+        |   strikethrough
+        |   link
+        |   direct_link
+        |   address
+        |   text
+        |   link_others
         )
     )+
     ;
+
+text: (WS? WORD)+;
+
+others:
+    (   COMMENT_BLOCK_OPEN
+    |   COMMENT_INLINE_OPEN
+    |   MEDIA_OPEN
+    |   EXTENSION_OPEN
+    |   HEADER_OPEN
+    |   HEADER_MODE_OPEN
+    |   TITLE_1
+    |   TITLE_2
+    |   TITLE_3
+    |   TITLE_4
+    |   TITLE_5
+    |   TITLE_6
+    |   TITLE_7
+    |   TITLE_8
+    |   TITLE_9
+    |   LIST_BULLET
+    |   LIST_NUMBER
+    |   LINK_OPEN
+    |   LINK_MIDDLE
+    |   DIRECT_LINK_OPEN
+    |   BRACKET_CLOSE
+    |   ADDRESS_OPEN
+    |   BOLD
+    |   ITALIC
+    |   UNDERLINE
+    |   STRIKETHROUGH
+    |   COMMENT_BLOCK_CONTENT
+    |   COMMENT_BLOCK_CLOSE
+    |   COMMENT_INLINE_CONTENT
+    |   COMMENT_INLINE_CLOSE
+    |   MEDIA_CONTENT
+    |   MEDIA_CLOSE
+    |   EXTENSION_CONTENT
+    |   EXTENSION_CLOSE
+    |   EXTENSION_MINUS
+    |   EXTENSION_PLUS
+    |   HEADER_CONTENT
+    |   HEADER_CLOSE
+    |   HEADER_MODE_CONTENT
+    |   HEADER_MODE_CLOSE
+    |   LINK_CONTENT
+    |   REFERENCE_NUMBER
+    |   LINK_CLOSE
+    |   DIRECT_LINK_CONTENT
+    |   DIRECT_LINK_CLOSE
+    |   ADDRESS_CONTENT
+    |   NOTE_NUMBER
+    |   ADDRESS_CLOSE
+    |   ADDRESS_SEPARATOR
+    );
+
+// Without LINK_MIDDLE
+link_others: 
+    (   COMMENT_BLOCK_OPEN
+    |   COMMENT_INLINE_OPEN
+    |   MEDIA_OPEN
+    |   EXTENSION_OPEN
+    |   HEADER_OPEN
+    |   HEADER_MODE_OPEN
+    |   TITLE_1
+    |   TITLE_2
+    |   TITLE_3
+    |   TITLE_4
+    |   TITLE_5
+    |   TITLE_6
+    |   TITLE_7
+    |   TITLE_8
+    |   TITLE_9
+    |   LIST_BULLET
+    |   LIST_NUMBER
+    |   LINK_OPEN
+    |   DIRECT_LINK_OPEN
+    |   BRACKET_CLOSE
+    |   ADDRESS_OPEN
+    |   BOLD
+    |   ITALIC
+    |   UNDERLINE
+    |   STRIKETHROUGH
+    |   COMMENT_BLOCK_CONTENT
+    |   COMMENT_BLOCK_CLOSE
+    |   COMMENT_INLINE_CONTENT
+    |   COMMENT_INLINE_CLOSE
+    |   MEDIA_CONTENT
+    |   MEDIA_CLOSE
+    |   EXTENSION_CONTENT
+    |   EXTENSION_CLOSE
+    |   EXTENSION_MINUS
+    |   EXTENSION_PLUS
+    |   HEADER_CONTENT
+    |   HEADER_CLOSE
+    |   HEADER_MODE_CONTENT
+    |   HEADER_MODE_CLOSE
+    |   LINK_CONTENT
+    |   REFERENCE_NUMBER
+    |   LINK_CLOSE
+    |   DIRECT_LINK_CONTENT
+    |   DIRECT_LINK_CLOSE
+    |   ADDRESS_CONTENT
+    |   NOTE_NUMBER
+    |   ADDRESS_CLOSE
+    |   ADDRESS_SEPARATOR
+    );
 
 bold: BOLD WS? line WS? BOLD;
 italic: ITALIC WS? line WS? ITALIC;
@@ -129,6 +212,8 @@ strikethrough: STRIKETHROUGH WS? line WS? STRIKETHROUGH;
 
 header: HEADER_OPEN header_content HEADER_CLOSE;
 header_content: HEADER_CONTENT;
+header_mode: HEADER_MODE_OPEN header_mode_content HEADER_MODE_CLOSE;
+header_mode_content: HEADER_MODE_CONTENT;
 
 title_1: TITLE_1 line;
 title_2: TITLE_2 line;
@@ -140,7 +225,7 @@ title_7: TITLE_7 line;
 title_8: TITLE_8 line;
 title_9: TITLE_9 line;
 
-link: LINK_OPEN line LINK_MIDDLE link_content LINK_CLOSE;
+link: LINK_OPEN link_line LINK_MIDDLE link_content LINK_CLOSE;
 link_content: LINK_CONTENT;
 direct_link: DIRECT_LINK_OPEN direct_link_content DIRECT_LINK_CLOSE;
 direct_link_content: DIRECT_LINK_CONTENT;
@@ -148,7 +233,7 @@ direct_link_content: DIRECT_LINK_CONTENT;
 address: ADDRESS_OPEN address_content (ADDRESS_SEPARATOR address_content)* ADDRESS_CLOSE;
 address_content: ADDRESS_CONTENT;
 
-reference: LINK_OPEN line LINK_MIDDLE reference_number LINK_CLOSE;
+reference: LINK_OPEN link_line LINK_MIDDLE reference_number LINK_CLOSE;
 reference_number: REFERENCE_NUMBER;
 
 note: ADDRESS_OPEN note_number ADDRESS_CLOSE line;
