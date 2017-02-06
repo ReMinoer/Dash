@@ -39,27 +39,28 @@ parse:
     (   
         (   comment_block
         |   comment_inline
-        |   title_1 
-        |   title_2
-        |   title_3
-        |   title_4
-        |   title_5
-        |   title_6
-        |   title_7
-        |   title_8
-        |   title_9
-        |   note
         |   header_mode
-        |   block
+        |   (   title_1
+            |   title_2
+            |   title_3
+            |   title_4
+            |   title_5
+            |   title_6
+            |   title_7
+            |   title_8
+            |   title_9
+            |   note
+            |   block_inline
+            |   NEWLINE block
+            ) (NEWLINE | EOF)
         )
         NEWLINE*
     )*
+    EOF
     ;
 
-block:
-    (   header (list | line) NEWLINE
-    |   (header NEWLINE)? (list | line) (NEWLINE (list | line))* (NEWLINE NEWLINE | EOF)
-    );
+block: (header NEWLINE)? ((list | line) (NEWLINE (list | line))*)?;
+block_inline: header (list | line);
 
 line:
     (   WS?
