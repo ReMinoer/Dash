@@ -12,16 +12,6 @@ EXTENSION_OPEN: WS? '<' VOID? '.' -> pushMode(Extension);
 HEADER_OPEN: WS? '<' VOID? -> pushMode(Header);
 HEADER_MODE_OPEN: WS? '<' VOID? '<' VOID? -> pushMode(HeaderMode);
 
-TITLE_1: WS? '<->' WS?;
-TITLE_2: WS? '<-->' WS?;
-TITLE_3: WS? '<--->' WS?;
-TITLE_4: WS? '<---->' WS?;
-TITLE_5: WS? '<----->' WS?;
-TITLE_6: WS? '<------>' WS?;
-TITLE_7: WS? '<------->' WS?;
-TITLE_8: WS? '<-------->' WS?;
-TITLE_9: WS? '<--------->' WS?;
-
 LIST_BULLET: '-' WS?;
 LIST_NUMBER: NUMBER WS? '-' WS?;
 
@@ -101,10 +91,28 @@ EXTENSION_MINUS: '-';
 EXTENSION_PLUS: '+';
 
 mode Header;
+HEADER_TITLE_1: '-';
+HEADER_TITLE_2: '--';
+HEADER_TITLE_3: '---';
+HEADER_TITLE_4: '----';
+HEADER_TITLE_5: '-----';
+HEADER_TITLE_6: '------';
+HEADER_TITLE_7: '-------';
+HEADER_TITLE_8: '--------';
+HEADER_TITLE_9: '---------';
 HEADER_CONTENT: (VOID? ('<' HEADER_CONTENT VOID? '>' | ~('>'|' '|'\t'|'\n'|'\r')+))+;
 HEADER_CLOSE: VOID? '>' WS? -> popMode;
 
 mode HeaderMode;
+HEADER_MODE_TITLE_1: '-';
+HEADER_MODE_TITLE_2: '--';
+HEADER_MODE_TITLE_3: '---';
+HEADER_MODE_TITLE_4: '----';
+HEADER_MODE_TITLE_5: '-----';
+HEADER_MODE_TITLE_6: '------';
+HEADER_MODE_TITLE_7: '-------';
+HEADER_MODE_TITLE_8: '--------';
+HEADER_MODE_TITLE_9: '---------';
 HEADER_MODE_CONTENT: (VOID? ('<' HEADER_MODE_CONTENT VOID? '>' | ~('>'|' '|'\t'|'\n'|'\r')+))+;
 HEADER_MODE_CLOSE: VOID? '>' VOID? '>' WS? -> popMode;
 

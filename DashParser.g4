@@ -40,23 +40,15 @@ parse:
         (   comment_block
         |   comment_inline
         |   header_mode
-        |   (   title_1
-            |   title_2
-            |   title_3
-            |   title_4
-            |   title_5
-            |   title_6
-            |   title_7
-            |   title_8
-            |   title_9
-            |   note
+        |   (   note
             |   block_inline
             |   NEWLINE block
-            ) (NEWLINE | EOF)
+            )
+            (NEWLINE | WS? EOF)
         )
         NEWLINE*
     )*
-    EOF
+    WS? EOF
     ;
 
 block: (header NEWLINE)? ((list | line) (NEWLINE (list | line))*)?;
@@ -109,15 +101,6 @@ others:
     |   EXTENSION_OPEN
     |   HEADER_OPEN
     |   HEADER_MODE_OPEN
-    |   TITLE_1
-    |   TITLE_2
-    |   TITLE_3
-    |   TITLE_4
-    |   TITLE_5
-    |   TITLE_6
-    |   TITLE_7
-    |   TITLE_8
-    |   TITLE_9
     |   LIST_BULLET
     |   LIST_NUMBER
     |   LINK_OPEN
@@ -162,15 +145,6 @@ link_others:
     |   EXTENSION_OPEN
     |   HEADER_OPEN
     |   HEADER_MODE_OPEN
-    |   TITLE_1
-    |   TITLE_2
-    |   TITLE_3
-    |   TITLE_4
-    |   TITLE_5
-    |   TITLE_6
-    |   TITLE_7
-    |   TITLE_8
-    |   TITLE_9
     |   LIST_BULLET
     |   LIST_NUMBER
     |   LINK_OPEN
@@ -211,20 +185,39 @@ italic: ITALIC WS? line WS? ITALIC;
 underline: UNDERLINE WS? line WS? UNDERLINE;
 strikethrough: STRIKETHROUGH WS? line WS? STRIKETHROUGH;
 
-header: HEADER_OPEN header_content HEADER_CLOSE;
-header_content: HEADER_CONTENT;
-header_mode: HEADER_MODE_OPEN header_mode_content HEADER_MODE_CLOSE;
-header_mode_content: HEADER_MODE_CONTENT;
+header:
+    HEADER_OPEN
+    (   HEADER_TITLE_1
+    |   HEADER_TITLE_2
+    |   HEADER_TITLE_3
+    |   HEADER_TITLE_4
+    |   HEADER_TITLE_5
+    |   HEADER_TITLE_6
+    |   HEADER_TITLE_7
+    |   HEADER_TITLE_8
+    |   HEADER_TITLE_9
+    |   header_content
+    )
+    HEADER_CLOSE;
 
-title_1: TITLE_1 line;
-title_2: TITLE_2 line;
-title_3: TITLE_3 line;
-title_4: TITLE_4 line;
-title_5: TITLE_5 line;
-title_6: TITLE_6 line;
-title_7: TITLE_7 line;
-title_8: TITLE_8 line;
-title_9: TITLE_9 line;
+header_content: HEADER_CONTENT;
+
+header_mode:
+    HEADER_MODE_OPEN
+    (   HEADER_MODE_TITLE_1
+    |   HEADER_MODE_TITLE_2
+    |   HEADER_MODE_TITLE_3
+    |   HEADER_MODE_TITLE_4
+    |   HEADER_MODE_TITLE_5
+    |   HEADER_MODE_TITLE_6
+    |   HEADER_MODE_TITLE_7
+    |   HEADER_MODE_TITLE_8
+    |   HEADER_MODE_TITLE_9
+    |   header_mode_content
+    )
+    HEADER_MODE_CLOSE;
+
+header_mode_content: HEADER_MODE_CONTENT;
 
 link: LINK_OPEN link_line LINK_MIDDLE link_content LINK_CLOSE;
 link_content: LINK_CONTENT;
