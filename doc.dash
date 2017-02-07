@@ -319,6 +319,9 @@ If the media can be describe directly in your file with its own language, write 
     }
 }
 
+< Design note >
+Try to use understandable languages when you describe directly your media. Dash is a plain-text oriented language and shouldn't contains binary data.
+
 If you don't indicate a file extension or if it is unknown and data isn't binary, media will be displayed as plain text.
 
 If the media that you want to display is inside a file, just provide the path.
@@ -347,8 +350,13 @@ You can also use prefix to force the kind of display in ambigous cases :
     < .gitignore- > { folder/.gitignore } ~~ Display "folder/.gitignore" as gitignore language snippet
 }
 
-< Design note >
-Try to use understandable languages when you describe directly your media. Dash is a plain-text oriented language and shouldn't contains binary data.
+You can also combine both of them to display the textual and graphic form at the same time. It's ideal for a technical document showing examples. The order of signs will determine the order of display.
+
+< .dash- >
+{
+    < .md+- > { ![Alternative text][img/logo.png] } ~~ Display image then Markdown code
+    < .md-+ > { ![Alternative text][img/logo.png] } ~~ Display Markdown code then image
+}
 
 <--> Images
 
