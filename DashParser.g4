@@ -44,8 +44,7 @@ parse:
         |   comment_inline
         |   header_mode
         |   (   note
-            |   block_inline
-            |   NEWLINE block
+            |   block
             )
             (NEWLINE | WS? EOF)
         )
@@ -54,8 +53,7 @@ parse:
     WS? EOF
     ;
 
-block: (header NEWLINE)? ((list | line) (NEWLINE (list | line))*)?;
-block_inline: header (list | line);
+block: header (list | line) | NEWLINE (header NEWLINE)? ((list | line) (NEWLINE (list | line))*)?;
 
 line:
     (   WS?
@@ -217,7 +215,7 @@ header_mode:
     |   HEADER_MODE_TITLE_8
     |   HEADER_MODE_TITLE_9
     |   header_mode_content
-    )
+    )?
     HEADER_MODE_CLOSE;
 
 header_mode_content: HEADER_MODE_CONTENT;
