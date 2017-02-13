@@ -76,6 +76,26 @@ line:
     )+
     ;
 
+emphasis_line:
+    (   WS?
+        (   comment_block
+        |   comment_inline
+        |   reference
+        |   media
+        |   bold
+        |   italic
+        |   underline
+        |   strikethrough
+        |   emphasis
+        |   link
+        |   direct_link
+        |   address
+        |   text
+        |   emphasis_others
+        )
+    )+
+    ;
+
 link_line:
     (   WS?
         (   comment_block
@@ -86,6 +106,7 @@ link_line:
         |   italic
         |   underline
         |   strikethrough
+        |   emphasis
         |   link
         |   direct_link
         |   address
@@ -106,15 +127,58 @@ others:
     |   HEADER_MODE_OPEN
     |   LIST_BULLET
     |   LIST_NUMBER
-    |   LINK_OPEN
+    |   SELECTION_OPEN
+    |   SELECTION_CLOSE
+    |   BOLD_OPEN
+    |   ITALIC_OPEN
+    |   UNDERLINE_OPEN
+    |   STRIKETHROUGH_OPEN
     |   LINK_MIDDLE
     |   DIRECT_LINK_OPEN
-    |   BRACKET_CLOSE
     |   ADDRESS_OPEN
-    |   BOLD
-    |   ITALIC
-    |   UNDERLINE
-    |   STRIKETHROUGH
+    |   COMMENT_BLOCK_CONTENT
+    |   COMMENT_BLOCK_CLOSE
+    |   COMMENT_INLINE_CONTENT
+    |   COMMENT_INLINE_CLOSE
+    |   MEDIA_CONTENT
+    |   MEDIA_CLOSE
+    |   EXTENSION_CONTENT
+    |   EXTENSION_CLOSE
+    |   EXTENSION_MINUS
+    |   EXTENSION_PLUS
+    |   HEADER_CONTENT
+    |   HEADER_CLOSE
+    |   HEADER_MODE_CONTENT
+    |   HEADER_MODE_CLOSE
+    |   LINK_CONTENT
+    |   REFERENCE_NUMBER
+    |   LINK_CLOSE
+    |   DIRECT_LINK_CONTENT
+    |   DIRECT_LINK_CLOSE
+    |   ADDRESS_CONTENT
+    |   NOTE_NUMBER
+    |   ADDRESS_CLOSE
+    |   ADDRESS_SEPARATOR
+    );
+
+// Without SELECTION_CLOSE
+emphasis_others:
+    (   COMMENT_BLOCK_OPEN
+    |   COMMENT_INLINE_OPEN
+    |   MEDIA_OPEN
+    |   EXTENSION_OPEN
+    |   HEADER_OPEN
+    |   HEADER_MODE_OPEN
+    |   LIST_BULLET
+    |   LIST_NUMBER
+    |   SELECTION_OPEN
+    |   BOLD_OPEN
+    |   ITALIC_OPEN
+    |   UNDERLINE_OPEN
+    |   STRIKETHROUGH_OPEN
+    |   LINK_MIDDLE
+    |   DIRECT_LINK_OPEN
+    |   ADDRESS_OPEN
     |   COMMENT_BLOCK_CONTENT
     |   COMMENT_BLOCK_CLOSE
     |   COMMENT_INLINE_CONTENT
@@ -150,14 +214,14 @@ link_others:
     |   HEADER_MODE_OPEN
     |   LIST_BULLET
     |   LIST_NUMBER
-    |   LINK_OPEN
+    |   SELECTION_OPEN
+    |   SELECTION_CLOSE
+    |   BOLD_OPEN
+    |   ITALIC_OPEN
+    |   UNDERLINE_OPEN
+    |   STRIKETHROUGH_OPEN
     |   DIRECT_LINK_OPEN
-    |   BRACKET_CLOSE
     |   ADDRESS_OPEN
-    |   BOLD
-    |   ITALIC
-    |   UNDERLINE
-    |   STRIKETHROUGH
     |   COMMENT_BLOCK_CONTENT
     |   COMMENT_BLOCK_CLOSE
     |   COMMENT_INLINE_CONTENT
@@ -183,11 +247,6 @@ link_others:
     |   ADDRESS_SEPARATOR
     );
 
-bold: BOLD WS? line WS? BOLD;
-italic: ITALIC WS? line WS? ITALIC;
-underline: UNDERLINE WS? line WS? UNDERLINE;
-strikethrough: STRIKETHROUGH WS? line WS? STRIKETHROUGH;
-
 header:
     HEADER_OPEN
     (   HEADER_TITLE_1
@@ -203,7 +262,18 @@ header:
     )
     HEADER_CLOSE;
 
-header_content: HEADER_CONTENT;
+header_content: 
+    (   HEADER_CONTENT
+    |   HEADER_MODE_TITLE_1
+    |   HEADER_MODE_TITLE_2
+    |   HEADER_MODE_TITLE_3
+    |   HEADER_MODE_TITLE_4
+    |   HEADER_MODE_TITLE_5
+    |   HEADER_MODE_TITLE_6
+    |   HEADER_MODE_TITLE_7
+    |   HEADER_MODE_TITLE_8
+    |   HEADER_MODE_TITLE_9
+    )+;
 
 header_mode:
     HEADER_MODE_OPEN
@@ -220,9 +290,26 @@ header_mode:
     )
     HEADER_MODE_CLOSE;
 
-header_mode_content: HEADER_MODE_CONTENT;
+header_mode_content: 
+    (   HEADER_MODE_CONTENT
+    |   HEADER_MODE_TITLE_1
+    |   HEADER_MODE_TITLE_2
+    |   HEADER_MODE_TITLE_3
+    |   HEADER_MODE_TITLE_4
+    |   HEADER_MODE_TITLE_5
+    |   HEADER_MODE_TITLE_6
+    |   HEADER_MODE_TITLE_7
+    |   HEADER_MODE_TITLE_8
+    |   HEADER_MODE_TITLE_9
+    )+;
 
-link: LINK_OPEN link_line LINK_MIDDLE link_content LINK_CLOSE;
+bold: BOLD_OPEN emphasis_line SELECTION_CLOSE;
+italic: ITALIC_OPEN emphasis_line SELECTION_CLOSE;
+underline: UNDERLINE_OPEN emphasis_line SELECTION_CLOSE;
+strikethrough: STRIKETHROUGH_OPEN emphasis_line SELECTION_CLOSE;
+emphasis: HEADER_OPEN header_content HEADER_CLOSE SELECTION_OPEN emphasis_line SELECTION_CLOSE;
+
+link: SELECTION_OPEN link_line LINK_MIDDLE link_content LINK_CLOSE;
 link_content: LINK_CONTENT;
 direct_link: DIRECT_LINK_OPEN direct_link_content DIRECT_LINK_CLOSE;
 direct_link_content: DIRECT_LINK_CONTENT;
@@ -230,7 +317,7 @@ direct_link_content: DIRECT_LINK_CONTENT;
 address: ADDRESS_OPEN address_content (ADDRESS_SEPARATOR address_content)* ADDRESS_CLOSE;
 address_content: ADDRESS_CONTENT;
 
-reference: LINK_OPEN link_line LINK_MIDDLE reference_number LINK_CLOSE;
+reference: SELECTION_OPEN link_line LINK_MIDDLE reference_number LINK_CLOSE;
 reference_number: REFERENCE_NUMBER;
 
 note: ADDRESS_OPEN note_number ADDRESS_CLOSE line;

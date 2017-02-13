@@ -13,10 +13,10 @@ This language is called Dash. It's a markup language to write structured documen
 
 His name come from the multiples definition of the word :
 
-- Dash as the name for the **character** {-}, used a lot in the language.
-- Dash as a **fast** movement, corresponding to a quick-note language.
-- Dash as a small amount of something, giving the idea of **subtility** and **optimization**.
-- Dash as the action of **destroy**, with one target : the //Markdown// language.
+- Dash as the name for the *[character] {-}, used a lot in the language.
+- Dash as a *[fast] movement, corresponding to a quick-note language.
+- Dash as a small amount of something, giving the idea of *[subtility] and *[optimization].
+- Dash as the action of *[destroy], with one target : the /[Markdown] language.
 
 Used file extensions are:
 
@@ -42,28 +42,6 @@ You can also back to the line in the same paragraph.
 
 < Design note >
 Come back to the line in the same paragraph is handled in the language because it's a common plain text formatting.
-
-<-> Decoration
-
-- You can use **bold** with { ** ... ** }.
-- You can use //italic// with { // ... // }.
-- You can use __underline__ with { __ ... __ }.
-- You can use ==strikethrough== with { == ... == }.
-
-< Design note >
-These symbols have been choosen because they are simple to access on a keyboard, refers to their effects and highlight plain text at different degrees.
-
-You can use all these decoration at the same time if you want. You just need to think to always close the last opened decoration before the others.
-
-**//__Here__ is an ==exemple==.//**
-
-< .dash- >
-{
-     **//__Here__ is// an ==exemple==**.
-}
-
-< Design note >
-These 4 characters can be used in text if they are not double. For example, "4 * 3 / 2 = _ ?" will be parsed normally.
 
 <-> Lists
 
@@ -161,6 +139,99 @@ You can combine all these types of lists on different levels if you want.
         $ - Sub - item B
 }
 
+<-> Titles
+
+To add a title, use { <-> } at the beginning of the line.
+You can define subtitles by adding more { - } inside brackets.
+
+< .dash- >
+{
+    <-> Title 1
+
+    Paragraph of Title 1
+
+    <--> Title 2
+
+    Paragraph of Title 2
+
+    <---> Title 3
+
+    Paragraph of Title 3
+}
+
+<-> Blocks
+
+You can also define structural blocks for highlight some paragraphs. For that, you must add a header before the paragraph, like so: { < Type > }
+
+< Message > Here is a message on one line.
+
+< .dash- >
+{
+    < Message > Here is a quote on one line.
+}
+
+< Warning >
+Here is a warning on one line, declared on previous line.
+
+< .dash- >
+{
+    < Warning >
+    Here is a warning on one line, declared on previous line.
+}
+
+You can also start a section with multiple block from the same type with { << Type >> }. It will end at the next header. To come back to default paragraph blocks, use the empty header { <> }.
+
+<< Note >>
+Here is a note
+
+With multiple paragraphs.
+<>
+
+Here is normal paragraph
+
+< .dash- >
+{
+    << Note >>
+    Here is a note
+
+    With multiple paragraphs.
+    <>
+
+    Here is normal paragraph
+}
+
+< Design note >
+In fact, titles are blocks. Because there are very common, they have there own syntax, combining lists and blocks syntax.
+
+<-> Emphasis
+
+The language handle the four most famous emphasis :
+
+- You can use *[bold] with { *[ ... ] }.
+- You can use /[italic] with { /[ ... ]  }.
+- You can use _[underline] with { _[ ... ] }.
+- You can use =[strikethrough] with { =[ ... ] }.
+
+< Design note >
+These symbols have been choosen because they are simple to access on a keyboard, refers to their effects and highlight plain text at different degrees.
+
+You can use all these decoration at the same time if you want. You just need to think to always close the last opened emphasis before the others.
+
+*[/[_[Here] is an =[exemple].]]
+
+< .dash- >
+{
+    *[/[_[Here] is an =[exemple].]]
+}
+
+If you want to use a <purple>[custom] emphasis, use an header just before your <red>[emphasis].
+If the header is not handled in the output, it must be process like bold.
+
+< .dash- >
+{
+    If you want to use a <purple>[custom] emphasis, use an header just <red>[before] your emphasis.
+}
+
 <-> Links
 
 You can put external links in your note by using { [content][adress] }.
@@ -236,70 +307,6 @@ If the note contains only a direct link, it will work as a redirection. You can 
     ...
     @[2] [[https://www.google.fr/search?q=feature]]
 }
-
-<-> Titles
-
-To add a title, use { <-> } at the beginning of the line.
-You can define subtitles by adding more { - } inside brackets.
-
-< .dash- >
-{
-    <-> Title 1
-
-    Paragraph of Title 1
-
-    <--> Title 2
-
-    Paragraph of Title 2
-
-    <---> Title 3
-
-    Paragraph of Title 3
-}
-
-<-> Blocks
-
-You can also define structural blocks for highlight some paragraphs. For that, you must add a header before the paragraph, like so: { < Type > }
-
-< Message > Here is a message on one line.
-
-< .dash- >
-{
-    < Message > Here is a quote on one line.
-}
-
-< Warning >
-Here is a warning on one line, declared on previous line.
-
-< .dash- >
-{
-    < Warning >
-    Here is a warning on one line, declared on previous line.
-}
-
-You can also start a section with multiple block from the same type with { << Type >> }. It will end at the next header. To come back to default paragraph blocks, use the empty header { <> }.
-
-<< Note >>
-Here is a note
-
-With multiple paragraphs.
-<>
-
-Here is normal paragraph
-
-< .dash- >
-{
-    << Note >>
-    Here is a note
-
-    With multiple paragraphs.
-    <>
-
-    Here is normal paragraph
-}
-
-< Design note >
-In fact, titles are blocks. Because there are very common, they have there own syntax, combining lists and blocks syntax.
 
 <-> Media
 
