@@ -65,6 +65,7 @@ line:
         |   italic
         |   underline
         |   strikethrough
+        |   emphasis
         |   link
         |   direct_link
         |   address
