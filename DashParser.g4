@@ -3,7 +3,6 @@ parser grammar DashParser;
 options { tokenVocab=DashLexer; }
 
 /* TO-DO
-- Fix paragraph newlines
 - Handle empty content
 - Fix braces usage in media strings and comments
 - Try refactor lists
