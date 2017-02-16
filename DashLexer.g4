@@ -75,7 +75,7 @@ fragment VOID: (' '|'\t'|'\n'|'\r')+;
 
 mode CommentBlock;
 COMMENT_BLOCK_CONTENT: (VOID? ('~' ('~' '~'?)?)? ~('~'|' '|'\t'|'\n'|'\r'))+;
-COMMENT_BLOCK_CLOSE:  VOID? '~~~~' -> popMode;
+COMMENT_BLOCK_CLOSE:  VOID? '~~~~' ~('\n'|'\r')* (('\r'? '\n' | '\r') | EOF) -> popMode;
 
 mode CommentInline;
 COMMENT_INLINE_CONTENT: (WS? ~(' '|'\t'|'\n'|'\r')+)+;
