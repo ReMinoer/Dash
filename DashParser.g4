@@ -53,7 +53,7 @@ parse:
     WS? EOF
     ;
 
-block: header (list | line) | NEWLINE (header NEWLINE)? ((list | line) (NEWLINE (list | line))*)?;
+block: header line | NEWLINE (header NEWLINE)? ((list | line) (NEWLINE (list | line))*)?;
 
 line:
     (   WS?
