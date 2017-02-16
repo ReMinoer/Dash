@@ -43,7 +43,7 @@ parse:
         |   comment_inline
         |   header_mode
         |   (   note
-            |   block
+            |   paragraph
             )
             (NEWLINE | WS? EOF)
         )
@@ -52,7 +52,7 @@ parse:
     WS? EOF
     ;
 
-block: header line | NEWLINE (header NEWLINE)? ((list | line) (NEWLINE (header_mode | list | line))*)?;
+paragraph: header line | NEWLINE (header NEWLINE)? ((list | line) (NEWLINE (header_mode | list | line))*)?;
 
 line:
     (   WS?
