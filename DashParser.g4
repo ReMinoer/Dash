@@ -42,7 +42,8 @@ parse:
         (   comment_block
         |   comment_inline
         |   header_mode
-        |   (   note
+        |   (   redirection
+            |   note
             |   paragraph
             )
             (NEWLINE | WS? EOF)
@@ -319,6 +320,7 @@ reference: SELECTION_OPEN link_line LINK_MIDDLE reference_number LINK_CLOSE;
 reference_number: REFERENCE_NUMBER;
 
 note: ADDRESS_OPEN note_number ADDRESS_CLOSE line;
+redirection: ADDRESS_OPEN note_number ADDRESS_CLOSE DIRECT_LINK_OPEN direct_link_content DIRECT_LINK_CLOSE;
 note_number: NOTE_NUMBER;
 
 media: (EXTENSION_OPEN media_extension (EXTENSION_PLUS | EXTENSION_MINUS)* EXTENSION_CLOSE NEWLINE?)? MEDIA_OPEN media_content? MEDIA_CLOSE;

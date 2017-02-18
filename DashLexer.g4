@@ -127,7 +127,7 @@ DIRECT_LINK_CONTENT: (WS? ('[' DIRECT_LINK_CONTENT WS? ']' | ~(']'|' '|'\t'|'\n'
 DIRECT_LINK_CLOSE: WS? ']]' -> popMode;
 
 mode Address;
-ADDRESS_CONTENT: (WS? ('[' ADDRESS_CONTENT WS? ']' | ~('|'|']'|' '|'\t'|'\n'|'\r')+))+;
 NOTE_NUMBER: NUMBER;
+ADDRESS_CONTENT: (WS? ('[' ADDRESS_CONTENT WS? ']' | ~('|'|']'|' '|'\t'|'\n'|'\r')+))+;
 ADDRESS_CLOSE: WS? ']' WS? -> popMode;
 ADDRESS_SEPARATOR: WS? '|' WS?;
