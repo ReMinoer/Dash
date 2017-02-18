@@ -82,8 +82,19 @@ COMMENT_INLINE_CONTENT: (WS? ~(' '|'\t'|'\n'|'\r')+)+;
 COMMENT_INLINE_CLOSE: WS? (('\r'? '\n' | '\r') | EOF) -> popMode;
 
 mode Media;
-MEDIA_CONTENT: (VOID? ('{' MEDIA_CONTENT VOID? '}' | ~('}'|' '|'\t'|'\n'|'\r')+))+;
+MEDIA_CONTENT: (VOID? ~('{'|'}'|'\''|'"'|' '|'\t'|'\n'|'\r')+)+;
+MEDIA_BRACES_OPEN: VOID? '{' -> pushMode(Media);
+MEDIA_STRING_OPEN: VOID? '"' -> pushMode(MediaString);
+MEDIA_CHAR_OPEN: VOID? '\'' -> pushMode(MediaChar);
 MEDIA_CLOSE: VOID? '}' WS? -> popMode;
+
+mode MediaString;
+MEDIA_STRING_CONTENT: ~('"')+;
+MEDIA_STRING_CLOSE: '"' -> popMode;
+
+mode MediaChar;
+MEDIA_CHAR_CONTENT: ~('\'')+;
+MEDIA_CHAR_CLOSE: '\'' -> popMode;
 
 mode Extension;
 EXTENSION_CONTENT: (WS? ('<' EXTENSION_CONTENT WS? '>' | ~('>'|'-'|'+'|' '|'\t'|'\n'|'\r')+))+;

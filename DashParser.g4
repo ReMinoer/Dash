@@ -4,7 +4,7 @@ options { tokenVocab=DashLexer; }
 
 /* TO-DO
 - Handle empty content
-- Fix braces usage in media strings and comments
+- Use line separator for header mode and media
 - Try refactor lists
 */
 
@@ -140,7 +140,14 @@ others:
     |   COMMENT_INLINE_CONTENT
     |   COMMENT_INLINE_CLOSE
     |   MEDIA_CONTENT
+    |   MEDIA_BRACES_OPEN
+    |   MEDIA_STRING_OPEN
+    |   MEDIA_CHAR_OPEN
     |   MEDIA_CLOSE
+    |   MEDIA_STRING_CONTENT
+    |   MEDIA_STRING_CLOSE
+    |   MEDIA_CHAR_CONTENT
+    |   MEDIA_CHAR_CLOSE
     |   EXTENSION_CONTENT
     |   EXTENSION_CLOSE
     |   EXTENSION_MINUS
@@ -183,7 +190,14 @@ emphasis_others:
     |   COMMENT_INLINE_CONTENT
     |   COMMENT_INLINE_CLOSE
     |   MEDIA_CONTENT
+    |   MEDIA_BRACES_OPEN
+    |   MEDIA_STRING_OPEN
+    |   MEDIA_CHAR_OPEN
     |   MEDIA_CLOSE
+    |   MEDIA_STRING_CONTENT
+    |   MEDIA_STRING_CLOSE
+    |   MEDIA_CHAR_CONTENT
+    |   MEDIA_CHAR_CLOSE
     |   EXTENSION_CONTENT
     |   EXTENSION_CLOSE
     |   EXTENSION_MINUS
@@ -226,7 +240,14 @@ link_others:
     |   COMMENT_INLINE_CONTENT
     |   COMMENT_INLINE_CLOSE
     |   MEDIA_CONTENT
+    |   MEDIA_BRACES_OPEN
+    |   MEDIA_STRING_OPEN
+    |   MEDIA_CHAR_OPEN
     |   MEDIA_CLOSE
+    |   MEDIA_STRING_CONTENT
+    |   MEDIA_STRING_CLOSE
+    |   MEDIA_CHAR_CONTENT
+    |   MEDIA_CHAR_CLOSE
     |   EXTENSION_CONTENT
     |   EXTENSION_CLOSE
     |   EXTENSION_MINUS
@@ -324,8 +345,18 @@ redirection: ADDRESS_OPEN note_number ADDRESS_CLOSE DIRECT_LINK_OPEN direct_link
 note_number: NOTE_NUMBER;
 
 media: (EXTENSION_OPEN media_extension (EXTENSION_PLUS | EXTENSION_MINUS)* EXTENSION_CLOSE NEWLINE?)? MEDIA_OPEN media_content? MEDIA_CLOSE;
-media_content: MEDIA_CONTENT;
 media_extension: ((EXTENSION_PLUS | EXTENSION_MINUS)* EXTENSION_CONTENT)*;
+media_content:
+    (   MEDIA_CONTENT
+    |   MEDIA_BRACES_OPEN
+    |   MEDIA_STRING_OPEN
+    |   MEDIA_CHAR_OPEN
+    |   MEDIA_STRING_CONTENT
+    |   MEDIA_STRING_CLOSE
+    |   MEDIA_CHAR_CONTENT
+    |   MEDIA_CHAR_CLOSE
+    )+
+    ;
 
 comment_inline: COMMENT_INLINE_OPEN comment_inline_content COMMENT_INLINE_CLOSE;
 comment_inline_content: COMMENT_INLINE_CONTENT;
