@@ -3,6 +3,9 @@ parser grammar DashParser;
 options { tokenVocab=DashLexer; }
 
 /* TO-DO
+- Back to line mode
+- Media inline
+- Unit tests
 - Handle empty content
 - Use line separator for header mode and media
 - Try refactor lists
@@ -42,6 +45,9 @@ parse:
         (   comment_block
         |   comment_inline
         |   header_mode
+        |   extension_mode
+        |   dash_extension_mode
+        |   MODE_CLOSE
         |   (   redirection
             |   note
             |   paragraph
@@ -53,7 +59,7 @@ parse:
     WS? EOF
     ;
 
-paragraph: header line | NEWLINE (header NEWLINE)? ((list | line) (NEWLINE (header_mode | list | line))*)?;
+paragraph: header line | NEWLINE (header NEWLINE)? ((list | line) (NEWLINE (header_mode | list | line))*)? MODE_CLOSE?;
 
 line:
     (   WS?
@@ -141,13 +147,7 @@ others:
     |   COMMENT_INLINE_CLOSE
     |   MEDIA_CONTENT
     |   MEDIA_BRACES_OPEN
-    |   MEDIA_STRING_OPEN
-    |   MEDIA_CHAR_OPEN
     |   MEDIA_CLOSE
-    |   MEDIA_STRING_CONTENT
-    |   MEDIA_STRING_CLOSE
-    |   MEDIA_CHAR_CONTENT
-    |   MEDIA_CHAR_CLOSE
     |   EXTENSION_CONTENT
     |   EXTENSION_CLOSE
     |   EXTENSION_MINUS
@@ -191,13 +191,7 @@ emphasis_others:
     |   COMMENT_INLINE_CLOSE
     |   MEDIA_CONTENT
     |   MEDIA_BRACES_OPEN
-    |   MEDIA_STRING_OPEN
-    |   MEDIA_CHAR_OPEN
     |   MEDIA_CLOSE
-    |   MEDIA_STRING_CONTENT
-    |   MEDIA_STRING_CLOSE
-    |   MEDIA_CHAR_CONTENT
-    |   MEDIA_CHAR_CLOSE
     |   EXTENSION_CONTENT
     |   EXTENSION_CLOSE
     |   EXTENSION_MINUS
@@ -241,13 +235,7 @@ link_others:
     |   COMMENT_INLINE_CLOSE
     |   MEDIA_CONTENT
     |   MEDIA_BRACES_OPEN
-    |   MEDIA_STRING_OPEN
-    |   MEDIA_CHAR_OPEN
     |   MEDIA_CLOSE
-    |   MEDIA_STRING_CONTENT
-    |   MEDIA_STRING_CLOSE
-    |   MEDIA_CHAR_CONTENT
-    |   MEDIA_CHAR_CLOSE
     |   EXTENSION_CONTENT
     |   EXTENSION_CLOSE
     |   EXTENSION_MINUS
@@ -346,15 +334,22 @@ note_number: NOTE_NUMBER;
 
 media: (EXTENSION_OPEN media_extension (EXTENSION_PLUS | EXTENSION_MINUS)* EXTENSION_CLOSE NEWLINE?)? MEDIA_OPEN media_content? MEDIA_CLOSE;
 media_extension: ((EXTENSION_PLUS | EXTENSION_MINUS)* EXTENSION_CONTENT)*;
-media_content:
-    (   MEDIA_CONTENT
-    |   MEDIA_BRACES_OPEN
-    |   MEDIA_STRING_OPEN
-    |   MEDIA_CHAR_OPEN
-    |   MEDIA_STRING_CONTENT
-    |   MEDIA_STRING_CLOSE
-    |   MEDIA_CHAR_CONTENT
-    |   MEDIA_CHAR_CLOSE
+media_content: (MEDIA_CONTENT | MEDIA_BRACES_OPEN | MEDIA_CLOSE)+;
+
+extension_mode: EXTENSION_MODE_OPEN extension_mode_extension (EXTENSION_MODE_PLUS | EXTENSION_MODE_MINUS)* EXTENSION_MODE_CLOSE extension_mode_content? MEDIA_MODE_CLOSE;
+extension_mode_extension: ((EXTENSION_MODE_PLUS | EXTENSION_MODE_MINUS)* EXTENSION_MODE_CONTENT)*;
+extension_mode_content: (MEDIA_MODE_CONTENT | MEDIA_MODE_BRACKET)+;
+
+dash_extension_mode: EXTENSION_MODE_OPEN EXTENSION_MODE_DASH (DASH_EXTENSION_PLUS | DASH_EXTENSION_MINUS)* DASH_EXTENSION_CLOSE dash_extension_mode_content? DASH_MEDIA_MODE_CLOSE;
+dash_extension_mode_content:
+    (   DASH_MEDIA_MODE_CONTENT
+    |   DASH_MEDIA_MODE_BRACKET
+    |   DASH_MEDIA_MODE_CLOSE
+    |   DASH_MEDIA_MODE_DASH
+    |   DASH_MEDIA_MODE_INNER_CONTENT
+    |   DASH_MEDIA_MODE_INNER_BRACKET
+    |   DASH_MEDIA_MODE_INNER_CLOSE
+    |   DASH_MEDIA_MODE_INNER_DASH
     )+
     ;
 
