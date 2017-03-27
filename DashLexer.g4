@@ -31,48 +31,8 @@ DIRECT_LINK_OPEN: '[[' WS? -> pushMode(DirectLink);
 
 ADDRESS_OPEN: WS? '@[' WS? -> pushMode(Address);
 
-WORD:
-        '*'
-    |   '/'
-    |   '_'
-    |   '='
-    |   (   '*'NOT_BOLD
-        |   '/'NOT_ITALIC
-        |   '_'NOT_UNDERLINE
-        |   '='NOT_STRIKETHROUGH
-        |   WORD_CHAR
-        )+
-    ;
+WORD: ~('-'|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']'|'<'|'>')+;
 
-fragment NOT_BOLD:
-    (   '/'NOT_ITALIC
-    |   '_'NOT_UNDERLINE
-    |   '='NOT_STRIKETHROUGH
-    |   WORD_CHAR
-    );
-
-fragment NOT_ITALIC:
-    (   '*'NOT_BOLD
-    |   '_'NOT_UNDERLINE
-    |   '='NOT_STRIKETHROUGH
-    |   WORD_CHAR
-    );
-
-fragment NOT_UNDERLINE:
-    (   '*'NOT_BOLD
-    |   '/'NOT_ITALIC
-    |   '='NOT_STRIKETHROUGH
-    |   WORD_CHAR
-    );
-
-fragment NOT_STRIKETHROUGH:
-    (   '*'NOT_BOLD
-    |   '/'NOT_ITALIC
-    |   '_'NOT_UNDERLINE
-    |   WORD_CHAR
-    );
-
-fragment WORD_CHAR: ~('*'|'/'|'_'|'='|'-'|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']'|'<'|'>');
 fragment NUMBER: [0-9$]+;
 fragment VOID: (' '|'\t'|'\n'|'\r')+;
 
