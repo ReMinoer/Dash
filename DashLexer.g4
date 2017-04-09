@@ -31,7 +31,7 @@ DIRECT_LINK_OPEN: '[[' WS? -> pushMode(DirectLink);
 
 ADDRESS_OPEN: WS? '@[' WS? -> pushMode(Address);
 
-WORD: ~('-'|'\n'|'\r'|' '|'\t'|'{'|'}'|'['|']'|'<'|'>')+;
+WORD: ~('-'|'\n'|'\r'|' '|'\t'|'<'|'{'|'['|']'|'~')+;
 
 fragment NUMBER: [0-9$]+;
 fragment VOID: (' '|'\t'|'\n'|'\r')+;
