@@ -1,8 +1,10 @@
-< Title > Dash Language Documentation
-< Subtitle > Documents Advanced Syntax by Highlighting
+<> Dash Language Documentation
+<> Documents Advanced Syntax by Highlighting
 
 ~~~~ To-Do
-- Reintroduce arrow for titles ?
+- Subtitles { -> } ?
+- Sections
+- Definition {[word]:[definition]}
 - Other standard blocks
 - Multiple paragraph lists
 - Rewrite code snippets and examples
@@ -227,7 +229,7 @@ You can use all these decoration at the same time if you want. You just need to 
 <...>
 
 If you want to use a <purple>[custom] emphasis, use an header just before your <red>[emphasis].
-If the header is not handled in the output, it must be process like bold.
+If the header is not handled in the output, it will be process like bold.
 
 << .dash- >>
 If you want to use a <purple>[custom] emphasis, use an header just <red>[before] your emphasis.

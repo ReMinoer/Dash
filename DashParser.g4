@@ -41,6 +41,7 @@ private int WhiteSpaceSize(string whiteSpace) {
 
 parse:
     NEWLINE*
+    ( document_title NEWLINE* )*
     (   
         (   comment_block
         |   comment_inline
@@ -59,6 +60,7 @@ parse:
     WS? EOF
     ;
 
+document_title: HEADER_OPEN HEADER_CLOSE NEWLINE? line;
 paragraph: header line | NEWLINE (header NEWLINE)? ((list | line) (NEWLINE (header_mode | list | line))*)? MODE_CLOSE?;
 
 line:
