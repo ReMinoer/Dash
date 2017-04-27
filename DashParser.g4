@@ -385,30 +385,20 @@ list_bulleted [int currentDepth] locals /*<>*/ [int depth, boolean ordered = fal
         |   LIST_BULLET
         )
         WS?
-        (   { $depth > $currentDepth }?
-                (   { $ordered }?
-                        subo=sublist_ordered[$depth]
-                        (
-                            { $subo.returnDepth >= 0 }?
-                                line
-                        )?
-                |   { !$ordered }?
-                        subb=sublist_bulleted[$depth]
-                        (
-                            { $subb.returnDepth >= 0 }?
-                                line
-                        )?
-                )
-        |   { $depth <= $currentDepth }?
-                (   { $ordered }?
-                        subo=sublist_ordered[$depth]
-                        (
-                            { $subo.returnDepth >= 0 }?
-                                line
-                        )?
-                |   { !$ordered }?
+        (   { $ordered }?
+                subo=sublist_ordered[$depth]
+                (
+                    { $subo.returnDepth >= 0 }?
                         line
-                )
+                )?
+        |   { !$ordered && $depth > $currentDepth }?
+                subb=sublist_bulleted[$depth]
+                (
+                    { $subb.returnDepth >= 0 }?
+                        line
+                )?
+        |   { !$ordered && $depth <= $currentDepth }?
+                line?
         )
     )*
     ;
@@ -427,36 +417,24 @@ sublist_bulleted [int currentDepth] returns [int returnDepth = -1] locals /*<>*/
         (   LIST_NUMBER { $ordered = true; }
         |   LIST_BULLET
         )
-        (   { $depth > $currentDepth }?
-                (   { $ordered }?
-                        subo=sublist_ordered[$depth]
-                        (
-                            { $subo.returnDepth >= $currentDepth }?
-                                line
-                        |   { $subo.returnDepth < $currentDepth }?
-                                { $returnDepth = $subo.returnDepth; }
-                        )
-                |   { !$ordered }?
-                        subb=sublist_bulleted[$depth]
-                        (
-                            { $subb.returnDepth >= $currentDepth }?
-                                line
-                        |   { $subb.returnDepth < $currentDepth }?
-                                { $returnDepth = $subb.returnDepth; }
-                        )
-                )
-        |   { $depth == $currentDepth }?
-                (   { $ordered }?
-                        subo=sublist_ordered[$depth]
-                        (
-                            { $subo.returnDepth >= $currentDepth }?
-                                line
-                        |   { $subo.returnDepth < $currentDepth }?
-                                { $returnDepth = $subo.returnDepth; }
-                        )
-                |   { !$ordered }?
+        (   { $ordered && $depth >= $currentDepth }?
+                subo=sublist_ordered[$depth]
+                (
+                    { $subo.returnDepth >= $currentDepth }?
                         line
+                |   { $subo.returnDepth < $currentDepth }?
+                        { $returnDepth = $subo.returnDepth; }
                 )
+        |   { !$ordered && $depth > $currentDepth }?
+                subb=sublist_bulleted[$depth]
+                (
+                    { $subb.returnDepth >= $currentDepth }?
+                        line
+                |   { $subb.returnDepth < $currentDepth }?
+                        { $returnDepth = $subb.returnDepth; }
+                )
+        |   { !$ordered && $depth == $currentDepth }?
+                line
         |   { $depth < $currentDepth }?
                 { $returnDepth = $depth; }
         )
@@ -476,30 +454,20 @@ list_ordered [int currentDepth] locals /*<>*/ [int depth, boolean ordered = fals
         (   LIST_NUMBER { $ordered = true; }
         |   LIST_BULLET
         )
-        (   { $depth > $currentDepth }?
-                (   { $ordered }?
-                        subo=sublist_ordered[$depth]
-                        (
-                            { $subo.returnDepth >= 0 }?
-                                line
-                        )?
-                |   { !$ordered }?
-                        subb=sublist_bulleted[$depth]
-                        (
-                            { $subb.returnDepth >= 0 }?
-                                line
-                        )?
-                )
-        |   { $depth <= $currentDepth }?
-                (   { !$ordered }?
-                        subb=sublist_bulleted[$depth]
-                        (
-                            { $subb.returnDepth >= 0 }?
-                                line
-                        )?
-                |   { $ordered }?
+        (   { !$ordered }?
+                subb=sublist_bulleted[$depth]
+                (
+                    { $subb.returnDepth >= 0 }?
                         line
-                )
+                )?
+        |   { $ordered && $depth > $currentDepth }?
+                subo=sublist_ordered[$depth]
+                (
+                    { $subo.returnDepth >= 0 }?
+                        line
+                )?
+        |   { $ordered && $depth <= $currentDepth }?
+                line?
         )
     )*
     ;
@@ -518,36 +486,24 @@ sublist_ordered [int currentDepth] returns [int returnDepth = -1] locals /*<>*/ 
         (   LIST_NUMBER { $ordered = true; }
         |   LIST_BULLET
         )
-        (   { $depth > $currentDepth }?
-                (   { $ordered }?
-                        subo=sublist_ordered[$depth]
-                        (
-                            { $subo.returnDepth >= $currentDepth }?
-                                line
-                        |   { $subo.returnDepth < $currentDepth }?
-                                { $returnDepth = $subo.returnDepth; }
-                        )
-                |   { !$ordered }?
-                        subb=sublist_bulleted[$depth]
-                        (
-                            { $subb.returnDepth >= $currentDepth }?
-                                line
-                        |   { $subb.returnDepth < $currentDepth }?
-                                { $returnDepth = $subb.returnDepth; }
-                        )
-                )
-        |   { $depth == $currentDepth }?
-                (   { !$ordered }?
-                        subb=sublist_bulleted[$depth]
-                        (
-                            { $subb.returnDepth >= $currentDepth }?
-                                line
-                        |   { $subb.returnDepth < $currentDepth }?
-                                { $returnDepth = $subb.returnDepth; }
-                        )
-                |   { $ordered }?
+        (   { !$ordered && $depth >= $currentDepth }?
+                subb=sublist_bulleted[$depth]
+                (
+                    { $subb.returnDepth >= $currentDepth }?
                         line
+                |   { $subb.returnDepth < $currentDepth }?
+                        { $returnDepth = $subb.returnDepth; }
                 )
+        |   { $ordered && $depth > $currentDepth }?
+                subo=sublist_ordered[$depth]
+                (
+                    { $subo.returnDepth >= $currentDepth }?
+                        line
+                |   { $subo.returnDepth < $currentDepth }?
+                        { $returnDepth = $subo.returnDepth; }
+                )
+        |   { $ordered && $depth == $currentDepth }?
+                line
         |   { $depth < $currentDepth }?
                 { $returnDepth = $depth; }
         )
