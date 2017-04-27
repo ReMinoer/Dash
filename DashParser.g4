@@ -364,14 +364,14 @@ list locals [int depth = 0]:
     (
         tabs=WS
         /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
-        /*<csharp> { $depth = WhiteSpaceSize($tabs.Text); } */
+        /*<csharp> { $depth = WhiteSpaceSize($tabs.text); } */
     )?
     (   LIST_NUMBER WS? list_ordered[$depth]
     |   LIST_BULLET WS? list_bulleted[$depth]
     )
     ;
 
-list_bulleted [int currentDepth] locals /*<>*/ [int depth, boolean ordered = false, boolean stop = false] /* <csharp> [int depth, bool ordered = false, bool stop = false] */:
+list_bulleted [int currentDepth] locals /*<>*/ [int depth, boolean ordered = false] /* <csharp> [int depth, bool ordered = false] */:
     line
     (
         NEWLINE
@@ -379,7 +379,7 @@ list_bulleted [int currentDepth] locals /*<>*/ [int depth, boolean ordered = fal
         (
             tabs=WS
             /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
-            /*<csharp> { $depth = WhiteSpaceSize($tabs.Text); } */
+            /*<csharp> { $depth = WhiteSpaceSize($tabs.text); } */
         )?
         (   LIST_NUMBER { $ordered = true; }
         |   LIST_BULLET
@@ -413,7 +413,7 @@ list_bulleted [int currentDepth] locals /*<>*/ [int depth, boolean ordered = fal
     )*
     ;
 
-sublist_bulleted [int currentDepth] returns [int returnDepth = -1] locals [int depth, boolean ordered = false]:
+sublist_bulleted [int currentDepth] returns [int returnDepth = -1] locals /*<>*/ [int depth, boolean ordered = false] /* <csharp> [int depth, bool ordered = false] */:
     line
     (
         { $returnDepth < 0 }?
@@ -422,7 +422,7 @@ sublist_bulleted [int currentDepth] returns [int returnDepth = -1] locals [int d
         (
             tabs=WS
             /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
-            /*<csharp> { $depth = WhiteSpaceSize($tabs.Text); } */
+            /*<csharp> { $depth = WhiteSpaceSize($tabs.text); } */
         )?
         (   LIST_NUMBER { $ordered = true; }
         |   LIST_BULLET
@@ -463,7 +463,7 @@ sublist_bulleted [int currentDepth] returns [int returnDepth = -1] locals [int d
     )*
     ;
 
-list_ordered [int currentDepth] locals [int depth, boolean ordered = false, boolean stop = false]:
+list_ordered [int currentDepth] locals /*<>*/ [int depth, boolean ordered = false] /* <csharp> [int depth, bool ordered = false] */:
     line
     (
         NEWLINE
@@ -471,7 +471,7 @@ list_ordered [int currentDepth] locals [int depth, boolean ordered = false, bool
         (
             tabs=WS
             /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
-            /*<csharp> { $depth = WhiteSpaceSize($tabs.Text); } */
+            /*<csharp> { $depth = WhiteSpaceSize($tabs.text); } */
         )?
         (   LIST_NUMBER { $ordered = true; }
         |   LIST_BULLET
@@ -504,7 +504,7 @@ list_ordered [int currentDepth] locals [int depth, boolean ordered = false, bool
     )*
     ;
 
-sublist_ordered [int currentDepth] returns [int returnDepth = -1] locals [int depth, boolean ordered = false]:
+sublist_ordered [int currentDepth] returns [int returnDepth = -1] locals /*<>*/ [int depth, boolean ordered = false] /* <csharp> [int depth, bool ordered = false] */:
     line
     (
         { $returnDepth < 0 }?
@@ -513,7 +513,7 @@ sublist_ordered [int currentDepth] returns [int returnDepth = -1] locals [int de
         (
             tabs=WS
             /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
-            /*<csharp> { $depth = WhiteSpaceSize($tabs.Text); } */
+            /*<csharp> { $depth = WhiteSpaceSize($tabs.text); } */
         )?
         (   LIST_NUMBER { $ordered = true; }
         |   LIST_BULLET
