@@ -85,28 +85,12 @@ DASH_MEDIA_MODE_INNER_BRACKET: VOID? '<';
 DASH_MEDIA_MODE_INNER_CLOSE: VOID? '<...>' WS? -> popMode;
 
 mode Header;
-HEADER_TITLE_1: '-';
-HEADER_TITLE_2: '--';
-HEADER_TITLE_3: '---';
-HEADER_TITLE_4: '----';
-HEADER_TITLE_5: '-----';
-HEADER_TITLE_6: '------';
-HEADER_TITLE_7: '-------';
-HEADER_TITLE_8: '--------';
-HEADER_TITLE_9: '---------';
+HEADER_TITLE: '-'+;
 HEADER_CONTENT: (WS? ('<' HEADER_CONTENT WS? '>' | ~('>'|' '|'\t'|'\n'|'\r')+))+;
 HEADER_CLOSE: WS? '>' WS? -> popMode;
 
 mode HeaderMode;
-HEADER_MODE_TITLE_1: '-';
-HEADER_MODE_TITLE_2: '--';
-HEADER_MODE_TITLE_3: '---';
-HEADER_MODE_TITLE_4: '----';
-HEADER_MODE_TITLE_5: '-----';
-HEADER_MODE_TITLE_6: '------';
-HEADER_MODE_TITLE_7: '-------';
-HEADER_MODE_TITLE_8: '--------';
-HEADER_MODE_TITLE_9: '---------';
+HEADER_MODE_TITLE: '-'+;
 HEADER_MODE_CONTENT: (WS? ('<' HEADER_MODE_CONTENT WS? '>' | ~('>'|' '|'\t'|'\n'|'\r')+))+;
 HEADER_MODE_CLOSE: WS? '>' WS? '>' WS? -> popMode;
 
