@@ -3,6 +3,7 @@ parser grammar DashParser;
 options { tokenVocab=DashLexer; }
 
 /* TO-DO
+- Target conditions
 - Back to line mode
 - Media inline
 - Unit tests
