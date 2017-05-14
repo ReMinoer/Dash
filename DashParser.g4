@@ -72,8 +72,8 @@ line:
         |   media
         |   bold
         |   italic
-        |   underline
-        |   strikethrough
+        |   mark
+        |   obsolete
         |   emphasis
         |   link
         |   directLink
@@ -92,8 +92,8 @@ emphasisLine:
         |   media
         |   bold
         |   italic
-        |   underline
-        |   strikethrough
+        |   mark
+        |   obsolete
         |   emphasis
         |   link
         |   directLink
@@ -112,8 +112,8 @@ linkLine:
         |   media
         |   bold
         |   italic
-        |   underline
-        |   strikethrough
+        |   mark
+        |   obsolete
         |   emphasis
         |   link
         |   directLink
@@ -139,8 +139,8 @@ others:
     |   SELECTION_CLOSE
     |   BOLD_OPEN
     |   ITALIC_OPEN
-    |   UNDERLINE_OPEN
-    |   STRIKETHROUGH_OPEN
+    |   MARK_OPEN
+    |   OBSOLETE_OPEN
     |   LINK_MIDDLE
     |   DIRECT_LINK_OPEN
     |   ADDRESS_OPEN
@@ -183,8 +183,8 @@ emphasisOthers:
     |   SELECTION_OPEN
     |   BOLD_OPEN
     |   ITALIC_OPEN
-    |   UNDERLINE_OPEN
-    |   STRIKETHROUGH_OPEN
+    |   MARK_OPEN
+    |   OBSOLETE_OPEN
     |   LINK_MIDDLE
     |   DIRECT_LINK_OPEN
     |   ADDRESS_OPEN
@@ -228,8 +228,8 @@ linkOthers:
     |   SELECTION_CLOSE
     |   BOLD_OPEN
     |   ITALIC_OPEN
-    |   UNDERLINE_OPEN
-    |   STRIKETHROUGH_OPEN
+    |   MARK_OPEN
+    |   OBSOLETE_OPEN
     |   DIRECT_LINK_OPEN
     |   ADDRESS_OPEN
     |   COMMENT_BLOCK_CONTENT
@@ -274,8 +274,8 @@ headerModeContent:
 
 bold: BOLD_OPEN emphasisLine SELECTION_CLOSE;
 italic: ITALIC_OPEN emphasisLine SELECTION_CLOSE;
-underline: UNDERLINE_OPEN emphasisLine SELECTION_CLOSE;
-strikethrough: STRIKETHROUGH_OPEN emphasisLine SELECTION_CLOSE;
+mark: MARK_OPEN emphasisLine SELECTION_CLOSE;
+obsolete: OBSOLETE_OPEN emphasisLine SELECTION_CLOSE;
 emphasis: HEADER_OPEN headerContent HEADER_CLOSE SELECTION_OPEN emphasisLine SELECTION_CLOSE;
 
 link: SELECTION_OPEN linkLine LINK_MIDDLE linkContent LINK_CLOSE;

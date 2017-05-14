@@ -1,10 +1,11 @@
 <> Dash Language Documentation
-<> Documents Advanced Syntax by Highlighting
+<> Document Advanced Syntax Hypertextual 
 
 ~~~~ To-Do
 - Subtitles { -> } ?
 - Sections
-- Definition {[word]:[definition]}
+    - Influençant les titres
+- Definition {*[word]:[definition]}
 - Other standard blocks
 - Multiple paragraph lists
 - Rewrite code snippets and examples
@@ -213,19 +214,19 @@ In fact, titles are blocks. Because there are very common, they have there own s
 The language handle the four most famous emphasis :
 
 - You can use *[bold] with { *[ ... ] }.
-- You can use /[italic] with { /[ ... ] }.
-- You can use _[underline] with { _[ ... ] }.
-- You can use =[strikethrough] with { =[ ... ] }.
+- You can /[italic] some sentences or with { /[ ... ] }.
+- You can =[mark] personally important text with { =[ ... ] }.
+- You can ~[obselete] not anymore used sentences with { ~[ ... ] }.
 
 < Design note >
 These symbols have been choosen because they are simple to access on a keyboard, refers to their effects and highlight plain text at different degrees.
 
 You can use all these decoration at the same time if you want. You just need to think to always close the last opened emphasis before the others.
 
-*[/[_[Here] is an =[exemple].]]
+=[*[Here] is an /[exemple].]
 
 << .dash- >>
-*[/[_[Here] is an =[exemple].]]
+=[*[Here] is an /[exemple].]
 <...>
 
 If you want to use a <purple>[custom] emphasis, use an header just before your <red>[emphasis].

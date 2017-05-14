@@ -23,8 +23,8 @@ SELECTION_CLOSE: WS? ']';
 
 BOLD_OPEN: '*[' WS?;
 ITALIC_OPEN: '/[' WS?;
-UNDERLINE_OPEN: '_[' WS?;
-STRIKETHROUGH_OPEN: '=[' WS?;
+MARK_OPEN: '=[' WS?;
+OBSOLETE_OPEN: '~[' WS?;
 
 LINK_MIDDLE: WS? '][' WS? -> pushMode(Link);
 DIRECT_LINK_OPEN: '[[' WS? -> pushMode(DirectLink);
