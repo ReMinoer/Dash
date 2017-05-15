@@ -52,6 +52,7 @@ parse:
         |   MODE_CLOSE
         |   (   redirection
             |   note
+            |   media
             |   paragraph
             )
             (NEWLINE | WS? EOF)

@@ -251,8 +251,7 @@ If you also want to use the adress as text, use { [[adress]] } like so: [[http:/
 
 You can define internal target at a specific position in your document with { @[identifier] }.
 
-< .dash- >
-@[First target]
+< .dash- > { @[First target] }
 
 Then, you can use that same identifier as adress for a link. For example: [Link text][target]
 
@@ -263,8 +262,7 @@ Internal target identification will ignore the case. "TARGET" is equal to "targe
 It's also possible to use multiple identifier for a same target by separate them with pipes { | }.
 For example : [Other link text][Same Target]
 
-< .dash- >
-@[target|other target]
+< .dash- > { @[target|other target] }
 
 < Design note >
 You can build a lexic by combining multi-identifier targets and raw internal links.
@@ -401,7 +399,7 @@ You can also combine both of them to display the textual and graphic form at the
 
 <--> Tables
 
-< .csv >
+<< .csv >>
 
 Name;John;Paul;Bob
 Age;22;34;58
