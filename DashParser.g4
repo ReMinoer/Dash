@@ -49,7 +49,7 @@ parse:
         |   headerMode
         |   extensionMode
         |   dashExtensionMode
-        |   MODE_CLOSE
+        |   modeClose
         |   (   redirection
             |   note
             |   media
@@ -63,7 +63,7 @@ parse:
     ;
 
 documentTitle: HEADER_OPEN HEADER_CLOSE NEWLINE? line;
-paragraph: (titleHeader | header) line | NEWLINE ((titleHeader | header) NEWLINE)? ((list | line) (NEWLINE (headerMode | list | line))*)? MODE_CLOSE?;
+paragraph: (titleHeader | header) line | NEWLINE ((titleHeader | header) NEWLINE)? ((list | line) (NEWLINE (headerMode | list | line))*)? modeClose?;
 
 line:
     (   WS?
@@ -268,6 +268,7 @@ headerContent:
 
 headerMode: HEADER_MODE_OPEN headerModeContent? HEADER_MODE_CLOSE;
 titleHeaderMode: HEADER_MODE_OPEN HEADER_MODE_TITLE HEADER_MODE_CLOSE;
+modeClose: MODE_CLOSE;
 headerModeContent: 
     (   HEADER_MODE_CONTENT
     |   HEADER_MODE_TITLE
