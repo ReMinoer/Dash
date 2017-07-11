@@ -4,6 +4,7 @@ options { tokenVocab=DashLexer; }
 
 /* TO-DO
 - Target conditions
+- Alternative text
 - Back to line mode
 - Media inline
 - Unit tests

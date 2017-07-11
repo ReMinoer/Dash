@@ -6,6 +6,7 @@
 - Sections
     - Influençant les titres
 - Definition {*[word]:[definition]}
+- Target condition
 - Other standard blocks
 - Multiple paragraph lists
 - Rewrite code snippets and examples
@@ -214,7 +215,7 @@ In fact, titles are blocks. Because there are very common, they have there own s
 The language handle the four most famous emphasis :
 
 - You can use *[bold] with { *[ ... ] }.
-- You can /[italic] some sentences or with { /[ ... ] }.
+- You can /[italic] some sentences or words with { /[ ... ] }.
 - You can =[mark] personally important text with { =[ ... ] }.
 - You can ~[obselete] not anymore used sentences with { ~[ ... ] }.
 
@@ -375,25 +376,25 @@ You can also combine both of them to display the textual and graphic form at the
 
 <--> Images
 
-< .jpg > { images/cat }
-< .png > { https://avatars0.githubusercontent.com/u/7021265 }
+< .jpg > { http://www.gstatic.com/webp/gallery/1.jpg }
+< .png > { https://www.gstatic.com/webp/gallery3/1.png }
 
 << .dash- >>
 
-< .jpg > { images/cat }
-< .png > { https://avatars0.githubusercontent.com/u/7021265 }
+< .jpg > { http://www.gstatic.com/webp/gallery/1.jpg }
+< .png > { https://www.gstatic.com/webp/gallery3/1.png }
 
 <...>
 
 <--> Videos
 
-< .mp4 > { videos/cat }
-< .youtube.com > { LJttZ_Zfiw0 }
+< .mp4 > { http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4 }
+< .youtube.com > { hqW4qLcRD3w }
 
 << .dash- >>
 
-< .mp4 > { videos/cat }
-< .youtube.com > { LJttZ_Zfiw0 }
+< .mp4 > { http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4 }
+< .youtube.com > { hqW4qLcRD3w }
 
 <...>
 
