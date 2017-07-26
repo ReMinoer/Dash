@@ -256,9 +256,8 @@ You can define internal target at a specific position in your document with { @[
 
 Then, you can use that same identifier as adress for a link. For example: [Link text][target]
 
-@[target|same target]
 < Design note >
-Internal target identification will ignore the case. "TARGET" is equal to "target".
+@[target] Internal target identification will ignore the case. "TARGET" is equal to "target".
 
 It's also possible to use multiple identifier for a same target by separate them with pipes { | }.
 For example : [Other link text][Same Target]
