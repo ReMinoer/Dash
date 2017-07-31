@@ -375,38 +375,20 @@ You can also combine both of them to display the textual and graphic form at the
 
 <--> Images
 
+< .dh > { < .jpg > { http://www.gstatic.com/webp/gallery/1.jpg } }
 < .jpg > { http://www.gstatic.com/webp/gallery/1.jpg }
+< .dh > { < .png > { https://www.gstatic.com/webp/gallery3/1.png } }
 < .png > { https://www.gstatic.com/webp/gallery3/1.png }
-
-<< .dash- >>
-
-< .jpg > { http://www.gstatic.com/webp/gallery/1.jpg }
-< .png > { https://www.gstatic.com/webp/gallery3/1.png }
-
-<...>
 
 <--> Videos
 
+< .dh > { < .mp4 > { http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4 } }
 < .mp4 > { http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4 }
+< .dh > { < .youtube.com > { hqW4qLcRD3w } }
 < .youtube.com > { hqW4qLcRD3w }
-
-<< .dash- >>
-
-< .mp4 > { http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4 }
-< .youtube.com > { hqW4qLcRD3w }
-
-<...>
 
 <--> Tables
 
-<< .csv >>
-
-Name;John;Paul;Bob
-Age;22;34;58
-Happy?;Yes;Yes;No
-
-<...>
-
 << .dash- >>
 << .csv >>
 
@@ -415,22 +397,18 @@ Age;22;34;58
 Happy?;Yes;Yes;No
 
 <...>
+<...>
+
+<< .csv >>
+
+Name;John;Paul;Bob
+Age;22;34;58
+Happy?;Yes;Yes;No
+
 <...>
 
 <--> Code
 
-<< .cs- >>
-
-public class Program()
-{
-    public static void Main()
-    {
-        Console.WriteLine("Hello world !");
-    }
-}
-
-<...>
-
 << .dash- >>
 << .cs- >>
 
@@ -443,6 +421,18 @@ public class Program()
 }
 
 <...>
+<...>
+
+<< .cs- >>
+
+public class Program()
+{
+    public static void Main()
+    {
+        Console.WriteLine("Hello world !");
+    }
+}
+
 <...>
 
 <-> Comments
