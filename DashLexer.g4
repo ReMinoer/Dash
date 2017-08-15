@@ -95,8 +95,8 @@ HEADER_MODE_CONTENT: (WS? ('<' HEADER_MODE_CONTENT WS? '>' | ~('>'|' '|'\t'|'\n'
 HEADER_MODE_CLOSE: WS? '>' WS? '>' WS? -> popMode;
 
 mode Link;
-LINK_CONTENT: (WS? ('[' LINK_CONTENT WS? ']' | ~(']'|' '|'\t'|'\n'|'\r')+))+;
 REFERENCE_NUMBER: NUMBER;
+LINK_CONTENT: (WS? ('[' LINK_CONTENT WS? ']' | ~(']'|' '|'\t'|'\n'|'\r')+))+;
 LINK_CLOSE: WS? ']' -> popMode;
 
 mode DirectLink;

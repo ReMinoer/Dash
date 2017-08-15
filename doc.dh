@@ -262,7 +262,7 @@ Then, you can use that same identifier as adress for a link. For example: [Link 
 It's also possible to use multiple identifier for a same target by separate them with pipes { | }.
 For example : [Other link text][Same Target]
 
-< .dash- > { @[target|other target] }
+< .dash- > { @[target|same target] }
 
 < Design note >
 You can build a lexic by combining multi-identifier targets and raw internal links.
