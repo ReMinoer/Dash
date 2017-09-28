@@ -16,12 +16,14 @@ options { tokenVocab=DashLexer; }
 /*<>*/
 @members
 {
-private int whiteSpaceSize(String whiteSpace) {
+public static final int TabSize = 4;
+
+public static int whiteSpaceSize(String whiteSpace) {
     int size = 0;
     for (char c: whiteSpace.toCharArray())
         switch (c) {
             case ' ': size++; break;
-            case '\t': size += 4; break;
+            case '\t': size += TabSize; break;
         }
     return size;
 }
@@ -29,12 +31,14 @@ private int whiteSpaceSize(String whiteSpace) {
 /*<csharp>
 @members
 {
-private int WhiteSpaceSize(string whiteSpace) {
+public const int TabSize = 4;
+
+public static int WhiteSpaceSize(string whiteSpace) {
     int size = 0;
     foreach (char c in whiteSpace)
         switch (c) {
             case ' ': size++; break;
-            case '\t': size += 4; break;
+            case '\t': size += TabSize; break;
         }
     return size;
 }
@@ -300,21 +304,65 @@ media: (EXTENSION_OPEN mediaExtension (EXTENSION_PLUS | EXTENSION_MINUS)* EXTENS
 mediaExtension: ((EXTENSION_PLUS | EXTENSION_MINUS)* EXTENSION_CONTENT)*;
 mediaContent: (MEDIA_CONTENT | MEDIA_BRACES_OPEN | MEDIA_CLOSE)+;
 
-extensionMode: EXTENSION_MODE_OPEN extensionModeExtension (EXTENSION_MODE_PLUS | EXTENSION_MODE_MINUS)* EXTENSION_MODE_CLOSE extensionModeContent? MEDIA_MODE_CLOSE;
+extensionMode: EXTENSION_MODE_OPEN extensionModeExtension (EXTENSION_MODE_PLUS | EXTENSION_MODE_MINUS)* EXTENSION_MODE_CLOSE extensionModeContent MEDIA_MODE_NEWLINE* (MEDIA_MODE_SPACE | MEDIA_MODE_TAB)* MEDIA_MODE_CLOSE;
 extensionModeExtension: ((EXTENSION_MODE_PLUS | EXTENSION_MODE_MINUS)* EXTENSION_MODE_CONTENT)*;
-extensionModeContent: (MEDIA_MODE_CONTENT | MEDIA_MODE_BRACKET)+;
 
-dashExtensionMode: EXTENSION_MODE_OPEN EXTENSION_MODE_DASH (DASH_EXTENSION_PLUS | DASH_EXTENSION_MINUS)* DASH_EXTENSION_CLOSE dashExtensionModeContent? DASH_MEDIA_MODE_CLOSE;
-dashExtensionModeContent:
-    (   DASH_MEDIA_MODE_CONTENT
+extensionModeContent locals [int tabSize = 0, int lineTabSize = 0]:
+    (   MEDIA_MODE_SPACE { $tabSize++; }
+    |   MEDIA_MODE_TAB { $tabSize += TabSize; }
+    )*
+    extensionModeLine
+    (
+        MEDIA_MODE_NEWLINE
+        (   { $lineTabSize < $tabSize }?
+                (   MEDIA_MODE_SPACE { $lineTabSize++; }
+                |   MEDIA_MODE_TAB { $lineTabSize += TabSize; }
+                )
+        )*
+        extensionModeLine { $lineTabSize = 0; }
+    )*
+    ;
+
+extensionModeLine:
+    (   MEDIA_MODE_SPACE
+    |   MEDIA_MODE_TAB
+    |   MEDIA_MODE_CONTENT
+    |   MEDIA_MODE_BRACKET
+    )*
+    ;
+
+dashExtensionMode: EXTENSION_MODE_OPEN EXTENSION_MODE_DASH (DASH_EXTENSION_PLUS | DASH_EXTENSION_MINUS)* DASH_EXTENSION_CLOSE dashExtensionModeContent DASH_MEDIA_MODE_CLOSE;
+
+dashExtensionModeContent locals [int tabSize = 0, int lineTabSize = 0]:
+    (   (DASH_MEDIA_MODE_SPACE | DASH_MEDIA_MODE_INNER_SPACE) { $tabSize++; }
+    |   (DASH_MEDIA_MODE_TAB | DASH_MEDIA_MODE_INNER_TAB) { $tabSize += TabSize; }
+    )*
+    dashExtensionModeLine
+    (
+        (DASH_MEDIA_MODE_NEWLINE | DASH_MEDIA_MODE_INNER_NEWLINE)
+        (   { $lineTabSize < $tabSize }?
+                (   (DASH_MEDIA_MODE_SPACE | DASH_MEDIA_MODE_INNER_SPACE) { $lineTabSize++; }
+                |   (DASH_MEDIA_MODE_TAB | DASH_MEDIA_MODE_INNER_TAB) { $lineTabSize += TabSize; }
+                )
+        )*
+        dashExtensionModeLine { $lineTabSize = 0; }
+    )*
+    ;
+
+dashExtensionModeLine:
+    (   DASH_MEDIA_MODE_SPACE
+    |   DASH_MEDIA_MODE_TAB
+    |   DASH_MEDIA_MODE_CONTENT
     |   DASH_MEDIA_MODE_BRACKET
     |   DASH_MEDIA_MODE_CLOSE
     |   DASH_MEDIA_MODE_DASH
+    |   DASH_MEDIA_MODE_INNER_SPACE
+    |   DASH_MEDIA_MODE_INNER_TAB
     |   DASH_MEDIA_MODE_INNER_CONTENT
     |   DASH_MEDIA_MODE_INNER_BRACKET
     |   DASH_MEDIA_MODE_INNER_CLOSE
     |   DASH_MEDIA_MODE_INNER_DASH
-    )+
+    )*
     ;
 
 commentInline: COMMENT_INLINE_OPEN commentInlineContent COMMENT_INLINE_CLOSE;

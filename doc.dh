@@ -1,452 +1,490 @@
 <> Dash Language Documentation
-<> Document Advanced Syntax Hypertextual 
+<> Document Advanced Syntax Hypertextual
 
-~~~~ To-Do
-- Subtitles { -> } ?
-- Sections
-    - Influençant les titres
-- Definition {*[word]:[definition]}
-- Target condition
-- Other standard blocks
-- Multiple paragraph lists
-- Rewrite code snippets and examples
-- Patterns
+/[That documentation was generated from a [document][$] write in Dash by a convertion tool named [Dast][$].]
+
+@[$] [[https://github.com/ReMinoer/Dash/blob/master/doc.dh]]
+@[$] [[https://github.com/ReMinoer/Dast]]
+
+~~~~ 
+    - To implement
+        - Definition { *[word]:[definition] }
+        - Multiple paragraph list item
+    - To improve
+        - 
+        - Rewrite code snippets and examples
+    - Ideas / Needs
+        - Sections
+        - Block syntax
+        - Target condition { <!>[sample] }
+        - Subtitles { -> }
+        - Other standard blocks
+        - Patterns
 ~~~~
 
 <-> Identity
 
-This language is called Dash. It's a markup language to write structured documents with a good plain-text feel.
+    This language is called Dash. It's a markup language to write structured documents with a good plain-text feel.
 
-His name come from the multiples definition of the word :
+    His name come from the multiples definition of the word :
 
-- Dash as the name for the *[character] { - }, used a lot in the language.
-- Dash as a *[fast] movement, corresponding to a quick-note language.
-- Dash as a small amount of something, giving the idea of *[subtility] and *[optimization].
-- Dash as the action of *[destroy], with one target : the /[Markdown] language.
+    - Dash as the name for the *[character] { - }, used a lot in the language.
+    - Dash as a *[fast] movement, corresponding to a quick-note language.
+    - Dash as a small amount of something, giving the idea of *[subtility] and *[optimization].
+    - Dash as the action of *[destroy], with one target : the /[Markdown] language.
 
-Used file extensions are:
+    Used file extensions are:
 
-- .dh : two character extension
-- .dash : name extension
+    - .dh : two character extension
+    - .dash : name extension
 
-Majuscule extensions are also tolerated.
+    Majuscule extensions are also tolerated.
 
 <-> Paragraphs
 
-You can write paragraphs directly.
+    You can write paragraphs directly.
 
-Jump two lines to write another paragraphs.
-You can also back to the line in the same paragraph.
+    Jump two lines to write another paragraphs.
+    You can also back to the line in the same paragraph.
 
-<< .dash- >>
+    << .dash- >>
 
-You can write paragraphs directly.
+        You can write paragraphs directly.
 
-Jump two lines to write another paragraphs.
-You can also back to the line in the same paragraph.
+        Jump two lines to write another paragraphs.
+        You can also back to the line in the same paragraph.
 
-<...>
+    <...>
 
-< Design note >
-Come back to the line in the same paragraph is handled in the language because it's a common plain text formatting.
+    < Design note >
+        Come back to the line in the same paragraph is handled in the language because it's a common plain text formatting.
 
 <-> Lists
 
-You can list items by using { - } at the beginning of lines.
+    You can list items by using { - } at the beginning of lines.
 
--Item A
--Item B
--Item C
+    -Item A
+    -Item B
+    -Item C
 
-<< .dash- >>
+    << .dash- >>
 
--Item A
--Item B
--Item C
+        -Item A
+        -Item B
+        -Item C
 
-<...>
+    <...>
 
-You can describe trees by breaking the alignement with tabulations or spaces.
+    You can describe trees by breaking the alignement with tabulations or spaces.
 
-- Item A
-    - Sub-item A1
-        - Sub-sub-item A1a
-    - Sub-item A2
-        - Sub-sub-item A2a
-        - Sub-sub-item A2b
-- Item B
-    - Sub-item B1
-        - Sub-sub-item B1a
-        - Sub-sub-item B1b
+    - Item A
+        - Sub-item A1
+            - Sub-sub-item A1a
+        - Sub-item A2
+            - Sub-sub-item A2a
+            - Sub-sub-item A2b
+    - Item B
+        - Sub-item B1
+            - Sub-sub-item B1a
+            - Sub-sub-item B1b
 
-<< .dash- >>
+    << .dash- >>
 
-- Item A
-    - Sub-item A1
-        - Sub-sub-item A1a
-    - Sub-item A2
-        - Sub-sub-item A2a
-        - Sub-sub-item A2b
-- Item B
-    - Sub-item B1
-        - Sub-sub-item B1a
-        - Sub-sub-item B1b
+        - Item A
+            - Sub-item A1
+                - Sub-sub-item A1a
+            - Sub-item A2
+                - Sub-sub-item A2a
+                - Sub-sub-item A2b
+        - Item B
+            - Sub-item B1
+                - Sub-sub-item B1a
+                - Sub-sub-item B1b
 
-<...>
+    <...>
 
-< Design note >
-In Dash, a tabulation is equal to 4 spaces.
+    < Design note >
+    In Dash, a tabulation is equal to 4 spaces.
 
-You can also create numbered lists with { 1- 2- 3- }.
+    You can also create numbered lists with { 1- 2- 3- }.
 
-1- Item 1
-2- Item 2
-3- Item 3
+    1- Item 1
+    2- Item 2
+    3- Item 3
 
-<< .dash- >>
+    << .dash- >>
 
-1- Item 1
-2- Item 2
-3- Item 3
+        1- Item 1
+        2- Item 2
+        3- Item 3
 
-<...>
+    <...>
 
-< Design note >
-Numbers used will be ignored by the parser. It will use items order to number them.
+    < Design note >
+        Numbers used will be ignored by the parser. It will use items order to number them.
 
-If you don't want to use numbers and leave the order to the parser, use { $- }
+    If you don't want to use numbers and leave the order to the parser, use { $- }
 
-$- Item 1
-$- Item 2
-$- Item 3
+    $- Item 1
+    $- Item 2
+    $- Item 3
 
-<< .dash- >>
+    << .dash- >>
 
-$- Item 1
-$- Item 2
-$- Item 3
+        $- Item 1
+        $- Item 2
+        $- Item 3
 
-<...>
+    <...>
 
-< Design note >
-In Dash, { $ } replace numbers when it's possible.
+    < Design note >
+        In Dash, { $ } replace numbers when it's possible.
 
-You can combine all these types of lists on different levels if you want.
+    You can combine all these types of lists on different levels if you want.
 
-1 - Item 1
-    - Sub - item A
-    - Sub - item B
-2 - Item 2
-    $ - Sub - item A
-    $ - Sub - item B
+    1 - Item 1
+        - Sub - item A
+        - Sub - item B
+    2 - Item 2
+        $ - Sub - item A
+        $ - Sub - item B
 
-<< .dash- >>
+    << .dash- >>
 
-1 - Item 1
-    - Sub - item A
-    - Sub - item B
-2 - Item 2
-    $ - Sub - item A
-    $ - Sub - item B
+        1 - Item 1
+            - Sub - item A
+            - Sub - item B
+        2 - Item 2
+            $ - Sub - item A
+            $ - Sub - item B
 
-<...>
+    <...>
 
 <-> Titles
 
-To add a title, use { <-> } at the beginning of the line.
-You can define subtitles by adding more { - } inside brackets.
+    To add a title, use { <-> } at the beginning of the line.
+    You can define subtitles by adding more { - } inside brackets.
 
-<< .dash- >>
+    << .dash- >>
 
-<-> Title 1
-Paragraph of Title 1
+        <-> Title 1
+        Paragraph of Title 1
 
-<--> Title 2
-Paragraph of Title 2
+        <--> Title 2
+        Paragraph of Title 2
 
-<---> Title 3
-Paragraph of Title 3
+        <---> Title 3
+        Paragraph of Title 3
 
-<...>
+    <...>
 
 <-> Blocks
 
-You can also define structural blocks for highlight some paragraphs. For that, you must add a header before the paragraph, like so: { < Type > }
+    You can also define structural blocks for highlight some paragraphs. For that, you must add a header before the paragraph, like so: { < Type > }
 
-< Message > Here is a message on one line.
+    < Message > Here is a message on one line.
 
-<< .dash- >>
-< Message > Here is a quote on one line.
-<...>
+    << .dash- >>
 
-< Warning >
-Here is a warning on one line, declared on previous line.
+        < Message > Here is a quote on one line.
 
-<< .dash- >>
-< Warning >
-Here is a warning on one line, declared on previous line.
-<...>
+    <...>
 
-You can also start a section with multiple block from the same type with { << Type >> }. It will end at the next header. To come back to default paragraph blocks, use the empty header { <> }.
+    < Warning >
+        Here is a warning on one line, declared on previous line.
 
-<< Note >>
-Here is a note
+    << .dash- >>
 
-With multiple paragraphs.
-<...>
+        < Warning >
+            Here is a warning on one line, declared on previous line.
 
-Here is normal paragraph
+    <...>
 
-<< .dash- >>
-<< Note >>
-Here is a note
+    You can also start a section with multiple block from the same type with { << Type >> }. It will end at the next header. To come back to default paragraph blocks, use the empty header { <> }.
 
-With multiple paragraphs.
-<...>
+    << Note >>
 
-Here is normal paragraph
-<...>
+        Here is a note
 
-< Design note >
-In fact, titles are blocks. Because there are very common, they have there own syntax, combining lists and blocks syntax.
+        With multiple paragraphs.
+
+    <...>
+
+    Here is normal paragraph
+
+    << .dash- >>
+
+        << Note >>
+            Here is a note
+
+            With multiple paragraphs.
+        <...>
+
+        Here is normal paragraph
+
+    <...>
+
+    < Design note >
+        In fact, titles are blocks. Because there are very common, they have there own syntax, combining lists and blocks syntax.
 
 <-> Emphasis
 
-The language handle the four most famous emphasis :
+    The language handle the four most famous emphasis :
 
-- You can use *[bold] with { *[ ... ] }.
-- You can /[italic] some sentences or words with { /[ ... ] }.
-- You can =[mark] personally important text with { =[ ... ] }.
-- You can ~[obselete] not anymore used sentences with { ~[ ... ] }.
+    - You can use *[bold] with { *[ ... ] }.
+    - You can /[italic] some sentences or words with { /[ ... ] }.
+    - You can =[mark] personally important text with { =[ ... ] }.
+    - You can ~[obselete] not anymore used sentences with { ~[ ... ] }.
 
-< Design note >
-These symbols have been choosen because they are simple to access on a keyboard, refers to their effects and highlight plain text at different degrees.
+    < Design note >
+        These symbols have been choosen because they are simple to access on a keyboard, refers to their effects and highlight plain text at different degrees.
 
-You can use all these decoration at the same time if you want. You just need to think to always close the last opened emphasis before the others.
+    You can use all these decoration at the same time if you want. You just need to think to always close the last opened emphasis before the others.
 
-=[*[Here] is an /[exemple].]
+    =[*[Here] is an /[exemple].]
 
-<< .dash- >>
-=[*[Here] is an /[exemple].]
-<...>
+    << .dash- >>
 
-If you want to use a <purple>[custom] emphasis, use an header just before your <red>[emphasis].
-If the header is not handled in the output, it will be process like bold.
+        =[*[Here] is an /[exemple].]
 
-<< .dash- >>
-If you want to use a <purple>[custom] emphasis, use an header just <red>[before] your emphasis.
-<...>
+    <...>
+
+    If you want to use a <purple>[custom] emphasis, use an header just before your <red>[emphasis].
+    If the header is not handled in the output, it will be process like bold.
+
+    << .dash- >>
+
+        If you want to use a <purple>[custom] emphasis, use an header just <red>[before] your emphasis.
+
+    <...>
 
 <-> Links
 
-You can put external links in your note by using { [content][adress] }.
-Here is an example : [Link text][http://www.google.com/]
+    You can put external links in your note by using { [content][adress] }.
+    Here is an example : [Link text][http://www.google.com/]
 
-< .dash- > { [Link text][http://www.google.com/] }
+    << .dash- >>
+    
+        [Link text][http://www.google.com/]
 
-If you also want to use the adress as text, use { [[adress]] } like so: [[http://www.google.com/]]
+    <...>
 
-< .dash- > { [[http://www.google.com/]] }
+    If you also want to use the adress as text, use { [[adress]] } like so: [[http://www.google.com/]]
+
+    << .dash- >>
+
+        [[http://www.google.com/]]
+
+    <...>
 
 <-> Targets
 
-You can define internal target at a specific position in your document with { @[identifier] }.
+    You can define internal target at a specific position in your document with { @[identifier] }.
 
-< .dash- > { @[First target] }
+    << .dash- >>
+    
+        @[First target]
+        
+    <...>
 
-Then, you can use that same identifier as adress for a link. For example: [Link text][target]
+    Then, you can use that same identifier as adress for a link. For example: [Link text][target]
 
-< Design note >
-@[target] Internal target identification will ignore the case. "TARGET" is equal to "target".
+    < Design note >
+        @[target] Internal target identification will ignore the case. "TARGET" is equal to "target".
 
-It's also possible to use multiple identifier for a same target by separate them with pipes { | }.
-For example : [Other link text][Same Target]
+    It's also possible to use multiple identifier for a same target by separate them with pipes { | }.
+    For example : [Other link text][Same Target]
 
-< .dash- > { @[target|same target] }
+    << .dash- >>
+        
+        @[target|same target]
+        
+    <...>
 
-< Design note >
-You can build a lexic by combining multi-identifier targets and raw internal links.
+    < Design note >
+        You can build a lexic by combining multi-identifier targets and raw internal links.
 
-<< .dash- >>
+    << .dash- >>
 
-[[Dash]] stands for "[Documents Advanced Syntax by Highlighting][Dash]".
-...
-@[dash]
-Dash: wonderful language
+        [[Dash]] stands for "[Documents Advanced Syntax by Highlighting][Dash]".
+        ...
+        @[dash]
+        Dash: wonderful language
 
-<...>
+    <...>
 
-< Design note >
-You can also use [ and ] as text if needed.
+    < Design note >
+        You can also use [ and ] as text if needed.
 
 <-> Notes
 
-You can write a note on a line beginning by a target with a number or { $ } as identifier { @[$] }.
-Then, it is possible to reference that note with { [content][number] }.
+    You can write a note on a line beginning by a target with a number or { $ } as identifier { @[$] }.
+    Then, it is possible to reference that note with { [content][number] }.
 
-If you use { $ }, the next note not already referenced will be [linked][$].
-If you use a number, it will reference the next note in text with [that number][1] or, if it didn't exist, the previous one.
+    If you use { $ }, the next note not already referenced will be [linked][$].
+    If you use a number, it will reference the next note in text with [that number][1] or, if it didn't exist, the previous one.
 
-@[$] Here is a first note.
-@[1] Here is a second note.
+    @[$] Here is a first note.
+    @[1] Here is a second note.
 
-If the note contains only a direct link, it will work as a redirection. You can use that [feature][2] to avoid write a [link][2] path in a paragraph or use the same path twice.
+    If the note contains only a direct link, it will work as a redirection. You can use that [feature][2] to avoid write a [link][2] path in a paragraph or use the same path twice.
 
-@[2] [[https://www.google.fr/search?q=feature]]
+    @[2] [[https://www.google.fr/search?q=feature]]
 
-<< .dash- >>
+    << .dash- >>
 
-You can use that [feature][2] to avoid put the [link][2] in a paragraph.
-...
-@[2] [[https://www.google.fr/search?q=feature]]
+        You can use that [feature][2] to avoid put the [link][2] in a paragraph.
+        ...
 
-<...>
+        @[2] [[https://www.google.fr/search?q=feature]]
+
+    <...>
 
 <-> Media
 
-If you want to insert a media (like a picture, a video or a table) or some text written in another language (like a code sample), you must use { { ... } }.
-To indicate the type of media, it must be preceed by a block header providing the file extension used for this type of media. An extension must begin by a point { . }, like so: { < .ext > }
+    If you want to insert a media (like a picture, a video or a table) or some text written in another language (like a code sample), you must use { { ... } }.
+    To indicate the type of media, it must be preceed by a block header providing the file extension used for this type of media. An extension must begin by a point { . }, like so: { < .ext > }
 
-< Design note >
-Supported media depend of your converter and its supported formats. Anyway, converted file must provide an alternative output if the media can't be displayed, like a link or a summary.
+    < Design note >
+    Supported media depend of your converter and its supported formats. Anyway, converted file must provide an alternative output if the media can't be displayed, like a link or a summary.
 
-If the media can be describe directly in your file with its own language, write it directly.
+    If the media can be describe directly in your file with its own language, write it directly.
 
-<< .dash- >>
-<< .ext >>
+    << .dash- >>
+    << .ext >>
 
-Here_is_another_language_using_underscores_as_spaces.
+    Here_is_another_language_using_underscores_as_spaces.
 
-<...>
-<...>
+    <...>
+    <...>
 
-< Design note >
-Try to use understandable languages when you describe directly your media. Dash is a plain-text oriented language and shouldn't contains binary data.
+    < Design note >
+    Try to use understandable languages when you describe directly your media. Dash is a plain-text oriented language and shouldn't contains binary data.
 
-If you don't indicate a file extension or if it is unknown and data isn't binary, media will be displayed as plain text.
+    If you don't indicate a file extension or if it is unknown and data isn't binary, media will be displayed as plain text.
 
-If the media that you want to display is inside a file, just provide the path.
+    If the media that you want to display is inside a file, just provide the path.
 
-<< .dash- >>
+    << .dash- >>
 
-< .ext > { path/file.ext }
+    < .ext > { path/file.ext }
 
-<...>
+    <...>
 
-You can also use prefix to force the kind of display in ambigous cases :
+    You can also use prefix to force the kind of display in ambigous cases :
 
-- { + } will force converter to use its default graphic form
-- { - } will force converter to use its default textual form
+    - { + } will force converter to use its default graphic form
+    - { - } will force converter to use its default textual form
 
-<< .dash- >>
+    << .dash- >>
 
-~~ Markdown is a plain-text document language like Dash
+    ~~ Markdown is a plain-text document language like Dash
 
-~~ Display with converter default representation
-< .md > { # Markdown Title }
+    ~~ Display with converter default representation
+    < .md > { # Markdown Title }
 
-~~ Display a title in a frame
-< .md+ > { # Markdown Title }
+    ~~ Display a title in a frame
+    < .md+ > { # Markdown Title }
 
-~~ Display "# Markdown Title" as Markdown language snippet
-< .md- > { # Markdown Title }
+    ~~ Display "# Markdown Title" as Markdown language snippet
+    < .md- > { # Markdown Title }
 
-~~ gitignore is a language containing folder and file paths
+    ~~ gitignore is a language containing folder and file paths
 
-~~ Display content of folder/.gitignore file
-< .gitignore > { folder/.gitignore }
+    ~~ Display content of folder/.gitignore file
+    < .gitignore > { folder/.gitignore }
 
-~~ Display "folder/.gitignore" as gitignore language snippet
-< .gitignore- > { folder/.gitignore }
+    ~~ Display "folder/.gitignore" as gitignore language snippet
+    < .gitignore- > { folder/.gitignore }
 
-<...>
+    <...>
 
-You can also combine both of them to display the textual and graphic form at the same time. It's ideal for a technical document showing examples. The order of signs will determine the order of display.
+    You can also combine both of them to display the textual and graphic form at the same time. It's ideal for a technical document showing examples. The order of signs will determine the order of display.
 
-<< .dash- >>
+    << .dash- >>
 
-~~ Display image then Markdown code
-< .md+- > { ![Alternative text][img/logo.png] }
+    ~~ Display image then Markdown code
+    < .md+- > { ![Alternative text][img/logo.png] }
 
-~~ Display Markdown code then image
-< .md-+ > { ![Alternative text][img/logo.png] }
+    ~~ Display Markdown code then image
+    < .md-+ > { ![Alternative text][img/logo.png] }
 
-<...>
+    <...>
 
-<--> Images
+    <--> Images
 
-< .dh > { < .jpg > { http://www.gstatic.com/webp/gallery/1.jpg } }
-< .jpg > { http://www.gstatic.com/webp/gallery/1.jpg }
-< .dh > { < .png > { https://www.gstatic.com/webp/gallery3/1.png } }
-< .png > { https://www.gstatic.com/webp/gallery3/1.png }
+        < .dh > { < .jpg > { http://www.gstatic.com/webp/gallery/1.jpg } }
+        < .jpg > { http://www.gstatic.com/webp/gallery/1.jpg }
+        < .dh > { < .png > { https://www.gstatic.com/webp/gallery3/1.png } }
+        < .png > { https://www.gstatic.com/webp/gallery3/1.png }
 
-<--> Videos
+    <--> Videos
 
-< .dh > { < .mp4 > { http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4 } }
-< .mp4 > { http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4 }
-< .dh > { < .youtube.com > { hqW4qLcRD3w } }
-< .youtube.com > { hqW4qLcRD3w }
+        < .dh > { < .mp4 > { http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4 } }
+        < .mp4 > { http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4 }
+        < .dh > { < .youtube.com > { hqW4qLcRD3w } }
+        < .youtube.com > { hqW4qLcRD3w }
 
-<--> Tables
+    <--> Tables
 
-<< .dash- >>
-<< .csv >>
+    << .dash- >>
+        << .csv >>
 
-Name;John;Paul;Bob
-Age;22;34;58
-Happy?;Yes;Yes;No
+            Name;John;Paul;Bob
+            Age;22;34;58
+            Happy?;Yes;Yes;No
 
-<...>
-<...>
+        <...>
+    <...>
 
-<< .csv >>
+    << .csv >>
 
-Name;John;Paul;Bob
-Age;22;34;58
-Happy?;Yes;Yes;No
+        Name;John;Paul;Bob
+        Age;22;34;58
+        Happy?;Yes;Yes;No
 
-<...>
+    <...>
 
-<--> Code
+    <--> Code
 
-<< .dash- >>
-<< .cs- >>
+    << .dash- >>
+        << .cs- >>
 
-public class Program()
-{
-    public static void Main()
-    {
-        Console.WriteLine("Hello world !");
-    }
-}
+            public class Program()
+            {
+                public static void Main()
+                {
+                    Console.WriteLine("Hello world !");
+                }
+            }
 
-<...>
-<...>
+        <...>
+    <...>
 
-<< .cs- >>
+    << .cs- >>
 
-public class Program()
-{
-    public static void Main()
-    {
-        Console.WriteLine("Hello world !");
-    }
-}
+        public class Program()
+        {
+            public static void Main()
+            {
+                Console.WriteLine("Hello world !");
+            }
+        }
 
-<...>
+    <...>
 
 <-> Comments
 
-You can use comments by using { ~~ } at the beginning of a line.
+    You can use comments by using { ~~ } at the beginning of a line.
 
-~~ Comment on one line
+    ~~ Comment on one line
 
-For multiline comments, use { ~~~~ ... ~~~~ }.
+    For multiline comments, use { ~~~~ ... ~~~~ }.
 
-~~~~
-Comment
-on multiple lines
-~~~~
+    ~~~~
+    Comment
+    on multiple lines
+    ~~~~
 
-< Design note >
-Some document output format can handle comments so they are not always ignoring.
+    < Design note >
+        Some document output format can handle comments so they are not always ignoring.

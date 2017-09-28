@@ -63,8 +63,11 @@ EXTENSION_MODE_MINUS: WS? '-';
 EXTENSION_MODE_PLUS: WS? '+';
 
 mode MediaMode;
-MEDIA_MODE_CONTENT: (VOID? ~('<'|' '|'\t'|'\n'|'\r')+)+;
-MEDIA_MODE_BRACKET: VOID? '<';
+MEDIA_MODE_SPACE: ' ';
+MEDIA_MODE_TAB: '\t';
+MEDIA_MODE_NEWLINE: NEWLINE;
+MEDIA_MODE_CONTENT: ~('<'|' '|'\t'|'\n'|'\r')+;
+MEDIA_MODE_BRACKET: '<';
 MEDIA_MODE_CLOSE: VOID? '<...>' WS? -> popMode, popMode;
 
 mode DashExtension;
@@ -73,16 +76,22 @@ DASH_EXTENSION_PLUS: WS? '+';
 DASH_EXTENSION_MINUS: WS? '-';
 
 mode DashMediaMode;
-DASH_MEDIA_MODE_DASH: WS? '<' WS? '<' (~[>] | '>' ~[>])* '>' WS? '>' (WS? (('\r'? '\n' | '\r') | EOF))* -> pushMode(DashMediaModeInner);
-DASH_MEDIA_MODE_CONTENT: (VOID? ~('<'|' '|'\t'|'\n'|'\r')+)+;
-DASH_MEDIA_MODE_BRACKET: VOID? '<';
+DASH_MEDIA_MODE_SPACE: ' ';
+DASH_MEDIA_MODE_TAB: '\t';
+DASH_MEDIA_MODE_NEWLINE: NEWLINE;
+DASH_MEDIA_MODE_DASH: '<' WS? '<' (~[>] | '>' ~[>])* '>' WS? '>' -> pushMode(DashMediaModeInner);
+DASH_MEDIA_MODE_CONTENT: ~('<'|' '|'\t'|'\n'|'\r')+;
+DASH_MEDIA_MODE_BRACKET: '<';
 DASH_MEDIA_MODE_CLOSE: VOID? '<...>' WS? -> popMode, popMode, popMode;
 
 mode DashMediaModeInner;
-DASH_MEDIA_MODE_INNER_DASH: WS? '<' WS? '<' (~[>] | '>' ~[>])* '>' WS? '>' (WS? (('\r'? '\n' | '\r') | EOF))* -> pushMode(DashMediaModeInner);
-DASH_MEDIA_MODE_INNER_CONTENT: (VOID? ~('<'|' '|'\t'|'\n'|'\r')+)+;
-DASH_MEDIA_MODE_INNER_BRACKET: VOID? '<';
-DASH_MEDIA_MODE_INNER_CLOSE: VOID? '<...>' WS? -> popMode;
+DASH_MEDIA_MODE_INNER_SPACE: ' ';
+DASH_MEDIA_MODE_INNER_TAB: '\t';
+DASH_MEDIA_MODE_INNER_NEWLINE: NEWLINE;
+DASH_MEDIA_MODE_INNER_DASH: '<' WS? '<' (~[>] | '>' ~[>])* '>' WS? '>' -> pushMode(DashMediaModeInner);
+DASH_MEDIA_MODE_INNER_CONTENT: ~('<'|' '|'\t'|'\n'|'\r')+;
+DASH_MEDIA_MODE_INNER_BRACKET: '<';
+DASH_MEDIA_MODE_INNER_CLOSE: '<...>' WS? -> popMode;
 
 mode Header;
 HEADER_TITLE: '-'+;
