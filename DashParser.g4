@@ -3,6 +3,7 @@ parser grammar DashParser;
 options { tokenVocab=DashLexer; }
 
 /* TO-DO
+- Fix one line file
 - Target conditions
 - Alternative text
 - Back to line mode
@@ -132,137 +133,9 @@ linkLine:
 
 text: (WS? WORD)+;
 
-others:
-    (   COMMENT_BLOCK_OPEN
-    |   COMMENT_INLINE_OPEN
-    |   MEDIA_OPEN
-    |   EXTENSION_OPEN
-    |   HEADER_OPEN
-    |   HEADER_MODE_OPEN
-    |   LIST_BULLET
-    |   LIST_NUMBER
-    |   SELECTION_OPEN
-    |   SELECTION_CLOSE
-    |   BOLD_OPEN
-    |   ITALIC_OPEN
-    |   MARK_OPEN
-    |   OBSOLETE_OPEN
-    |   LINK_MIDDLE
-    |   DIRECT_LINK_OPEN
-    |   ADDRESS_OPEN
-    |   COMMENT_BLOCK_CONTENT
-    |   COMMENT_BLOCK_CLOSE
-    |   COMMENT_INLINE_CONTENT
-    |   COMMENT_INLINE_CLOSE
-    |   MEDIA_CONTENT
-    |   MEDIA_BRACES_OPEN
-    |   MEDIA_CLOSE
-    |   EXTENSION_CONTENT
-    |   EXTENSION_CLOSE
-    |   EXTENSION_MINUS
-    |   EXTENSION_PLUS
-    |   HEADER_CONTENT
-    |   HEADER_CLOSE
-    |   HEADER_MODE_CONTENT
-    |   HEADER_MODE_CLOSE
-    |   LINK_CONTENT
-    |   REFERENCE_NUMBER
-    |   LINK_CLOSE
-    |   DIRECT_LINK_CONTENT
-    |   DIRECT_LINK_CLOSE
-    |   ADDRESS_CONTENT
-    |   NOTE_NUMBER
-    |   ADDRESS_CLOSE
-    |   ADDRESS_SEPARATOR
-    );
-
-// Without SELECTION_CLOSE
-emphasisOthers:
-    (   COMMENT_BLOCK_OPEN
-    |   COMMENT_INLINE_OPEN
-    |   MEDIA_OPEN
-    |   EXTENSION_OPEN
-    |   HEADER_OPEN
-    |   HEADER_MODE_OPEN
-    |   LIST_BULLET
-    |   LIST_NUMBER
-    |   SELECTION_OPEN
-    |   BOLD_OPEN
-    |   ITALIC_OPEN
-    |   MARK_OPEN
-    |   OBSOLETE_OPEN
-    |   LINK_MIDDLE
-    |   DIRECT_LINK_OPEN
-    |   ADDRESS_OPEN
-    |   COMMENT_BLOCK_CONTENT
-    |   COMMENT_BLOCK_CLOSE
-    |   COMMENT_INLINE_CONTENT
-    |   COMMENT_INLINE_CLOSE
-    |   MEDIA_CONTENT
-    |   MEDIA_BRACES_OPEN
-    |   MEDIA_CLOSE
-    |   EXTENSION_CONTENT
-    |   EXTENSION_CLOSE
-    |   EXTENSION_MINUS
-    |   EXTENSION_PLUS
-    |   HEADER_CONTENT
-    |   HEADER_CLOSE
-    |   HEADER_MODE_CONTENT
-    |   HEADER_MODE_CLOSE
-    |   LINK_CONTENT
-    |   REFERENCE_NUMBER
-    |   LINK_CLOSE
-    |   DIRECT_LINK_CONTENT
-    |   DIRECT_LINK_CLOSE
-    |   ADDRESS_CONTENT
-    |   NOTE_NUMBER
-    |   ADDRESS_CLOSE
-    |   ADDRESS_SEPARATOR
-    );
-
-// Without LINK_MIDDLE
-linkOthers: 
-    (   COMMENT_BLOCK_OPEN
-    |   COMMENT_INLINE_OPEN
-    |   MEDIA_OPEN
-    |   EXTENSION_OPEN
-    |   HEADER_OPEN
-    |   HEADER_MODE_OPEN
-    |   LIST_BULLET
-    |   LIST_NUMBER
-    |   SELECTION_OPEN
-    |   SELECTION_CLOSE
-    |   BOLD_OPEN
-    |   ITALIC_OPEN
-    |   MARK_OPEN
-    |   OBSOLETE_OPEN
-    |   DIRECT_LINK_OPEN
-    |   ADDRESS_OPEN
-    |   COMMENT_BLOCK_CONTENT
-    |   COMMENT_BLOCK_CLOSE
-    |   COMMENT_INLINE_CONTENT
-    |   COMMENT_INLINE_CLOSE
-    |   MEDIA_CONTENT
-    |   MEDIA_BRACES_OPEN
-    |   MEDIA_CLOSE
-    |   EXTENSION_CONTENT
-    |   EXTENSION_CLOSE
-    |   EXTENSION_MINUS
-    |   EXTENSION_PLUS
-    |   HEADER_CONTENT
-    |   HEADER_CLOSE
-    |   HEADER_MODE_CONTENT
-    |   HEADER_MODE_CLOSE
-    |   LINK_CONTENT
-    |   REFERENCE_NUMBER
-    |   LINK_CLOSE
-    |   DIRECT_LINK_CONTENT
-    |   DIRECT_LINK_CLOSE
-    |   ADDRESS_CONTENT
-    |   NOTE_NUMBER
-    |   ADDRESS_CLOSE
-    |   ADDRESS_SEPARATOR
-    );
+others: ~(WS | WORD | NEWLINE | MODE_CLOSE);
+emphasisOthers: ~(WS | WORD | NEWLINE | MODE_CLOSE | SELECTION_CLOSE);
+linkOthers: ~(WS | WORD | NEWLINE | MODE_CLOSE | LINK_MIDDLE);
 
 header: HEADER_OPEN headerContent? HEADER_CLOSE;
 titleHeader: HEADER_OPEN HEADER_TITLE HEADER_CLOSE;
@@ -299,6 +172,11 @@ referenceNumber: REFERENCE_NUMBER;
 note: ADDRESS_OPEN noteNumber ADDRESS_CLOSE line;
 redirection: ADDRESS_OPEN noteNumber ADDRESS_CLOSE DIRECT_LINK_OPEN directLinkContent DIRECT_LINK_CLOSE;
 noteNumber: NOTE_NUMBER;
+
+commentInline: COMMENT_INLINE_OPEN commentInlineContent COMMENT_INLINE_CLOSE;
+commentInlineContent: COMMENT_INLINE_CONTENT;
+commentBlock: COMMENT_BLOCK_OPEN commentBlockContent COMMENT_BLOCK_CLOSE;
+commentBlockContent: COMMENT_BLOCK_CONTENT;
 
 media: (EXTENSION_OPEN mediaExtension (EXTENSION_PLUS | EXTENSION_MINUS)* EXTENSION_CLOSE NEWLINE?)? MEDIA_OPEN mediaContent? MEDIA_CLOSE;
 mediaExtension: ((EXTENSION_PLUS | EXTENSION_MINUS)* EXTENSION_CONTENT)*;
@@ -364,11 +242,6 @@ dashExtensionModeLine:
     |   DASH_MEDIA_MODE_INNER_DASH
     )*
     ;
-
-commentInline: COMMENT_INLINE_OPEN commentInlineContent COMMENT_INLINE_CLOSE;
-commentInlineContent: COMMENT_INLINE_CONTENT;
-commentBlock: COMMENT_BLOCK_OPEN commentBlockContent COMMENT_BLOCK_CLOSE;
-commentBlockContent: COMMENT_BLOCK_CONTENT;
 
 list locals [int depth = 0]:
     (
