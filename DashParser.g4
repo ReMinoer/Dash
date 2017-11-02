@@ -48,7 +48,9 @@ public static int WhiteSpaceSize(string whiteSpace) {
 
 parse:
     NEWLINE*
-    ( documentTitle NEWLINE* )*
+    (   (documentTitle NEWLINE*)+
+    |   paragraph (NEWLINE | WS? EOF) NEWLINE*
+    )?
     (   
         (   commentBlock
         |   commentInline
@@ -59,7 +61,8 @@ parse:
         |   (   redirection
             |   note
             |   media
-            |   paragraph
+            |   paragraphInline
+            |   NEWLINE paragraph
             )
             (NEWLINE | WS? EOF)
         )
@@ -69,7 +72,8 @@ parse:
     ;
 
 documentTitle: HEADER_OPEN HEADER_CLOSE NEWLINE? line;
-paragraph: (titleHeader | header) line | NEWLINE ((titleHeader | header) NEWLINE)? ((list | line) (NEWLINE (headerMode | list | line))*)? modeClose?;
+paragraphInline: (titleHeader | header) WS? (list | line) modeClose?;
+paragraph: ((titleHeader | header) NEWLINE)? ((list | line) (NEWLINE (headerMode | list | line))*)? modeClose?;
 
 line:
     (   WS?
