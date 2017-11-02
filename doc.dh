@@ -47,7 +47,7 @@
     Jump two lines to write another paragraphs.
     You can also back to the line in the same paragraph.
 
-    << .dash- >>
+    << .dash-+ >>
 
         You can write paragraphs directly.
 
@@ -63,11 +63,7 @@
 
     You can list items by using { - } at the beginning of lines.
 
-    -Item A
-    -Item B
-    -Item C
-
-    << .dash- >>
+    << .dash-+ >>
 
         -Item A
         -Item B
@@ -77,18 +73,7 @@
 
     You can describe trees by breaking the alignement with tabulations or spaces.
 
-    - Item A
-        - Sub-item A1
-            - Sub-sub-item A1a
-        - Sub-item A2
-            - Sub-sub-item A2a
-            - Sub-sub-item A2b
-    - Item B
-        - Sub-item B1
-            - Sub-sub-item B1a
-            - Sub-sub-item B1b
-
-    << .dash- >>
+    << .dash-+ >>
 
         - Item A
             - Sub-item A1
@@ -108,11 +93,7 @@
 
     You can also create numbered lists with { 1- 2- 3- }.
 
-    1- Item 1
-    2- Item 2
-    3- Item 3
-
-    << .dash- >>
+    << .dash-+ >>
 
         1- Item 1
         2- Item 2
@@ -125,11 +106,7 @@
 
     If you don't want to use numbers and leave the order to the parser, use { $- }
 
-    $- Item 1
-    $- Item 2
-    $- Item 3
-
-    << .dash- >>
+    << .dash-+ >>
 
         $- Item 1
         $- Item 2
@@ -142,14 +119,7 @@
 
     You can combine all these types of lists on different levels if you want.
 
-    1 - Item 1
-        - Sub - item A
-        - Sub - item B
-    2 - Item 2
-        $ - Sub - item A
-        $ - Sub - item B
-
-    << .dash- >>
+    << .dash-+ >>
 
         1 - Item 1
             - Sub - item A
@@ -165,7 +135,7 @@
     To add a title, use { <-> } at the beginning of the line.
     You can define subtitles by adding more { - } inside brackets.
 
-    << .dash- >>
+    << .dash-+ >>
 
         <-> Title 1
         Paragraph of Title 1
@@ -182,18 +152,13 @@
 
     You can also define structural blocks for highlight some paragraphs. For that, you must add a header before the paragraph, like so: { < Type > }
 
-    < Message > Here is a message on one line.
-
-    << .dash- >>
+    << .dash-+ >>
 
         < Message > Here is a quote on one line.
 
     <...>
 
-    < Warning >
-        Here is a warning on one line, declared on previous line.
-
-    << .dash- >>
+    << .dash-+ >>
 
         < Warning >
             Here is a warning on one line, declared on previous line.
@@ -202,17 +167,7 @@
 
     You can also start a section with multiple block from the same type with { << Type >> }. It will end at the next header. To come back to default paragraph blocks, use the empty header { <> }.
 
-    << Note >>
-
-        Here is a note
-
-        With multiple paragraphs.
-
-    <...>
-
-    Here is normal paragraph
-
-    << .dash- >>
+    << .dash-+ >>
 
         << Note >>
             Here is a note
@@ -241,9 +196,7 @@
 
     You can use all these decoration at the same time if you want. You just need to think to always close the last opened emphasis before the others.
 
-    =[*[Here] is an /[exemple].]
-
-    << .dash- >>
+    << .dash-+ >>
 
         =[*[Here] is an /[exemple].]
 
@@ -252,7 +205,7 @@
     If you want to use a <purple>[custom] emphasis, use an header just before your <red>[emphasis].
     If the header is not handled in the output, it will be process like bold.
 
-    << .dash- >>
+    << .dash-+ >>
 
         If you want to use a <purple>[custom] emphasis, use an header just <red>[before] your emphasis.
 
@@ -261,17 +214,16 @@
 <-> Links
 
     You can put external links in your note by using { [content][adress] }.
-    Here is an example : [Link text][http://www.google.com/]
 
-    << .dash- >>
+    << .dash-+ >>
     
         [Link text][http://www.google.com/]
 
     <...>
 
-    If you also want to use the adress as text, use { [[adress]] } like so: [[http://www.google.com/]]
+    If you also want to use the adress as text, use { [[adress]] }.
 
-    << .dash- >>
+    << .dash-+ >>
 
         [[http://www.google.com/]]
 
@@ -304,7 +256,7 @@
     < Design note >
         You can build a lexic by combining multi-identifier targets and raw internal links.
 
-    << .dash- >>
+    << .dash-+ >>
 
         [[Dash]] stands for "[Documents Advanced Syntax by Highlighting][Dash]".
         ...
@@ -413,21 +365,17 @@
 
     <--> Images
 
-        < .dh > { < .jpg > { http://www.gstatic.com/webp/gallery/1.jpg } }
-        < .jpg > { http://www.gstatic.com/webp/gallery/1.jpg }
-        < .dh > { < .png > { https://www.gstatic.com/webp/gallery3/1.png } }
-        < .png > { https://www.gstatic.com/webp/gallery3/1.png }
+        < .dh-+ > { < .jpg > { http://www.gstatic.com/webp/gallery/1.jpg } }
+        < .dh-+ > { < .png > { https://www.gstatic.com/webp/gallery3/1.png } }
 
     <--> Videos
 
-        < .dh > { < .mp4 > { http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4 } }
-        < .mp4 > { http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4 }
-        < .dh > { < .youtube.com > { hqW4qLcRD3w } }
-        < .youtube.com > { hqW4qLcRD3w }
+        < .dh-+ > { < .mp4 > { http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4 } }
+        < .dh-+ > { < .youtube.com > { hqW4qLcRD3w } }
 
     <--> Tables
 
-    << .dash- >>
+    << .dash-+ >>
         << .csv >>
 
             Name;John;Paul;Bob
@@ -437,40 +385,15 @@
         <...>
     <...>
 
-    << .csv >>
-
-        Name;John;Paul;Bob
-        Age;22;34;58
-        Happy?;Yes;Yes;No
-
-    <...>
-
     <--> Code
 
-    << .dash- >>
+    << .dash-+ >>
         << .cs- >>
 
-            public class Program()
-            {
-                public static void Main()
-                {
-                    Console.WriteLine("Hello world !");
-                }
-            }
+            int result = 3 + 4;
+            System.Console.WriteLine("Result: " + result);
 
         <...>
-    <...>
-
-    << .cs- >>
-
-        public class Program()
-        {
-            public static void Main()
-            {
-                Console.WriteLine("Hello world !");
-            }
-        }
-
     <...>
 
 <-> Comments
