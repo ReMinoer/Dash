@@ -48,9 +48,7 @@ public static int WhiteSpaceSize(string whiteSpace) {
 
 parse:
     NEWLINE*
-    (   (documentTitle NEWLINE*)+
-    |   paragraph (NEWLINE | WS? EOF) NEWLINE*
-    )?
+    (documentTitle NEWLINE+)*
     (   
         (   commentBlock
         |   commentInline
@@ -58,10 +56,27 @@ parse:
         |   extensionMode
         |   dashExtensionMode
         |   modeClose
+        |   paragraphInline
         |   (   redirection
             |   note
             |   media
-            |   paragraphInline
+            |   paragraph
+            )
+            (NEWLINE | WS? EOF)
+        )
+        NEWLINE*
+    )
+    (   
+        (   commentBlock
+        |   commentInline
+        |   headerMode
+        |   extensionMode
+        |   dashExtensionMode
+        |   modeClose
+        |   paragraphInline
+        |   (   redirection
+            |   note
+            |   media
             |   NEWLINE paragraph
             )
             (NEWLINE | WS? EOF)
