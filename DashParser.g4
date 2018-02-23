@@ -262,18 +262,34 @@ dashExtensionModeLine:
     )*
     ;
 
-list locals [int depth = 0]:
+list
+locals
+    /* <> */ [int depth, boolean important = false]
+    /* <csharp> [int depth, bool important = false] */
+:
     (
         tabs=WS
         /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
         /*<csharp> { $depth = WhiteSpaceSize($tabs.text); } */
     )?
-    (   LIST_NUMBER WS? listOrdered[$depth]
-    |   LIST_BULLET WS? listBulleted[$depth]
+    (   (   LIST_BULLET
+        |   LIST_IMPORTANT_BULLET { $important = true; }
+        )
+        WS? listBulleted[$depth, $important]
+    |   (   LIST_NUMBER
+        |   LIST_IMPORTANT_NUMBER { $important = true; }
+        )
+        WS? listOrdered[$depth, $important]
     )
     ;
 
-listBulleted [int currentDepth] locals /*<>*/ [int depth, boolean ordered = false] /* <csharp> [int depth, bool ordered = false] */:
+listBulleted
+    /* <> */ [int currentDepth, boolean currentImportant]
+    /* <csharp> [int currentDepth, bool currentImportant] */
+locals
+    /* <> */ [int depth, boolean ordered = false, boolean important = false]
+    /* <csharp> [int depth, bool ordered = false, bool important = false] */
+:
     line
     (
         NEWLINE
@@ -283,18 +299,22 @@ listBulleted [int currentDepth] locals /*<>*/ [int depth, boolean ordered = fals
             /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
             /*<csharp> { $depth = WhiteSpaceSize($tabs.text); } */
         )?
-        (   LIST_NUMBER { $ordered = true; }
-        |   LIST_BULLET
+        (   (   LIST_BULLET
+            |   LIST_IMPORTANT_BULLET { $important = true; }
+            )
+        |   (   LIST_NUMBER
+            |   LIST_IMPORTANT_NUMBER { $important = true; $ordered = true; }
+            )
         )
         WS?
         (   { $ordered }?
-                subo=sublistOrdered[$depth]
+                subo=sublistOrdered[$depth, $important]
                 (
                     { $subo.returnDepth >= 0 }?
                         line
                 )?
-        |   { !$ordered && $depth > $currentDepth }?
-                subb=sublistBulleted[$depth]
+        |   { !$ordered && ($depth > $currentDepth || ($depth == $currentDepth && $important != $currentImportant)) }?
+                subb=sublistBulleted[$depth, $important]
                 (
                     { $subb.returnDepth >= 0 }?
                         line
@@ -305,7 +325,15 @@ listBulleted [int currentDepth] locals /*<>*/ [int depth, boolean ordered = fals
     )*
     ;
 
-sublistBulleted [int currentDepth] returns [int returnDepth = -1] locals /*<>*/ [int depth, boolean ordered = false] /* <csharp> [int depth, bool ordered = false] */:
+sublistBulleted
+    /* <> */ [int currentDepth, boolean currentImportant]
+    /* <csharp> [int currentDepth, bool currentImportant] */
+returns
+    [int returnDepth = -1]
+locals
+    /* <> */ [int depth, boolean ordered = false, boolean important = false]
+    /* <csharp> [int depth, bool ordered = false, bool important = false] */
+:
     line
     (
         { $returnDepth < 0 }?
@@ -316,19 +344,23 @@ sublistBulleted [int currentDepth] returns [int returnDepth = -1] locals /*<>*/ 
             /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
             /*<csharp> { $depth = WhiteSpaceSize($tabs.text); } */
         )?
-        (   LIST_NUMBER { $ordered = true; }
-        |   LIST_BULLET
+        (   (   LIST_BULLET
+            |   LIST_IMPORTANT_BULLET { $important = true; }
+            )
+        |   (   LIST_NUMBER
+            |   LIST_IMPORTANT_NUMBER { $important = true; $ordered = true; }
+            )
         )
         (   { $ordered && $depth >= $currentDepth }?
-                subo=sublistOrdered[$depth]
+                subo=sublistOrdered[$depth, $important]
                 (
                     { $subo.returnDepth >= $currentDepth }?
                         line
                 |   { $subo.returnDepth < $currentDepth }?
                         { $returnDepth = $subo.returnDepth; }
                 )
-        |   { !$ordered && $depth > $currentDepth }?
-                subb=sublistBulleted[$depth]
+        |   { !$ordered && ($depth > $currentDepth || ($depth == $currentDepth && $important != $currentImportant)) }?
+                subb=sublistBulleted[$depth, $important]
                 (
                     { $subb.returnDepth >= $currentDepth }?
                         line
@@ -343,7 +375,13 @@ sublistBulleted [int currentDepth] returns [int returnDepth = -1] locals /*<>*/ 
     )*
     ;
 
-listOrdered [int currentDepth] locals /*<>*/ [int depth, boolean ordered = false] /* <csharp> [int depth, bool ordered = false] */:
+listOrdered
+    /* <> */ [int currentDepth, boolean currentImportant]
+    /* <csharp> [int currentDepth, bool currentImportant] */
+locals
+    /* <> */ [int depth, boolean ordered = false, boolean important = false]
+    /* <csharp> [int depth, bool ordered = false, bool important = false] */
+:
     line
     (
         NEWLINE
@@ -353,17 +391,21 @@ listOrdered [int currentDepth] locals /*<>*/ [int depth, boolean ordered = false
             /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
             /*<csharp> { $depth = WhiteSpaceSize($tabs.text); } */
         )?
-        (   LIST_NUMBER { $ordered = true; }
-        |   LIST_BULLET
+        (   (   LIST_BULLET
+            |   LIST_IMPORTANT_BULLET { $important = true; }
+            )
+        |   (   LIST_NUMBER
+            |   LIST_IMPORTANT_NUMBER { $important = true; $ordered = true; }
+            )
         )
         (   { !$ordered }?
-                subb=sublistBulleted[$depth]
+                subb=sublistBulleted[$depth, $important]
                 (
                     { $subb.returnDepth >= 0 }?
                         line
                 )?
-        |   { $ordered && $depth > $currentDepth }?
-                subo=sublistOrdered[$depth]
+        |   { $ordered && ($depth > $currentDepth || ($depth == $currentDepth && $important != $currentImportant)) }?
+                subo=sublistOrdered[$depth, $important]
                 (
                     { $subo.returnDepth >= 0 }?
                         line
@@ -374,7 +416,15 @@ listOrdered [int currentDepth] locals /*<>*/ [int depth, boolean ordered = false
     )*
     ;
 
-sublistOrdered [int currentDepth] returns [int returnDepth = -1] locals /*<>*/ [int depth, boolean ordered = false] /* <csharp> [int depth, bool ordered = false] */:
+sublistOrdered
+    /* <> */ [int currentDepth, boolean currentImportant]
+    /* <csharp> [int currentDepth, bool currentImportant] */
+returns
+    [int returnDepth = -1]
+locals
+    /* <> */ [int depth, boolean ordered = false, boolean important = false]
+    /* <csharp> [int depth, bool ordered = false, bool important = false] */
+:
     line
     (
         { $returnDepth < 0 }?
@@ -385,19 +435,23 @@ sublistOrdered [int currentDepth] returns [int returnDepth = -1] locals /*<>*/ [
             /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
             /*<csharp> { $depth = WhiteSpaceSize($tabs.text); } */
         )?
-        (   LIST_NUMBER { $ordered = true; }
-        |   LIST_BULLET
+        (   (   LIST_BULLET
+            |   LIST_IMPORTANT_BULLET { $important = true; }
+            )
+        |   (   LIST_NUMBER
+            |   LIST_IMPORTANT_NUMBER { $important = true; $ordered = true; }
+            )   
         )
         (   { !$ordered && $depth >= $currentDepth }?
-                subb=sublistBulleted[$depth]
+                subb=sublistBulleted[$depth, $important]
                 (
                     { $subb.returnDepth >= $currentDepth }?
                         line
                 |   { $subb.returnDepth < $currentDepth }?
                         { $returnDepth = $subb.returnDepth; }
                 )
-        |   { $ordered && $depth > $currentDepth }?
-                subo=sublistOrdered[$depth]
+        |   { $ordered && ($depth > $currentDepth || ($depth == $currentDepth && $important != $currentImportant)) }?
+                subo=sublistOrdered[$depth, $important]
                 (
                     { $subo.returnDepth >= $currentDepth }?
                         line
