@@ -1,23 +1,25 @@
 <> Dash Language Documentation
 <> Document Advanced Syntax Hypertextual
 
-/[That documentation was generated from a [document][$] write in Dash by a convertion tool named [Dast][$].]
+< Note >
+    That documentation was generated from a [document][$] write in Dash by a convertion tool named [Dast][$].
 
 @[$] [[https://github.com/ReMinoer/Dash/blob/master/doc.dh]]
 @[$] [[https://github.com/ReMinoer/Dast]]
 
 ~~~~ 
     - To implement
+        - Replace {$} by {0}
+        - Remove {$} for auto-ref
         - Definition { *[word]:[definition] }
+        - List header { -> }
         - Multiple paragraph list item
     - To improve
-        - 
         - Rewrite code snippets and examples
     - Ideas / Needs
-        - Sections
+        - Sections / Sub-documents  { { Section } }
         - Block syntax
         - Target condition { <!>[sample] }
-        - Subtitles { -> }
         - Other standard blocks
         - Patterns
 ~~~~
@@ -41,11 +43,6 @@
     Majuscule extensions are also tolerated.
 
 <-> Paragraphs
-
-    You can write paragraphs directly.
-
-    Jump two lines to write another paragraphs.
-    You can also back to the line in the same paragraph.
 
     << .dash-+ >>
 
@@ -89,7 +86,7 @@
     <...>
 
     < Design note >
-    In Dash, a tabulation is equal to 4 spaces.
+        In Dash, a tabulation is equal to 4 spaces.
 
     You can also create numbered lists with { 1- 2- 3- }.
 
@@ -103,8 +100,8 @@
 
     < Design note >
         Numbers used will be ignored by the parser. It will use items order to number them.
-
-    If you don't want to use numbers and leave the order to the parser, use { $- }
+    
+    If you don't want to use numbers and leave the order to the parser, we encourage you to use { $- }.
 
     << .dash-+ >>
 
@@ -117,16 +114,40 @@
     < Design note >
         In Dash, { $ } replace numbers when it's possible.
 
+    Lastly, you can also add list headers and keypoints to list. For that, use { -> }.
+
+    << .dash-+ >>
+
+        1-> Header
+            - Item A
+            - Item B
+                -> Keypoint
+                -> Keypoint
+            - Item C
+                -> Keypoint
+        2-> Other header
+            - Item
+            -> Keypoint
+
+    <...>
+
     You can combine all these types of lists on different levels if you want.
 
     << .dash-+ >>
 
-        1 - Item 1
-            - Sub - item A
-            - Sub - item B
-        2 - Item 2
-            $ - Sub - item A
-            $ - Sub - item B
+        1-> First list
+            1- Point A
+            2- Point B
+                -> Important stuff
+            3- Point C
+                -> Also very important stuff
+        2-> Second list
+            - Point D
+                $- First item
+                $- Second item
+                $- Third item
+            - Point E
+            -> Conclusion
 
     <...>
 
@@ -276,7 +297,7 @@
     If you use { $ }, the next note not already referenced will be [linked][$].
     If you use a number, it will reference the next note in text with [that number][1] or, if it didn't exist, the previous one.
 
-    @[$] Here is a first note.
+    @ Here is a first note.
     @[1] Here is a second note.
 
     If the note contains only a direct link, it will work as a redirection. You can use that [feature][2] to avoid write a [link][2] path in a paragraph or use the same path twice.
@@ -303,11 +324,11 @@
     If the media can be describe directly in your file with its own language, write it directly.
 
     << .dash- >>
-    << .ext >>
+        << .ext >>
 
-    Here_is_another_language_using_underscores_as_spaces.
+        Here_is_another_language_using_underscores_as_spaces.
 
-    <...>
+        <...>
     <...>
 
     < Design note >
@@ -319,7 +340,7 @@
 
     << .dash- >>
 
-    < .ext > { path/file.ext }
+        < .ext > { path/file.ext }
 
     <...>
 
@@ -330,24 +351,24 @@
 
     << .dash- >>
 
-    ~~ Markdown is a plain-text document language like Dash
+        ~~ Markdown is a plain-text document language like Dash
 
-    ~~ Display with converter default representation
-    < .md > { # Markdown Title }
+        ~~ Display with converter default representation
+        < .md > { # Markdown Title }
 
-    ~~ Display a title in a frame
-    < .md+ > { # Markdown Title }
+        ~~ Display a title in a frame
+        < .md+ > { # Markdown Title }
 
-    ~~ Display "# Markdown Title" as Markdown language snippet
-    < .md- > { # Markdown Title }
+        ~~ Display "# Markdown Title" as Markdown language snippet
+        < .md- > { # Markdown Title }
 
-    ~~ gitignore is a language containing folder and file paths
+        ~~ gitignore is a language containing folder and file paths
 
-    ~~ Display content of folder/.gitignore file
-    < .gitignore > { folder/.gitignore }
+        ~~ Display content of folder/.gitignore file
+        < .gitignore > { folder/.gitignore }
 
-    ~~ Display "folder/.gitignore" as gitignore language snippet
-    < .gitignore- > { folder/.gitignore }
+        ~~ Display "folder/.gitignore" as gitignore language snippet
+        < .gitignore- > { folder/.gitignore }
 
     <...>
 
@@ -355,11 +376,11 @@
 
     << .dash- >>
 
-    ~~ Display image then Markdown code
-    < .md+- > { ![Alternative text][img/logo.png] }
+        ~~ Display image then Markdown code
+        < .md+- > { ![Alternative text][img/logo.png] }
 
-    ~~ Display Markdown code then image
-    < .md-+ > { ![Alternative text][img/logo.png] }
+        ~~ Display Markdown code then image
+        < .md-+ > { ![Alternative text][img/logo.png] }
 
     <...>
 
