@@ -269,19 +269,19 @@ listItem
 
 list
 locals
-    /* <> */ [int depth, boolean importantItem = false]
-    /* <csharp> [int depth, bool importantItem = false] */
+    /* <> */ [int depth, boolean importantItem]
+    /* <csharp> [int depth, bool importantItem] */
 :
     (
         tabs=WS
         /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
         /*<csharp> { $depth = WhiteSpaceSize($tabs.text); } */
     )?
-    (   (   LIST_BULLET
+    (   (   LIST_BULLET { $importantItem = false; }
         |   LIST_IMPORTANT_BULLET { $importantItem = true; }
         )
         WS? listBulleted[$depth, $importantItem]
-    |   (   LIST_NUMBER
+    |   (   LIST_NUMBER { $importantItem = false; }
         |   LIST_IMPORTANT_NUMBER { $importantItem = true; }
         )
         WS? listOrdered[$depth, $importantItem]
@@ -292,8 +292,8 @@ listBulleted
     /* <> */ [int currentDepth, boolean importantItem]
     /* <csharp> [int currentDepth, bool importantItem] */
 locals
-    /* <> */ [int depth, boolean ordered = false]
-    /* <csharp> [int depth, bool ordered = false] */
+    /* <> */ [int depth, boolean ordered]
+    /* <csharp> [int depth, bool ordered] */
 :
     listItem[$importantItem]
     (
@@ -304,10 +304,10 @@ locals
             /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
             /*<csharp> { $depth = WhiteSpaceSize($tabs.text); } */
         )?
-        (   (   LIST_BULLET { $importantItem = false; }
-            |   LIST_IMPORTANT_BULLET { $importantItem = true; }
+        (   (   LIST_BULLET { $importantItem = false; $ordered = false; }
+            |   LIST_IMPORTANT_BULLET { $importantItem = true; $ordered = false; }
             )
-        |   (   LIST_NUMBER { $importantItem = false; }
+        |   (   LIST_NUMBER { $importantItem = false; $ordered = true; }
             |   LIST_IMPORTANT_NUMBER { $importantItem = true; $ordered = true; }
             )
         )
@@ -337,8 +337,8 @@ returns
     /* <> */ [int returnDepth = -1, boolean returnImportant]
     /* <csharp> [int returnDepth = -1, bool returnImportant] */
 locals
-    /* <> */ [int depth, boolean ordered = false]
-    /* <csharp> [int depth, bool ordered = false] */
+    /* <> */ [int depth, boolean ordered]
+    /* <csharp> [int depth, bool ordered] */
 :
     listItem[$importantItem]
     (
@@ -350,10 +350,10 @@ locals
             /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
             /*<csharp> { $depth = WhiteSpaceSize($tabs.text); } */
         )?
-        (   (   LIST_BULLET { $importantItem = false; }
-            |   LIST_IMPORTANT_BULLET { $importantItem = true; }
+        (   (   LIST_BULLET { $importantItem = false; $ordered = false; }
+            |   LIST_IMPORTANT_BULLET { $importantItem = true; $ordered = false; }
             )
-        |   (   LIST_NUMBER { $importantItem = false; }
+        |   (   LIST_NUMBER { $importantItem = false; $ordered = true; }
             |   LIST_IMPORTANT_NUMBER { $importantItem = true; $ordered = true; }
             )
         )
@@ -385,8 +385,8 @@ listOrdered
     /* <> */ [int currentDepth, boolean importantItem]
     /* <csharp> [int currentDepth, bool importantItem] */
 locals
-    /* <> */ [int depth, boolean ordered = false]
-    /* <csharp> [int depth, bool ordered = false] */
+    /* <> */ [int depth, boolean ordered]
+    /* <csharp> [int depth, bool ordered] */
 :
     listItem[$importantItem]
     (
@@ -397,10 +397,10 @@ locals
             /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
             /*<csharp> { $depth = WhiteSpaceSize($tabs.text); } */
         )?
-        (   (   LIST_BULLET { $importantItem = false; }
-            |   LIST_IMPORTANT_BULLET { $importantItem = true; }
+        (   (   LIST_BULLET { $importantItem = false; $ordered = false; }
+            |   LIST_IMPORTANT_BULLET { $importantItem = true; $ordered = false; }
             )
-        |   (   LIST_NUMBER { $importantItem = false; }
+        |   (   LIST_NUMBER { $importantItem = false; $ordered = true; }
             |   LIST_IMPORTANT_NUMBER { $importantItem = true; $ordered = true; }
             )
         )
@@ -429,8 +429,8 @@ returns
     /* <> */ [int returnDepth = -1, boolean returnImportant]
     /* <csharp> [int returnDepth = -1, bool returnImportant] */
 locals
-    /* <> */ [int depth, boolean ordered = false]
-    /* <csharp> [int depth, bool ordered = false] */
+    /* <> */ [int depth, boolean ordered]
+    /* <csharp> [int depth, bool ordered] */
 :
     listItem[$importantItem]
     (
@@ -442,12 +442,12 @@ locals
             /*<>*/ { $depth = whiteSpaceSize($tabs.getText()); }
             /*<csharp> { $depth = WhiteSpaceSize($tabs.text); } */
         )?
-        (   (   LIST_BULLET { $importantItem = false; }
-            |   LIST_IMPORTANT_BULLET { $importantItem = true; }
+        (   (   LIST_BULLET { $importantItem = false; $ordered = false; }
+            |   LIST_IMPORTANT_BULLET { $importantItem = true; $ordered = false; }
             )
-        |   (   LIST_NUMBER { $importantItem = false; }
+        |   (   LIST_NUMBER { $importantItem = false; $ordered = true; }
             |   LIST_IMPORTANT_NUMBER { $importantItem = true; $ordered = true; }
-            )   
+            )
         )
         (   { !$ordered && $depth >= $currentDepth }?
                 subb=sublistBulleted[$depth, $importantItem]
