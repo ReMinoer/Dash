@@ -3,7 +3,7 @@ lexer grammar DashLexer;
 NEWLINE: WS? (('\r'? '\n' | '\r') | EOF);
 WS: (' ' | '\t')+;
 
-COMMENT_BLOCK_OPEN: '~~~~' VOID? -> pushMode(CommentBlock);
+COMMENT_BLOCK_OPEN: '~~' NEWLINE -> pushMode(CommentBlock);
 COMMENT_INLINE_OPEN: '~~' WS? -> pushMode(CommentInline);
 
 MEDIA_OPEN: WS? '{' WS? NEWLINE* -> pushMode(Media);
@@ -32,15 +32,16 @@ LINK_MIDDLE: WS? '][' WS? -> pushMode(Link);
 DIRECT_LINK_OPEN: '[[' WS? -> pushMode(DirectLink);
 
 ADDRESS_OPEN: WS? '@[' WS? -> pushMode(Address);
+REDIRECTION_AUTO_OPEN: WS? '@[[' WS? -> pushMode(DirectLink);
 
 WORD: ~('-'|'\n'|'\r'|' '|'\t'|'<'|'{'|'['|']'|'~')+;
 
-fragment NUMBER: [0-9$]+;
+fragment NUMBER: ([0-9]+|'$'+);
 fragment VOID: (' '|'\t'|'\n'|'\r')+;
 
 mode CommentBlock;
-COMMENT_BLOCK_CONTENT: (VOID? ('~' ('~' '~'?)?)? ~('~'|' '|'\t'|'\n'|'\r'))+;
-COMMENT_BLOCK_CLOSE:  VOID? '~~~~' -> popMode;
+COMMENT_BLOCK_CONTENT: (VOID? '~'? ~('~'|' '|'\t'|'\n'|'\r'))+;
+COMMENT_BLOCK_CLOSE:  VOID? '~~' NEWLINE -> popMode;
 
 mode CommentInline;
 COMMENT_INLINE_CONTENT: (WS? ~(' '|'\t'|'\n'|'\r')+)+;

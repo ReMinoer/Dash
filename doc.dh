@@ -1,28 +1,27 @@
 <> Dash Language Documentation
 <> Document Advanced Syntax Hypertextual
 
+~~
+- To implement
+    - Replace {$} by {0}
+    - Remove {$} for auto-ref
+    - Multiple paragraph list item
+- To improve
+    - Rewrite code snippets and examples
+- Ideas / Needs
+    - Sections / Sub-documents  {{ Section }}
+    - Block syntax
+    - Definition {-[word]:[definition]}
+    - Target condition {<!>[sample]}
+    - Other standard blocks
+    - Patterns
+~~
+
 < Note >
     That documentation was generated from a [document][$] write in Dash by a convertion tool named [Dast][$].
 
-@[$] [[https://github.com/ReMinoer/Dash/blob/master/doc.dh]]
-@[$] [[https://github.com/ReMinoer/Dast]]
-
-~~~~ 
-    - To implement
-        - Replace {$} by {0}
-        - Remove {$} for auto-ref
-        - Definition { *[word]:[definition] }
-        - List header { -> }
-        - Multiple paragraph list item
-    - To improve
-        - Rewrite code snippets and examples
-    - Ideas / Needs
-        - Sections / Sub-documents  { { Section } }
-        - Block syntax
-        - Target condition { <!>[sample] }
-        - Other standard blocks
-        - Patterns
-~~~~
+@[[https://github.com/ReMinoer/Dash/blob/master/doc.dh]]
+@[[https://github.com/ReMinoer/Dast]]
 
 <-> Identity
 
@@ -30,8 +29,8 @@
 
     His name come from the multiples definition of the word :
 
-    - Dash as the name for the *[character] { - }, used a lot in the language.
-    - Dash as a *[fast] movement, corresponding to a quick-note language.
+    - Dash as the name for the *[character] {-}, used a lot in the language.
+    - Dash as a *[fast movement], corresponding to a quick-note language.
     - Dash as a small amount of something, giving the idea of *[subtility] and *[optimization].
     - Dash as the action of *[destroy], with one target : the /[Markdown] language.
 
@@ -58,7 +57,7 @@
 
 <-> Lists
 
-    You can list items by using { - } at the beginning of lines.
+    You can list items by using {-} at the beginning of lines.
 
     << .dash-+ >>
 
@@ -88,7 +87,7 @@
     < Design note >
         In Dash, a tabulation is equal to 4 spaces.
 
-    You can also create numbered lists with { 1- 2- 3- }.
+    You can also create numbered lists with {1- 2- 3-}.
 
     << .dash-+ >>
 
@@ -101,7 +100,7 @@
     < Design note >
         Numbers used will be ignored by the parser. It will use items order to number them.
     
-    If you don't want to use numbers and leave the order to the parser, we encourage you to use { $- }.
+    If you don't want to use numbers and leave the order to the parser, we encourage you to use {$-}.
 
     << .dash-+ >>
 
@@ -112,9 +111,9 @@
     <...>
 
     < Design note >
-        In Dash, { $ } replace numbers when it's possible.
+        In Dash, {$} replace numbers when it's possible.
 
-    Lastly, you can also add list headers and keypoints to list. For that, use { -> }.
+    Lastly, you can also add list headers and keypoints to list. For that, use {->}.
 
     << .dash-+ >>
 
@@ -153,8 +152,8 @@
 
 <-> Titles
 
-    To add a title, use { <-> } at the beginning of the line.
-    You can define subtitles by adding more { - } inside brackets.
+    To add a title, use {<->} at the beginning of the line.
+    You can define subtitles by adding more {-} inside brackets.
 
     << .dash-+ >>
 
@@ -171,7 +170,7 @@
 
 <-> Blocks
 
-    You can also define structural blocks for highlight some paragraphs. For that, you must add a header before the paragraph, like so: { < Type > }
+    You can also define structural blocks for highlight some paragraphs. For that, you must add a header before the paragraph, like so: {< Type >}
 
     << .dash-+ >>
 
@@ -186,7 +185,7 @@
 
     <...>
 
-    You can also start a section with multiple block from the same type with { << Type >> }. It will end at the next header. To come back to default paragraph blocks, use the empty header { <> }.
+    You can also start a section with multiple block from the same type with {<< Type >>}. It will end at the next header. To come back to default paragraph blocks, use the empty header {<>}.
 
     << .dash-+ >>
 
@@ -207,10 +206,10 @@
 
     The language handle the four most famous emphasis :
 
-    - You can use *[bold] with { *[ ... ] }.
-    - You can /[italic] some sentences or words with { /[ ... ] }.
-    - You can =[mark] personally important text with { =[ ... ] }.
-    - You can ~[obselete] not anymore used sentences with { ~[ ... ] }.
+    - You can use *[bold] with {*[ ... ]}.
+    - You can /[italic] some sentences or words with {/[ ... ]}.
+    - You can =[mark] personally important text with {=[ ... ]}.
+    - You can ~[obselete] not anymore used sentences with {~[ ... ]}.
 
     < Design note >
         These symbols have been choosen because they are simple to access on a keyboard, refers to their effects and highlight plain text at different degrees.
@@ -234,7 +233,7 @@
 
 <-> Links
 
-    You can put external links in your note by using { [content][adress] }.
+    You can put external links in your note by using {[content][adress]}.
 
     << .dash-+ >>
     
@@ -252,7 +251,7 @@
 
 <-> Targets
 
-    You can define internal target at a specific position in your document with { @[identifier] }.
+    You can define internal target at a specific position in your document with {@[identifier]}.
 
     << .dash- >>
     
@@ -265,7 +264,7 @@
     < Design note >
         @[target] Internal target identification will ignore the case. "TARGET" is equal to "target".
 
-    It's also possible to use multiple identifier for a same target by separate them with pipes { | }.
+    It's also possible to use multiple identifier for a same target by separate them with pipes {|}.
     For example : [Other link text][Same Target]
 
     << .dash- >>
@@ -291,10 +290,10 @@
 
 <-> Notes
 
-    You can write a note on a line beginning by a target with a number or { $ } as identifier { @[$] }.
-    Then, it is possible to reference that note with { [content][number] }.
+    You can write a note on a line beginning by a target with a number or without identifier.
+    Then, it is possible to reference that note with {[content][number]}.
 
-    If you use { $ }, the next note not already referenced will be [linked][$].
+    If you use {$}, the next note not already referenced will be [linked][@].
     If you use a number, it will reference the next note in text with [that number][1] or, if it didn't exist, the previous one.
 
     @ Here is a first note.
@@ -315,8 +314,8 @@
 
 <-> Media
 
-    If you want to insert a media (like a picture, a video or a table) or some text written in another language (like a code sample), you must use { { ... } }.
-    To indicate the type of media, it must be preceed by a block header providing the file extension used for this type of media. An extension must begin by a point { . }, like so: { < .ext > }
+    If you want to insert a media (like a picture, a video or a table) or some text written in another language (like a code sample), you must use {{ ... }}.
+    To indicate the type of media, it must be preceed by a block header providing the file extension used for this type of media. An extension must begin by a point {.}, like so: {< .ext >}
 
     < Design note >
     Supported media depend of your converter and its supported formats. Anyway, converted file must provide an alternative output if the media can't be displayed, like a link or a summary.
@@ -332,7 +331,7 @@
     <...>
 
     < Design note >
-    Try to use understandable languages when you describe directly your media. Dash is a plain-text oriented language and shouldn't contains binary data.
+        Try to use understandable languages when you describe directly your media. Dash is a plain-text oriented language and shouldn't contains binary data.
 
     If you don't indicate a file extension or if it is unknown and data isn't binary, media will be displayed as plain text.
 
@@ -340,35 +339,35 @@
 
     << .dash- >>
 
-        < .ext > { path/file.ext }
+        < .ext > path/file.ext
 
     <...>
 
     You can also use prefix to force the kind of display in ambigous cases :
 
-    - { + } will force converter to use its default graphic form
-    - { - } will force converter to use its default textual form
+    - {+} will force converter to use its default graphic form
+    - {-} will force converter to use its default textual form
 
     << .dash- >>
 
         ~~ Markdown is a plain-text document language like Dash
 
         ~~ Display with converter default representation
-        < .md > { # Markdown Title }
+        < .md > # Markdown Title
 
         ~~ Display a title in a frame
-        < .md+ > { # Markdown Title }
+        < .md+ > # Markdown Title
 
         ~~ Display "# Markdown Title" as Markdown language snippet
-        < .md- > { # Markdown Title }
+        < .md- > # Markdown Title
 
         ~~ gitignore is a language containing folder and file paths
 
         ~~ Display content of folder/.gitignore file
-        < .gitignore > { folder/.gitignore }
+        < .gitignore > folder/.gitignore
 
         ~~ Display "folder/.gitignore" as gitignore language snippet
-        < .gitignore- > { folder/.gitignore }
+        < .gitignore- > folder/.gitignore
 
     <...>
 
@@ -377,22 +376,22 @@
     << .dash- >>
 
         ~~ Display image then Markdown code
-        < .md+- > { ![Alternative text][img/logo.png] }
+        < .md+- > ![Alternative text][img/logo.png]
 
         ~~ Display Markdown code then image
-        < .md-+ > { ![Alternative text][img/logo.png] }
+        < .md-+ > ![Alternative text][img/logo.png]
 
     <...>
 
     <--> Images
 
-        < .dh-+ > { < .jpg > { http://www.gstatic.com/webp/gallery/1.jpg } }
-        < .dh-+ > { < .png > { https://www.gstatic.com/webp/gallery3/1.png } }
+        < .dh-+ > < .jpg > http://www.gstatic.com/webp/gallery/1.jpg
+        < .dh-+ > < .png > https://www.gstatic.com/webp/gallery3/1.png
 
     <--> Videos
 
-        < .dh-+ > { < .mp4 > { http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4 } }
-        < .dh-+ > { < .youtube.com > { hqW4qLcRD3w } }
+        < .dh-+ > < .mp4 > http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4
+        < .dh-+ > < .youtube.com > hqW4qLcRD3w
 
     <--> Tables
 
@@ -419,16 +418,8 @@
 
 <-> Comments
 
-    You can use comments by using { ~~ } at the beginning of a line.
-
-    ~~ Comment on one line
-
-    For multiline comments, use { ~~~~ ... ~~~~ }.
-
-    ~~~~
-    Comment
-    on multiple lines
-    ~~~~
+    You can use comments by using {~~} at the beginning of a line.
+    For multiline comments, use {~~~~ ... ~~~~}.
 
     < Design note >
         Some document output format can handle comments so they are not always ignoring.

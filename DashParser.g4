@@ -182,14 +182,17 @@ linkContent: LINK_CONTENT;
 directLink: DIRECT_LINK_OPEN directLinkContent DIRECT_LINK_CLOSE;
 directLinkContent: DIRECT_LINK_CONTENT;
 
-address: ADDRESS_OPEN addressContent (ADDRESS_SEPARATOR addressContent)* ADDRESS_CLOSE;
+address: (ADDRESS_OPEN addressContent (ADDRESS_SEPARATOR addressContent)* ADDRESS_CLOSE | ADDRESS_AUTO);
 addressContent: ADDRESS_CONTENT;
 
 reference: SELECTION_OPEN linkLine LINK_MIDDLE referenceNumber LINK_CLOSE;
 referenceNumber: REFERENCE_NUMBER;
 
 note: ADDRESS_OPEN noteNumber ADDRESS_CLOSE line;
-redirection: ADDRESS_OPEN noteNumber ADDRESS_CLOSE DIRECT_LINK_OPEN directLinkContent DIRECT_LINK_CLOSE;
+redirection:
+    (   ADDRESS_OPEN noteNumber ADDRESS_CLOSE DIRECT_LINK_OPEN directLinkContent DIRECT_LINK_CLOSE
+    |   REDIRECTION_AUTO_OPEN directLinkContent DIRECT_LINK_CLOSE
+    );
 noteNumber: NOTE_NUMBER;
 
 commentInline: COMMENT_INLINE_OPEN commentInlineContent COMMENT_INLINE_CLOSE;
