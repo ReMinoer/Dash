@@ -293,10 +293,10 @@
     You can write a note on a line beginning by a target with a number or without identifier.
     Then, it is possible to reference that note with {[content][number]}.
 
-    If you use {$}, the next note not already referenced will be [linked][@].
+    If you use {$}, the next note not already referenced will be [linked][$].
     If you use a number, it will reference the next note in text with [that number][1] or, if it didn't exist, the previous one.
 
-    @ Here is a first note.
+    @[$] Here is a first note.
     @[1] Here is a second note.
 
     If the note contains only a direct link, it will work as a redirection. You can use that [feature][2] to avoid write a [link][2] path in a paragraph or use the same path twice.
@@ -385,13 +385,13 @@
 
     <--> Images
 
-        < .dh-+ > < .jpg > http://www.gstatic.com/webp/gallery/1.jpg
-        < .dh-+ > < .png > https://www.gstatic.com/webp/gallery3/1.png
+        < .dh-+ > { < .jpg > { http://www.gstatic.com/webp/gallery/1.jpg } }
+        < .dh-+ > { < .png > { https://www.gstatic.com/webp/gallery3/1.png } }
 
     <--> Videos
 
-        < .dh-+ > < .mp4 > http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4
-        < .dh-+ > < .youtube.com > hqW4qLcRD3w
+        < .dh-+ > { < .mp4 > { http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4 } }
+        < .dh-+ > { < .youtube.com > { hqW4qLcRD3w } }
 
     <--> Tables
 
