@@ -3,15 +3,22 @@
 
 ~~
 - To implement
-    - Replace {$} by {0}
-    - Remove {$} for auto-ref
     - Multiple paragraph list item
+    - Doc about identation
+    - Revert comment syntax ({~~ comment}, {~~~~ multi-line comment ~~~~})
+    - Standardize snippet extensions nomenclature
 - To improve
+    - Performance issue with complex lists
     - Rewrite code snippets and examples
 - Ideas / Needs
-    - Sections / Sub-documents  {{ Section }}
-    - Block syntax
+    - More emphasizing titles 
+    - Simplier notes ({[text]*, [other text]**})
+    - Simplier link variants
+    - Bold as default emphasis {[bold text]}
     - Definition {-[word]:[definition]}
+    - See if {$} can be remove of the language
+    - Sections / Sub-documents  {<[ Section ]>}
+    - Block syntax
     - Target condition {<!>[sample]}
     - Other standard blocks
     - Patterns
