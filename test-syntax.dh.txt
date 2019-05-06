@@ -1,0 +1,134 @@
+###
+- To implement
+    - Multiple paragraph list item
+    - Doc about identation
+    - Revert comment syntax ({~~ comment}, {~~~~ multi-line comment ~~~~})
+    - Standardize snippet extensions nomenclature
+- To improve
+    - Performance issue with complex lists
+    - Rewrite code snippets and examples
+- Ideas / Needs
+    .- More emphasizing titles 
+    o- Simplier notes ({[text]*, [other text]**})
+    .- Simplier link variants
+    x- Bold as default emphasis {[bold text]}
+    o- Definition {-[word]:[definition]}
+    .- Better emphasis tokens
+    .- Emphasis blocks (standard block already handled)
+    o- See if {$} can be remove of the language
+    .- Sections / Sub-documents  {<[ Section ]>}
+    .- Block syntax
+    .- Target condition {<!>[sample]}
+    .- Other standard blocks
+    .- Patterns
+###
+
+- Title 1
+    - Title 2
+        - Title 3
+        - Title 3
+    - Title 2
+        - Title 3
+        - Title 3
+- Title 1
+    - Title 2
+        - Title 3
+        - Title 3
+    - Title 2
+        - Title 3
+        - Title 3
+
+__Title 1__
+
+__Title 2__
+
+<-> Title 1
+
+<--> Title 1
+
+<--> Title 2
+
+<---> Title 3
+
+# Title 1
+## Title 2
+### Title 3
+### Tile 3
+## Title 2
+### Title 3
+# Title 1
+## Title 2
+## Title 2
+
+- Title 1
+
+-- Title 2
+
+--- Title 3
+
+--- Title 3
+
+-- Title 2
+
+--- Title 3
+
+--- Title 3
+
+> Title 1
+>> Title 2
+>> Title 2
+>>> Title 3
+>>> Title 3
+>>> Title 3
+>> Title 2
+> Title 1
+
+I'm a [text]* with [notes]** and *[bold] words.
+You can also use [ids]3 or redirect to [links]2.
+
+2 : [www.google.fr]>
+3 : Note about ids
+* : *[Note] about text
+**: [www.twitter.com]>
+
+The rest of the article can be read at this adress: [www.journalist.com/article/super_news]>.
+Click [here]> to see the rest of the [article]>.
+
+>: www.journalist.com/article/super_news#anchor
+>: www.journalist.com/article/super_news
+
+Et [un]1, et [deux]2, et [trois]3, et [quatre]4, et [cinq]5, et [six]6, et [sept]7, et [huit]8, et [neuf]9, et [dix]10, et [zéro]0.
+
+*[Bold]
+/[Italic]
++[Mark]
+#[Obsolete]
+
+<*> Bold text
+</> Italic text
+<+> Marked text
+<#> Obsolete text
+
+## Comment
+
+###
+Multi-line comment
+###
+
+[Word]: Definition
+[Second word]:
+Other definition
+
+- Firts item
+- Second item
+- Third item
+
+*- Firts item
+*- Second item
+*- Third item
+
+.- Undetermined
+o- Checked
+
+o- Validated
+x- Refused
