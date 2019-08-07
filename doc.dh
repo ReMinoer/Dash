@@ -30,7 +30,8 @@
 @[[https://github.com/ReMinoer/Dash/blob/master/doc.dh]]
 @[[https://github.com/ReMinoer/Dast]]
 
-<-> Identity
+
+- Identity
 
     This language is called Dash. It's a markup language to write structured documents with a good plain-text feel.
 
@@ -48,6 +49,7 @@
 
     Majuscule extensions are also tolerated.
 
+
 <-> Paragraphs
 
     << .dash-+ >>
@@ -61,6 +63,7 @@
 
     < Design note >
         Come back to the line in the same paragraph is handled in the language because it's a common plain text formatting.
+
 
 <-> Lists
 
@@ -157,6 +160,7 @@
 
     <...>
 
+
 <-> Titles
 
     To add a title, use {<->} at the beginning of the line.
@@ -174,6 +178,7 @@
         Paragraph of Title 3
 
     <...>
+
 
 <-> Blocks
 
@@ -209,6 +214,7 @@
     < Design note >
         In fact, titles are blocks. Because there are very common, they have there own syntax, combining lists and blocks syntax.
 
+
 <-> Emphasis
 
     The language handle the four most famous emphasis :
@@ -238,6 +244,7 @@
 
     <...>
 
+
 <-> Links
 
     You can put external links in your note by using {[content][adress]}.
@@ -255,6 +262,7 @@
         [[http://www.google.com/]]
 
     <...>
+
 
 <-> Targets
 
@@ -295,6 +303,7 @@
     < Design note >
         You can also use [ and ] as text if needed.
 
+
 <-> Notes
 
     You can write a note on a line beginning by a target with a number or without identifier.
@@ -318,6 +327,7 @@
         @[2] [[https://www.google.fr/search?q=feature]]
 
     <...>
+
 
 <-> Media
 
@@ -390,15 +400,18 @@
 
     <...>
 
+
     <--> Images
 
         < .dh-+ > { < .jpg > { http://www.gstatic.com/webp/gallery/1.jpg } }
         < .dh-+ > { < .png > { https://www.gstatic.com/webp/gallery3/1.png } }
 
+
     <--> Videos
 
         < .dh-+ > { < .mp4 > { http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4 } }
         < .dh-+ > { < .youtube.com > { hqW4qLcRD3w } }
+
 
     <--> Tables
 
@@ -412,6 +425,7 @@
         <...>
     <...>
 
+
     <--> Code
 
     << .dash-+ >>
@@ -422,6 +436,7 @@
 
         <...>
     <...>
+
 
 <-> Comments
 

@@ -8,87 +8,89 @@
     - Performance issue with complex lists
     - Rewrite code snippets and examples
 - Ideas / Needs
-    .- More emphasizing titles 
+    - More emphasizing titles 
     o- Simplier notes ({[text]*, [other text]**})
-    .- Simplier link variants
+    o- Simplier link variants
     x- Bold as default emphasis {[bold text]}
     o- Definition {-[word]:[definition]}
-    .- Better emphasis tokens
-    .- Emphasis blocks (standard block already handled)
+    - Better emphasis tokens
+    - Emphasis blocks (standard block already handled)
     o- See if {$} can be remove of the language
-    .- Sections / Sub-documents  {<[ Section ]>}
-    .- Block syntax
-    .- Target condition {<!>[sample]}
-    .- Other standard blocks
-    .- Patterns
+    - Sections / Sub-documents  {<[ Section ]>}
+    - Block syntax
+    - Target condition {<!>[sample]}
+    - Other standard blocks
+    - Patterns
 ###
 
-- Title 1
-    - Title 2
-        - Title 3
-        - Title 3
-    - Title 2
-        - Title 3
-        - Title 3
-- Title 1
-    - Title 2
-        - Title 3
-        - Title 3
-    - Title 2
-        - Title 3
-        - Title 3
+<=> Document Title
+<=> Sub-title
 
-__Title 1__
+<-> Title 1
+<--> Title 2
+<---> Title 3
+<---> Title 3
+<--> Title 2
+<---> Title 3
+<---> Title 3
+<-> Title 1
+<--> Title 2
+<--> Title 2
+<--> Title 2
 
-__Title 2__
+# Title 1
+## Title 2
+### Title 3
+### Title 3
+## Title 2
+### Title 3
+### Title 3
+# Title 1
+## Title 2
+## Title 2
+## Title 2
+
+- Title 1
+-- Title 2
+--- Title 3
+--- Title 3
+-- Title 2
+--- Title 3
+--- Title 3
+- Title 1
+-- Title 2
+-- Title 2
+-- Title 2
+
 
 <-> Title 1
 
-<--> Title 1
+    Alios autem dicere aiunt multo etiam inhumanius (quem locum breviter paulo ante perstrinxi) praesidii adiumentique causa, non benevolentiae neque caritatis, amicitias esse expetendas; itaque, ut quisque minimum firmitatis haberet minimumque virium, ita amicitias appetere maxime; ex eo fieri ut mulierculae magis amicitiarum praesidia quaerant quam viri et inopes quam opulenti et calamitosi quam ii qui putentur beati.
+
 
 <--> Title 2
 
+    Cumque pertinacius ut legum gnarus accusatorem flagitaret atque sollemnia, doctus id Caesar libertatemque superbiam ratus tamquam obtrectatorem audacem excarnificari praecepit, qui ita evisceratus ut cruciatibus membra deessent, inplorans caelo iustitiam, torvum renidens fundato pectore mansit inmobilis nec se incusare nec quemquam alium passus et tandem nec confessus nec confutatus cum abiecto consorte poenali est morte multatus. et ducebatur intrepidus temporum iniquitati insultans, imitatus Zenonem illum veterem Stoicum qui ut mentiretur quaedam laceratus diutius, avulsam sedibus linguam suam cum cruento sputamine in oculos interrogantis Cyprii regis inpegit.
+
+
+<--> Title 2
+
+    In his tractibus navigerum nusquam visitur flumen sed in locis plurimis aquae suapte natura calentes emergunt ad usus aptae multiplicium medelarum. verum has quoque regiones pari sorte Pompeius Iudaeis domitis et Hierosolymis captis in provinciae speciem delata iuris dictione formavit.
+
+
 <---> Title 3
 
-# Title 1
-## Title 2
-### Title 3
-### Tile 3
-## Title 2
-### Title 3
-# Title 1
-## Title 2
-## Title 2
+    Hac ita persuasione reducti intra moenia bellatores obseratis undique portarum aditibus, propugnaculis insistebant et pinnis, congesta undique saxa telaque habentes in promptu, ut si quis se proripuisset interius, multitudine missilium sterneretur et lapidum.
 
-- Title 1
+    Sin autem ad adulescentiam perduxissent, dirimi tamen interdum contentione vel uxoriae condicionis vel commodi alicuius, quod idem adipisci uterque non posset. Quod si qui longius in amicitia provecti essent, tamen saepe labefactari, si in honoris contentionem incidissent; pestem enim nullam maiorem esse amicitiis quam in plerisque pecuniae cupiditatem, in optimis quibusque honoris certamen et gloriae; ex quo inimicitias maximas saepe inter amicissimos exstitisse.
 
--- Title 2
-
---- Title 3
-
---- Title 3
-
--- Title 2
-
---- Title 3
-
---- Title 3
-
-> Title 1
->> Title 2
->> Title 2
->>> Title 3
->>> Title 3
->>> Title 3
->> Title 2
-> Title 1
 
 I'm a [text]* with [notes]** and *[bold] words.
 You can also use [ids]3 or redirect to [links]2.
 
-2 : [www.google.fr]>
-3 : Note about ids
-* : *[Note] about text
+2: [www.google.fr]>
+3: Note about ids
+*: *[Note] about text
 **: [www.twitter.com]>
 
 The rest of the article can be read at this adress: [www.journalist.com/article/super_news]>.
@@ -101,13 +103,24 @@ Et [un]1, et [deux]2, et [trois]3, et [quatre]4, et [cinq]5, et [six]6, et [sept
 
 *[Bold]
 /[Italic]
-+[Mark]
+"[Quote]
+=[Mark]
 #[Obsolete]
+[Link]>
+[Note]*
+[Note]1
 
-<*> Bold text
-</> Italic text
-<+> Marked text
-<#> Obsolete text
+*[[Bold note]*]
+[*[Bold note]]*
+
+"[*[Bold quote]]
+
+<-> This block is a title.
+<*> This block is really important.
+</> This block is important.
+<"> This block is a quote.
+<=> This block is relevant in the context.
+<#> This block is outdated.
 
 ## Comment
 
@@ -115,20 +128,20 @@ Et [un]1, et [deux]2, et [trois]3, et [quatre]4, et [cinq]5, et [six]6, et [sept
 Multi-line comment
 ###
 
-[Word]: Definition
-[Second word]:
-Other definition
-
 - Firts item
 - Second item
 - Third item
 
-*- Firts item
-*- Second item
-*- Third item
+1- Firts item
+2- Second item
+3- Third item
 
-.- Undetermined
+- Undetermined
+x- Checked
+
+- Undetermined
 o- Checked
 
+- Undetermined
 o- Validated
 x- Refused
