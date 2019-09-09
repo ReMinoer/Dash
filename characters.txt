@@ -1,0 +1,59 @@
+-   | Enumeration
+
+1   | Position
+1-  | Position + Enumeration = Ordered item
+
+>   | Projection
+->  | Enumeration + Projection = Structural item
+
+o/x | True/False
+o-  | True + Enumeration = Validated item
+x-  | False + Enumeration = Terminated item
+
+<   | Structuration
+<>  | Structuration + Projection = Block
+
+<<>>| Block of Block = Multi-line block
+<-> | Block + Enumeration = Title
+
+*   | Raising
+/   | Emphazing
+"   | Quoting
+#   | Ignore
+
+<*> | Raising + Block = Important block
+</> | Emphazing + Block = Italic block
+<"> | Quoting + Block = Quote block
+<#> | Ignore + Block = Obsolete block
+
+[]  | Selection
+
+*[] | Raising + Selection = Bold text
+/[] | Emphazing + Selection = Italic text
+"[] | Quoting + Selection = Quoted text
+#[] | Ignore + Selection = Obsolete text
+
+[]> | Selection + Projection = External link
+[]< | Selection + Projection (reversed) = Direct link
+[]* | Selection + Raising (after) = Note link
+[]1 | Selection + Position = Referenced note link
+
+:   | Association
+>:  | Projection + Association = External link target
+*:  | Raising + Association = Note
+1:  | Position + Association = Referencable note
+
+.   | Extension
+<.> | Extension + Block = Media
+
+-/+ | Degraded/Improved
+.-  | Degraded + Extension + Block = Source media
+.+  | Improved + Extension + Block = Visual media
+
+##  | Ignore x 2 = Comment line
+### | Ignore x 3 = Comment block
+
+()  | Parameter
+
+@   | Adress
+@() | Adress + Parameter = Target

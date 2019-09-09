@@ -10,7 +10,6 @@
     - More emphasizing titles 
     o- Simplier notes ({[text]*, [other text]**})
     o- Simplier link variants
-    x- Bold as default emphasis {[bold text]}
     o- Definition {-[word]:[definition]}
     - Better emphasis tokens
     - Emphasis blocks (standard block already handled)
@@ -98,6 +97,10 @@ Click [here]> to see the rest of the [article]>.
 >: www.journalist.com/article/super_news#anchor
 >: www.journalist.com/article/super_news
 
+See in the [next section](s2)>.
+...
+@(s2) I'm the next section !
+
 Et [un]1, et [deux]2, et [trois]3, et [quatre]4, et [cinq]5, et [six]6, et [sept]7, et [huit]8, et [neuf]9, et [dix]10, et [zéro]0.
 
 *[Bold]
@@ -145,3 +148,6 @@ x- Refused
 
 <.> img/cat.png
 <.> https://www.youtube.com/watch?v=ZpHg0ABxm3s
+
+Text with pre-formatted {content}.
+Text with code {{content}}
