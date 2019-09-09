@@ -198,7 +198,7 @@
 
     - You can use *[bold] with {*[ ... ]}.
     - You can /[italic] some sentences or words with {/[ ... ]}.
-    - You can =[mark] personally important text with {=[ ... ]}.
+    - You can "[quote] text from another person with {"[ ... ]}.
     - You can ~[obselete] not anymore used sentences with {~[ ... ]}.
 
     < Design note >
@@ -208,7 +208,7 @@
 
     << .dash-+ >>
 
-        =[*[Here] is an /[exemple].]
+        "[*[Here] is an /[exemple].]
 
     <...>
 

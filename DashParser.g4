@@ -98,7 +98,7 @@ line:
         |   media
         |   bold
         |   italic
-        |   mark
+        |   quote
         |   obsolete
         |   emphasis
         |   link
@@ -118,7 +118,7 @@ emphasisLine:
         |   media
         |   bold
         |   italic
-        |   mark
+        |   quote
         |   obsolete
         |   emphasis
         |   link
@@ -138,7 +138,7 @@ linkLine:
         |   media
         |   bold
         |   italic
-        |   mark
+        |   quote
         |   obsolete
         |   emphasis
         |   link
@@ -173,7 +173,7 @@ headerModeContent:
 
 bold: BOLD_OPEN emphasisLine SELECTION_CLOSE;
 italic: ITALIC_OPEN emphasisLine SELECTION_CLOSE;
-mark: MARK_OPEN emphasisLine SELECTION_CLOSE;
+quote: QUOTE_OPEN emphasisLine SELECTION_CLOSE;
 obsolete: OBSOLETE_OPEN emphasisLine SELECTION_CLOSE;
 emphasis: HEADER_OPEN headerContent HEADER_CLOSE SELECTION_OPEN emphasisLine SELECTION_CLOSE;
 
