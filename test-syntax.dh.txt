@@ -2,7 +2,6 @@
 - To implement
     - Multiple paragraph list item
     - Doc about identation
-    - Revert comment syntax ({~~ comment}, {~~~~ multi-line comment ~~~~})
     - Standardize snippet extensions nomenclature
 - To improve
     - Performance issue with complex lists
@@ -104,7 +103,6 @@ Et [un]1, et [deux]2, et [trois]3, et [quatre]4, et [cinq]5, et [six]6, et [sept
 *[Bold]
 /[Italic]
 "[Quote]
-=[Mark]
 #[Obsolete]
 [Link]>
 [Note]*
@@ -119,7 +117,6 @@ Et [un]1, et [deux]2, et [trois]3, et [quatre]4, et [cinq]5, et [six]6, et [sept
 <*> This block is really important.
 </> This block is important.
 <"> This block is a quote.
-<=> This block is relevant in the context.
 <#> This block is outdated.
 
 ## Comment
@@ -145,3 +142,6 @@ o- Checked
 - Undetermined
 o- Validated
 x- Refused
+
+<.> img/cat.png
+<.> https://www.youtube.com/watch?v=ZpHg0ABxm3s
