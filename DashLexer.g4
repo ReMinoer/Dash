@@ -3,8 +3,8 @@ lexer grammar DashLexer;
 NEWLINE: WS? (('\r'? '\n' | '\r') | EOF);
 WS: (' ' | '\t')+;
 
-COMMENT_BLOCK_OPEN: '~~' NEWLINE -> pushMode(CommentBlock);
-COMMENT_INLINE_OPEN: '~~' WS? -> pushMode(CommentInline);
+COMMENT_BLOCK_OPEN: '###' NEWLINE -> pushMode(CommentBlock);
+COMMENT_INLINE_OPEN: '##' WS? -> pushMode(CommentInline);
 
 MEDIA_OPEN: WS? '{' WS? NEWLINE* -> pushMode(Media);
 EXTENSION_OPEN: WS? '<' WS? '.' -> pushMode(Extension);
@@ -40,8 +40,8 @@ fragment NUMBER: ([0-9]+|'$'+);
 fragment VOID: (' '|'\t'|'\n'|'\r')+;
 
 mode CommentBlock;
-COMMENT_BLOCK_CONTENT: (VOID? '~'? ~('~'|' '|'\t'|'\n'|'\r'))+;
-COMMENT_BLOCK_CLOSE:  VOID? '~~' NEWLINE -> popMode;
+COMMENT_BLOCK_CONTENT: (VOID? '#'? ~('#'|' '|'\t'|'\n'|'\r'))+;
+COMMENT_BLOCK_CLOSE:  VOID? '###' NEWLINE -> popMode;
 
 mode CommentInline;
 COMMENT_INLINE_CONTENT: (WS? ~(' '|'\t'|'\n'|'\r')+)+;

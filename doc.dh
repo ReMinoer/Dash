@@ -1,29 +1,6 @@
 <> Dash Language Documentation
 <> Document Advanced Syntax Hypertextual
 
-~~
-- To implement
-    - Multiple paragraph list item
-    - Doc about identation
-    - Revert comment syntax ({~~ comment}, {~~~~ multi-line comment ~~~~})
-    - Standardize snippet extensions nomenclature
-- To improve
-    - Performance issue with complex lists
-    - Rewrite code snippets and examples
-- Ideas / Needs
-    - More emphasizing titles 
-    - Simplier notes ({[text]*, [other text]**})
-    - Simplier link variants
-    - Bold as default emphasis {[bold text]}
-    - Definition {-[word]:[definition]}
-    - See if {$} can be remove of the language
-    - Sections / Sub-documents  {<[ Section ]>}
-    - Block syntax
-    - Target condition {<!>[sample]}
-    - Other standard blocks
-    - Patterns
-~~
-
 < Note >
     That documentation was generated from a [document][$] write in Dash by a convertion tool named [Dast][$].
 
@@ -31,7 +8,7 @@
 @[[https://github.com/ReMinoer/Dast]]
 
 
-- Identity
+<-> Identity
 
     This language is called Dash. It's a markup language to write structured documents with a good plain-text feel.
 
@@ -367,23 +344,23 @@
 
     << .dash- >>
 
-        ~~ Markdown is a plain-text document language like Dash
+        ## Markdown is a plain-text document language like Dash
 
-        ~~ Display with converter default representation
+        ## Display with converter default representation
         < .md > # Markdown Title
 
-        ~~ Display a title in a frame
+        ## Display a title in a frame
         < .md+ > # Markdown Title
 
-        ~~ Display "# Markdown Title" as Markdown language snippet
+        ## Display "# Markdown Title" as Markdown language snippet
         < .md- > # Markdown Title
 
-        ~~ gitignore is a language containing folder and file paths
+        ## gitignore is a language containing folder and file paths
 
-        ~~ Display content of folder/.gitignore file
+        ## Display content of folder/.gitignore file
         < .gitignore > folder/.gitignore
 
-        ~~ Display "folder/.gitignore" as gitignore language snippet
+        ## Display "folder/.gitignore" as gitignore language snippet
         < .gitignore- > folder/.gitignore
 
     <...>
@@ -392,10 +369,10 @@
 
     << .dash- >>
 
-        ~~ Display image then Markdown code
+        ## Display image then Markdown code
         < .md+- > ![Alternative text][img/logo.png]
 
-        ~~ Display Markdown code then image
+        ## Display Markdown code then image
         < .md-+ > ![Alternative text][img/logo.png]
 
     <...>
@@ -440,8 +417,19 @@
 
 <-> Comments
 
-    You can use comments by using {~~} at the beginning of a line.
-    For multiline comments, use {~~~~ ... ~~~~}.
+    You can use comments by using {##} at the beginning of a line.
+    For multiline comments, use {### ... ###}.
+
+    << .dash-+ >>
+
+        ## Here is a comment.
+
+        ###
+        Here is a comment block.
+        On multiple lines.
+        ###
+        
+    <...>
 
     < Design note >
         Some document output format can handle comments so they are not always ignoring.
