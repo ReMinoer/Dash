@@ -199,7 +199,7 @@
     - You can use *[bold] with {*[ ... ]}.
     - You can /[italic] some sentences or words with {/[ ... ]}.
     - You can "[quote] text from another person with {"[ ... ]}.
-    - You can ~[obselete] not anymore used sentences with {~[ ... ]}.
+    - You can #[obselete] not anymore used sentences with {#[ ... ]}.
 
     < Design note >
         These symbols have been choosen because they are simple to access on a keyboard, refers to their effects and highlight plain text at different degrees.
