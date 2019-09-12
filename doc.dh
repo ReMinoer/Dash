@@ -2,10 +2,10 @@
 <> Document Advanced Syntax Hypertextual
 
 < Note >
-    That documentation was generated from a [document][$] write in Dash by a convertion tool named [Dast][$].
+    That documentation was generated from a [document]> write in Dash by a convertion tool named [Dast]>.
 
-@[[https://github.com/ReMinoer/Dash/blob/master/doc.dh]]
-@[[https://github.com/ReMinoer/Dast]]
+>: https://github.com/ReMinoer/Dash/blob/master/doc.dh
+>: https://github.com/ReMinoer/Dast
 
 
 <-> Identity
@@ -222,86 +222,89 @@
     <...>
 
 
-<-> Links
+<-> External links
 
-    You can put external links in your note by using {[content][adress]}.
+    You can put external links in your text by using {[content]>}.
+    That link will use the adress provided by the next line beginning by {>: adress}.
 
     << .dash-+ >>
     
-        [Link text][http://www.google.com/]
-
-    <...>
-
-    If you also want to use the adress as text, use { [[adress]] }.
-
-    << .dash-+ >>
-
-        [[http://www.google.com/]]
-
-    <...>
-
-
-<-> Targets
-
-    You can define internal target at a specific position in your document with {@[identifier]}.
-
-    << .dash- >>
-    
-        @[First target]
-        
-    <...>
-
-    Then, you can use that same identifier as adress for a link. For example: [Link text][target]
-
-    < Design note >
-        @[target] Internal target identification will ignore the case. "TARGET" is equal to "target".
-
-    It's also possible to use multiple identifier for a same target by separate them with pipes {|}.
-    For example : [Other link text][Same Target]
-
-    << .dash- >>
-        
-        @[target|same target]
-        
-    <...>
-
-    < Design note >
-        You can build a lexic by combining multi-identifier targets and raw internal links.
-
-    << .dash-+ >>
-
-        [[Dash]] stands for "[Documents Advanced Syntax by Highlighting][Dash]".
+        [Link text]>
         ...
-        @[dash]
-        Dash: wonderful language
+        >: http://www.google.com/
 
     <...>
 
-    < Design note >
-        You can also use [ and ] as text if needed.
+    You can complete that syntax with a numeric index if you want to use an adress line defined anywhere in the document, or used multiple times, or just be more explicit.
 
+    << .dash-+ >>
+    
+        >1: http://www.google.com/
+        ...
+        [Link text]>1 and [same link text]>1
+
+    <...>
+
+    You can also indicate the adress directly on the link with {[content](adress)>}.
+
+    << .dash-+ >>
+    
+        [Link text](http://www.google.com/)>
+
+    <...>
+
+
+<-> Internal links
+
+    Internal links works the same than external links but with some differencies:
+
+        - {>} is replaced by {<}.
+        - Instead of an adress, you must provide an identifier.
+    
+    That identifier must be used as an internal adress somewhere in the document with {@(identifier)}.
+
+    << .dash-+ >>
+    
+        [Link text]<
+        ...
+        <: target
+        ...
+        @(target) A paragraph
+
+    <...>
+    << .dash-+ >>
+    
+        <1: target
+        ...
+        [Link text]<1 and [same link text]<1
+        ...
+        @(target) A paragraph
+
+    <...>
+    << .dash-+ >>
+    
+        [Link text](target)<
+        ...
+        @(target) A paragraph
+
+    <...>
 
 <-> Notes
 
-    You can write a note on a line beginning by a target with a number or without identifier.
-    Then, it is possible to reference that note with {[content][number]}.
+    You can reference a note with {[content]*}.
+    The referenced [note]* will be the next line beginning by {*: note}.
+    If you use a number instead of {*}, it will reference the next note in text with [that number]1 or, if it didn't exist, the previous one.
 
-    If you use {$}, the next note not already referenced will be [linked][$].
-    If you use a number, it will reference the next note in text with [that number][1] or, if it didn't exist, the previous one.
-
-    @[$] Here is a first note.
-    @[1] Here is a second note.
-
-    If the note contains only a direct link, it will work as a redirection. You can use that [feature][2] to avoid write a [link][2] path in a paragraph or use the same path twice.
-
-    @[2] [[https://www.google.fr/search?q=feature]]
+    *: Here is a first note.
+    1: Here is a second note.
 
     << .dash- >>
 
-        You can use that [feature][2] to avoid put the [link][2] in a paragraph.
+        Here is [first note]* and here is a [second note]2.
         ...
 
-        @[2] [[https://www.google.fr/search?q=feature]]
+        *: First note
+        2: Second note
 
     <...>
 

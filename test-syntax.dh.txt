@@ -82,24 +82,35 @@
 
     Sin autem ad adulescentiam perduxissent, dirimi tamen interdum contentione vel uxoriae condicionis vel commodi alicuius, quod idem adipisci uterque non posset. Quod si qui longius in amicitia provecti essent, tamen saepe labefactari, si in honoris contentionem incidissent; pestem enim nullam maiorem esse amicitiis quam in plerisque pecuniae cupiditatem, in optimis quibusque honoris certamen et gloriae; ex quo inimicitias maximas saepe inter amicissimos exstitisse.
 
+*- Item 1
+*- Item 2
+*- Item 3
 
 I'm a [text]* with [notes]** and *[bold] words.
 You can also use [ids]3 or redirect to [links]2.
 
-2: [www.google.fr]>
-3: Note about ids
-*: *[Note] about text
-**: [www.twitter.com]>
+2  : [www.google.fr]>
+3  : Note about ids
+*  : *[Note] about text
+** : [www.twitter.com]>
 
-The rest of the article can be read at this adress: [www.journalist.com/article/super_news]>.
-Click [here]> to see the rest of the [article]>.
+The rest of the [article]>1 can be read at this adress: [www.journalist.com/article/super_news]>>.
+Click [here]> to see the rest of the [article](www.journalist.com/article/super_news)>.
 
+>1: www.journalist.com/article/news
 >: www.journalist.com/article/super_news#anchor
->: www.journalist.com/article/super_news
 
-See in the [next section](s2)>.
+See in the [next section](s2)< or the [last one]<.
+Or come back to the [first section]<1.
+<1: first
+<: last
 ...
-@(s2) I'm the next section !
+Like I said, @(s2)I'm the next section !
+@(last)Or in the last one !
+
+- [Premier titre]->
+    - [Second titre]->
+    - [Troisième titre]->
 
 Et [un]1, et [deux]2, et [trois]3, et [quatre]4, et [cinq]5, et [six]6, et [sept]7, et [huit]8, et [neuf]9, et [dix]10, et [zéro]0.
 

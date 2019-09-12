@@ -28,15 +28,30 @@ ITALIC_OPEN: '/[' WS?;
 QUOTE_OPEN: '"[' WS?;
 OBSOLETE_OPEN: '#[' WS?;
 
-LINK_MIDDLE: WS? '][' WS? -> pushMode(Link);
-DIRECT_LINK_OPEN: '[[' WS? -> pushMode(DirectLink);
+DIRECT_EXTERNAL_LINK_CLOSE: WS? ']>>';
+EXTERNAL_LINK_NUMBER_CLOSE: WS? ']>' NUMBER;
+EXTERNAL_LINK_CLOSE: WS? ']>';
 
-ADDRESS_OPEN: WS? '@[' WS? -> pushMode(Address);
-REDIRECTION_AUTO_OPEN: WS? '@[[' WS? -> pushMode(DirectLink);
+DIRECT_INTERNAL_LINK_CLOSE: WS? ']<<';
+INTERNAL_LINK_NUMBER_CLOSE: WS? ']<' NUMBER;
+INTERNAL_LINK_CLOSE: WS? ']<';
+
+LINK_MIDDLE: WS? '](' WS? -> pushMode(LinkAdress);
+ADDRESS_OPEN: '@(' WS? -> pushMode(TargetAdress);
+
+NOTE_LINK_CLOSE: WS? ']' '*'+;
+NUMBER_NOTE_LINK_CLOSE: WS? ']' NUMBER;
+
+EXTERNAL_LINK_NUMBER_TARGET: '>' NUMBER ':' WS?;
+EXTERNAL_LINK_TARGET: '>:' WS?;
+INTERNAL_LINK_NUMBER_TARGET: '<' NUMBER ':' WS?;
+INTERNAL_LINK_TARGET: '<:' WS?;
+NOTE_NUMBER_TARGET: NUMBER ':' WS?;
+NOTE_TARGET: '*'+ ':' WS?;
 
 WORD: ~('-'|'\n'|'\r'|' '|'\t'|'<'|'{'|'['|']'|'~')+;
 
-fragment NUMBER: ([0-9]+|'$'+);
+fragment NUMBER: [0-9]+;
 fragment VOID: (' '|'\t'|'\n'|'\r')+;
 
 mode CommentBlock;
@@ -106,17 +121,15 @@ HEADER_MODE_TITLE: '-'+;
 HEADER_MODE_CONTENT: (WS? ('<' HEADER_MODE_CONTENT WS? '>' | ~('>'|' '|'\t'|'\n'|'\r')+))+;
 HEADER_MODE_CLOSE: WS? '>' WS? '>' WS? -> popMode;
 
-mode Link;
-REFERENCE_NUMBER: NUMBER;
-LINK_CONTENT: (WS? ('[' LINK_CONTENT WS? ']' | ~(']'|' '|'\t'|'\n'|'\r')+))+;
-LINK_CLOSE: WS? ']' -> popMode;
+mode InternalLinkTarget;
+INTERNAL_LINK_TARGET_CONTENT: (WS? ('(' INTERNAL_LINK_TARGET_CONTENT WS? ')' | ~(')'|' '|'\t'|'\n'|'\r')+))+;
+INTERNAL_LINK_TARGET_CLOSE: WS? ')>' WS? -> popMode;
 
-mode DirectLink;
-DIRECT_LINK_CONTENT: (WS? ('[' DIRECT_LINK_CONTENT WS? ']' | ~(']'|' '|'\t'|'\n'|'\r')+))+;
-DIRECT_LINK_CLOSE: WS? ']]' -> popMode;
+mode LinkAdress;
+LINK_ADRESS_CONTENT: (WS? ('(' LINK_ADRESS_CONTENT WS? ')' | ~(')'|' '|'\t'|'\n'|'\r')+))+;
+EXTERNAL_LINK_ADRESS_CLOSE: WS? ')>' WS? -> popMode;
+INTERNAL_LINK_ADRESS_CLOSE: WS? ')<' WS? -> popMode;
 
-mode Address;
-NOTE_NUMBER: NUMBER;
-ADDRESS_CONTENT: (WS? ('[' ADDRESS_CONTENT WS? ']' | ~('|'|']'|' '|'\t'|'\n'|'\r')+))+;
-ADDRESS_CLOSE: WS? ']' WS? -> popMode;
-ADDRESS_SEPARATOR: WS? '|' WS?;
+mode TargetAdress;
+TARGET_ADRESS_CONTENT: (WS? ('(' TARGET_ADRESS_CONTENT WS? ')' | ~(')'|' '|'\t'|'\n'|'\r')+))+;
+TARGET_ADRESS_CLOSE: WS? ')' WS? -> popMode;
