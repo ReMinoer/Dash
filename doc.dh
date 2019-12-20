@@ -1,6 +1,8 @@
 <> Dash Language Documentation
 <> Document Advanced Syntax Hypertextual
 
+@(adress)
+
 < Note >
     That documentation was generated from a [document]> write in Dash by a convertion tool named [Dast]>.
 
@@ -129,9 +131,9 @@
                 -> Also very important stuff
         2-> Second list
             - Point D
-                $- First item
-                $- Second item
-                $- Third item
+                0- First item
+                0- Second item
+                0- Third item
             - Point E
             -> Conclusion
 
@@ -222,26 +224,26 @@
     <...>
 
 
-<-> External links
+<-> Links
 
-    You can put external links in your text by using {[content]>}.
+    You can put links in your text by using {[content]>}.
     That link will use the adress provided by the next line beginning by {>: adress}.
 
     << .dash-+ >>
     
         [Link text]>
-        ...
+
         >: http://www.google.com/
 
     <...>
 
-    You can complete that syntax with a numeric index if you want to use an adress line defined anywhere in the document, or used multiple times, or just be more explicit.
+    You can complete that syntax with a numeric index if you want to use an adress line not defined immediatly after, or used multiple times, or just be more explicit.
 
     << .dash-+ >>
-    
-        >1: http://www.google.com/
-        ...
+
         [Link text]>1 and [same link text]>1
+
+        >1: http://www.google.com/
 
     <...>
 
@@ -253,39 +255,31 @@
 
     <...>
 
-
-<-> Internal links
-
-    Internal links works the same than external links but with some differencies:
-
-        - {>} is replaced by {<}.
-        - Instead of an adress, you must provide an identifier.
-    
-    That identifier must be used as an internal adress somewhere in the document with {@(identifier)}.
+    Those links can be external or internal. External links use a web adress or a file path as adress (like above). Internal links use any text as identifier. That identifier can be used as an internal adress somewhere in the document with {@(identifier)}.
 
     << .dash-+ >>
     
-        [Link text]<
-        ...
-        <: target
-        ...
-        @(target) A paragraph
+        [Link text]>
+
+        >: target
+
+        @(target) Targeted paragraph
 
     <...>
     << .dash-+ >>
+
+        [Link text]>1 and [same link text]>1
     
-        <1: target
-        ...
-        [Link text]<1 and [same link text]<1
-        ...
-        @(target) A paragraph
+        >1: target
+
+        @(target) Targeted paragraph
 
     <...>
     << .dash-+ >>
+
+        @(target) Targeted paragraph
     
-        [Link text](target)<
-        ...
-        @(target) A paragraph
+        [Link text](target)>
 
     <...>
 
@@ -293,7 +287,7 @@
 
     You can reference a note with {[content]*}.
     The referenced [note]* will be the next line beginning by {*: note}.
-    If you use a number instead of {*}, it will reference the next note in text with [that number]1 or, if it didn't exist, the previous one.
+    If you use a number instead of {*}, it will reference the next note in text with [that number]1.
 
     *: Here is a first note.
     1: Here is a second note.
@@ -305,6 +299,14 @@
 
         *: First note
         2: Second note
+
+    <...>
+
+    Like links, you can also inline the note with the following syntax: {[content](note)*}.
+
+    << .dash-+ >>
+
+        [WWW](World Wide Web)* is born at [CERN](Conseil Européen pour la Recherche Nucléaire)*.
 
     <...>
 

@@ -87,7 +87,7 @@
 *- Item 3
 
 I'm a [text]* with [notes]** and *[bold] words.
-You can also use [ids]3 or redirect to [links]2.
+You can [also](Important word)* use [ids]3 or redirect to [links]2.
 
 2  : [www.google.fr]>
 3  : Note about ids
@@ -100,10 +100,10 @@ Click [here]> to see the rest of the [article](www.journalist.com/article/super_
 >1: www.journalist.com/article/news
 >: www.journalist.com/article/super_news#anchor
 
-See in the [next section](s2)< or the [last one]<.
-Or come back to the [first section]<1.
-<1: first
-<: last
+See in the [next section](s2)> or the [last one]>.
+Or come back to the [first section]>1.
+>1: first
+>: last
 ...
 Like I said, @(s2)I'm the next section !
 @(last)Or in the last one !

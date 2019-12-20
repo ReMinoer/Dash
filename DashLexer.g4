@@ -28,28 +28,22 @@ ITALIC_OPEN: '/[' WS?;
 QUOTE_OPEN: '"[' WS?;
 OBSOLETE_OPEN: '#[' WS?;
 
-DIRECT_EXTERNAL_LINK_CLOSE: WS? ']>>';
-EXTERNAL_LINK_NUMBER_CLOSE: WS? ']>' NUMBER;
-EXTERNAL_LINK_CLOSE: WS? ']>';
+DIRECT_LINK_CLOSE: WS? ']>>';
+LINK_CLOSE_NUMBER: WS? ']>' NUMBER;
+LINK_CLOSE: WS? ']>';
+LINK_MIDDLE: WS? '](' WS? -> pushMode(LinkAddress);
 
-DIRECT_INTERNAL_LINK_CLOSE: WS? ']<<';
-INTERNAL_LINK_NUMBER_CLOSE: WS? ']<' NUMBER;
-INTERNAL_LINK_CLOSE: WS? ']<';
+INTERNAL_ADDRESS_OPEN: '@(' WS? -> pushMode(InternalAddress);
 
-LINK_MIDDLE: WS? '](' WS? -> pushMode(LinkAdress);
-ADDRESS_OPEN: '@(' WS? -> pushMode(TargetAdress);
+REFERENCE_CLOSE: WS? ']*';
+REFERENCE_CLOSE_NUMBER: WS? ']' NUMBER;
 
-NOTE_LINK_CLOSE: WS? ']' '*'+;
-NUMBER_NOTE_LINK_CLOSE: WS? ']' NUMBER;
+ADDRESS_ENTRY_NUMBER: WS? '>' NUMBER ':' WS?;
+ADDRESS_ENTRY: WS? '>:' WS?;
+NOTE_ENTRY_NUMBER: WS? NUMBER ':' WS?;
+NOTE_ENTRY: WS? '*'+ ':' WS?;
 
-EXTERNAL_LINK_NUMBER_TARGET: '>' NUMBER ':' WS?;
-EXTERNAL_LINK_TARGET: '>:' WS?;
-INTERNAL_LINK_NUMBER_TARGET: '<' NUMBER ':' WS?;
-INTERNAL_LINK_TARGET: '<:' WS?;
-NOTE_NUMBER_TARGET: NUMBER ':' WS?;
-NOTE_TARGET: '*'+ ':' WS?;
-
-WORD: ~('-'|'\n'|'\r'|' '|'\t'|'<'|'{'|'['|']'|'~')+;
+WORD: ~('-'|'\n'|'\r'|' '|'\t'|'<'|'{'|'['|']'|'#'|'@')+;
 
 fragment NUMBER: [0-9]+;
 fragment VOID: (' '|'\t'|'\n'|'\r')+;
@@ -121,15 +115,10 @@ HEADER_MODE_TITLE: '-'+;
 HEADER_MODE_CONTENT: (WS? ('<' HEADER_MODE_CONTENT WS? '>' | ~('>'|' '|'\t'|'\n'|'\r')+))+;
 HEADER_MODE_CLOSE: WS? '>' WS? '>' WS? -> popMode;
 
-mode InternalLinkTarget;
-INTERNAL_LINK_TARGET_CONTENT: (WS? ('(' INTERNAL_LINK_TARGET_CONTENT WS? ')' | ~(')'|' '|'\t'|'\n'|'\r')+))+;
-INTERNAL_LINK_TARGET_CLOSE: WS? ')>' WS? -> popMode;
+mode LinkAddress;
+LINK_ADDRESS_CONTENT: (WS? ('(' LINK_ADDRESS_CONTENT WS? ')' | ~(')'|' '|'\t'|'\n'|'\r')+))+;
+LINK_ADDRESS_CLOSE: WS? ')>' WS? -> popMode;
 
-mode LinkAdress;
-LINK_ADRESS_CONTENT: (WS? ('(' LINK_ADRESS_CONTENT WS? ')' | ~(')'|' '|'\t'|'\n'|'\r')+))+;
-EXTERNAL_LINK_ADRESS_CLOSE: WS? ')>' WS? -> popMode;
-INTERNAL_LINK_ADRESS_CLOSE: WS? ')<' WS? -> popMode;
-
-mode TargetAdress;
-TARGET_ADRESS_CONTENT: (WS? ('(' TARGET_ADRESS_CONTENT WS? ')' | ~(')'|' '|'\t'|'\n'|'\r')+))+;
-TARGET_ADRESS_CLOSE: WS? ')' WS? -> popMode;
+mode InternalAddress;
+INTERNAL_ADDRESS_CONTENT: (WS? ('(' INTERNAL_ADDRESS_CONTENT WS? ')' | ~(')'|' '|'\t'|'\n'|'\r')+))+;
+INTERNAL_ADDRESS_CLOSE: WS? ')' -> popMode;

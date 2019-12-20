@@ -57,8 +57,8 @@ parse:
         |   dashExtensionMode
         |   modeClose
         |   paragraphInline
-        |   (   externalLinkTarget
-            |   noteTarget
+        |   (   adressEntry
+            |   noteEntry
             |   media
             |   paragraph
             )
@@ -74,8 +74,8 @@ parse:
         |   dashExtensionMode
         |   modeClose
         |   paragraphInline
-        |   (   externalLinkTarget
-            |   noteTarget
+        |   (   adressEntry
+            |   noteEntry
             |   media
             |   NEWLINE paragraph
             )
@@ -94,11 +94,9 @@ line:
     (   WS?
         (   commentBlock
         |   commentInline
-        |   directExternalLink
-        |   externalLink
-        |   directInternalLink
-        |   internalLink
-        |   noteLink
+        |   directLink
+        |   link
+        |   reference
         |   media
         |   bold
         |   italic
@@ -116,11 +114,9 @@ emphasisLine:
     (   WS?
         (   commentBlock
         |   commentInline
-        |   directExternalLink
-        |   externalLink
-        |   directInternalLink
-        |   internalLink
-        |   noteLink
+        |   directLink
+        |   link
+        |   reference
         |   media
         |   bold
         |   italic
@@ -138,11 +134,9 @@ linkLine:
     (   WS?
         (   commentBlock
         |   commentInline
-        |   directExternalLink
-        |   externalLink
-        |   directInternalLink
-        |   internalLink
-        |   noteLink
+        |   directLink
+        |   link
+        |   reference
         |   media
         |   bold
         |   italic
@@ -165,15 +159,12 @@ linkOthers:
     |   WORD
     |   NEWLINE
     |   MODE_CLOSE
-    |   DIRECT_EXTERNAL_LINK_CLOSE
-    |   EXTERNAL_LINK_NUMBER_CLOSE
-    |   EXTERNAL_LINK_CLOSE
-    |   DIRECT_INTERNAL_LINK_CLOSE
-    |   INTERNAL_LINK_NUMBER_CLOSE
-    |   INTERNAL_LINK_CLOSE
+    |   DIRECT_LINK_CLOSE
+    |   LINK_CLOSE_NUMBER
+    |   LINK_CLOSE
     |   LINK_MIDDLE
-    |   NOTE_LINK_CLOSE
-    |   NUMBER_NOTE_LINK_CLOSE
+    |   REFERENCE_CLOSE_NUMBER
+    |   REFERENCE_CLOSE
     );
 
 header: HEADER_OPEN headerContent? HEADER_CLOSE;
@@ -197,33 +188,17 @@ quote: QUOTE_OPEN emphasisLine SELECTION_CLOSE;
 obsolete: OBSOLETE_OPEN emphasisLine SELECTION_CLOSE;
 emphasis: HEADER_OPEN headerContent HEADER_CLOSE SELECTION_OPEN emphasisLine SELECTION_CLOSE;
 
-directExternalLink: SELECTION_OPEN linkLine DIRECT_EXTERNAL_LINK_CLOSE;
-externalLink:
-    SELECTION_OPEN
-    linkLine
-    (   (LINK_MIDDLE linkAdress EXTERNAL_LINK_ADRESS_CLOSE)
-    |   EXTERNAL_LINK_CLOSE
-    |   EXTERNAL_LINK_NUMBER_CLOSE
-    );
+link: SELECTION_OPEN linkLine ((LINK_MIDDLE linkAddress LINK_ADDRESS_CLOSE) | LINK_CLOSE | LINK_CLOSE_NUMBER);
+directLink: SELECTION_OPEN linkLine DIRECT_LINK_CLOSE;
+linkAddress: LINK_ADDRESS_CONTENT;
 
-directInternalLink: SELECTION_OPEN linkLine DIRECT_INTERNAL_LINK_CLOSE;
-internalLink:
-    SELECTION_OPEN
-    linkLine
-    (   (LINK_MIDDLE linkAdress INTERNAL_LINK_ADRESS_CLOSE)
-    |   INTERNAL_LINK_CLOSE
-    |   INTERNAL_LINK_NUMBER_CLOSE
-    );
+address: INTERNAL_ADDRESS_OPEN addressContent INTERNAL_ADDRESS_CLOSE;
+addressContent: INTERNAL_ADDRESS_CONTENT;
 
-linkAdress: LINK_ADRESS_CONTENT;
+reference: SELECTION_OPEN linkLine (REFERENCE_CLOSE | REFERENCE_CLOSE_NUMBER);
 
-noteLink: SELECTION_OPEN linkLine (NOTE_LINK_CLOSE | NUMBER_NOTE_LINK_CLOSE);
-
-address: ADDRESS_OPEN addressContent TARGET_ADRESS_CLOSE;
-addressContent: TARGET_ADRESS_CONTENT;
-
-externalLinkTarget: EXTERNAL_LINK_TARGET line;
-noteTarget: (NOTE_TARGET | NOTE_NUMBER_TARGET) line;
+adressEntry: (ADDRESS_ENTRY | ADDRESS_ENTRY_NUMBER) line;
+noteEntry: (NOTE_ENTRY | NOTE_ENTRY_NUMBER) line;
 
 commentInline: COMMENT_INLINE_OPEN commentInlineContent COMMENT_INLINE_CLOSE;
 commentInlineContent: COMMENT_INLINE_CONTENT;
