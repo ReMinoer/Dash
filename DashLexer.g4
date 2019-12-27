@@ -31,17 +31,18 @@ OBSOLETE_OPEN: '#[' WS?;
 DIRECT_LINK_CLOSE: WS? ']>>';
 LINK_CLOSE_NUMBER: WS? ']>' NUMBER;
 LINK_CLOSE: WS? ']>';
-LINK_MIDDLE: WS? '](' WS? -> pushMode(LinkAddress);
-
-INTERNAL_ADDRESS_OPEN: '@(' WS? -> pushMode(InternalAddress);
 
 REFERENCE_CLOSE: WS? ']*';
 REFERENCE_CLOSE_NUMBER: WS? ']' NUMBER;
+
+PARAMETER_MIDDLE: WS? '](' WS? -> pushMode(Parameter);
 
 ADDRESS_ENTRY_NUMBER: WS? '>' NUMBER ':' WS?;
 ADDRESS_ENTRY: WS? '>:' WS?;
 NOTE_ENTRY_NUMBER: WS? NUMBER ':' WS?;
 NOTE_ENTRY: WS? '*'+ ':' WS?;
+
+INTERNAL_ADDRESS_OPEN: '@(' WS? -> pushMode(InternalAddress);
 
 WORD: ~('-'|'\n'|'\r'|' '|'\t'|'<'|'{'|'['|']'|'#'|'@')+;
 
@@ -115,9 +116,10 @@ HEADER_MODE_TITLE: '-'+;
 HEADER_MODE_CONTENT: (WS? ('<' HEADER_MODE_CONTENT WS? '>' | ~('>'|' '|'\t'|'\n'|'\r')+))+;
 HEADER_MODE_CLOSE: WS? '>' WS? '>' WS? -> popMode;
 
-mode LinkAddress;
-LINK_ADDRESS_CONTENT: (WS? ('(' LINK_ADDRESS_CONTENT WS? ')' | ~(')'|' '|'\t'|'\n'|'\r')+))+;
-LINK_ADDRESS_CLOSE: WS? ')>' WS? -> popMode;
+mode Parameter;
+PARAMETER_CONTENT: (WS? ('(' PARAMETER_CONTENT WS? ')' | ~(')'|' '|'\t'|'\n'|'\r')+))+;
+PARAMETER_LINK_CLOSE: WS? ')>' WS? -> popMode;
+PARAMETER_REFERENCE_CLOSE: WS? ')*' WS? -> popMode;
 
 mode InternalAddress;
 INTERNAL_ADDRESS_CONTENT: (WS? ('(' INTERNAL_ADDRESS_CONTENT WS? ')' | ~(')'|' '|'\t'|'\n'|'\r')+))+;
