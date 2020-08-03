@@ -310,7 +310,6 @@
 
     <...>
 
-
 <-> Media
 
     If you want to insert a media (like a picture, a video or a table) or some text written in another language (like a code sample), you must use {{ ... }}.
@@ -394,6 +393,15 @@
         < .dh-+ > { < .mp4 > { http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4 } }
         < .dh-+ > { < .youtube.com > { hqW4qLcRD3w } }
 
+    <--> Music sheet
+
+        << .dash-+ >>
+            << .abc >>
+
+                DDAA|BBA2|
+
+            <...>
+        <...>
 
     <--> Tables
 
@@ -438,3 +446,10 @@
 
     < Design note >
         Some document output format can handle comments so they are not always ignoring.
+
+
+<-> Notes
+
+All notes can be displayed:
+
+< .abc > { CDEF|GABc|defg }
